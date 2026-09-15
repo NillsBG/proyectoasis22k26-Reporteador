@@ -34,20 +34,27 @@
             // 
             // btnAccionBusqueda
             // 
+            this.btnAccionBusqueda.BackColor = System.Drawing.Color.Transparent;
+            this.btnAccionBusqueda.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAccionBusqueda.FlatAppearance.BorderSize = 0;
+            this.btnAccionBusqueda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAccionBusqueda.Image = ((System.Drawing.Image)(resources.GetObject("btnAccionBusqueda.Image")));
-            this.btnAccionBusqueda.Location = new System.Drawing.Point(0, 0);
+            this.btnAccionBusqueda.Location = new System.Drawing.Point(-1, 0);
+            this.btnAccionBusqueda.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAccionBusqueda.Name = "btnAccionBusqueda";
-            this.btnAccionBusqueda.Size = new System.Drawing.Size(75, 69);
+            this.btnAccionBusqueda.Size = new System.Drawing.Size(56, 56);
             this.btnAccionBusqueda.TabIndex = 0;
-            this.btnAccionBusqueda.UseVisualStyleBackColor = true;
+            this.btnAccionBusqueda.UseVisualStyleBackColor = false;
             // 
             // BtnBusqueda
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.btnAccionBusqueda);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "BtnBusqueda";
-            this.Size = new System.Drawing.Size(73, 69);
+            this.Size = new System.Drawing.Size(55, 56);
             this.ResumeLayout(false);
 
         }

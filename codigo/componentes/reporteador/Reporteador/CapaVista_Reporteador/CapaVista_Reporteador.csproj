@@ -31,13 +31,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CapaVista_BtnGuardar">
+    <Reference Include="CapaVista_BtnBusqueda">
+      <HintPath>..\..\BtnBusqueda\CapaVista_BtnBusqueda\bin\Debug\CapaVista_BtnBusqueda.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_BtnGuardar, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BtnGuardar\CapaVista_BtnGuardar\bin\Debug\CapaVista_BtnGuardar.dll</HintPath>
     </Reference>
-    <Reference Include="CapaVista_BtnImprimir">
+    <Reference Include="CapaVista_BtnImprimir, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BtnImprimir\BtnImprimir\CapaVista_BtnImprimir\bin\Debug\CapaVista_BtnImprimir.dll</HintPath>
     </Reference>
-    <Reference Include="CapaVista_BtnRuta">
+    <Reference Include="CapaVista_BtnRuta, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BtnRuta\CapaVista_BtnRuta\bin\Debug\CapaVista_BtnRuta.dll</HintPath>
     </Reference>
     <Reference Include="System" />

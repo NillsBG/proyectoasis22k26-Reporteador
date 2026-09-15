@@ -1,4 +1,11 @@
-﻿namespace CapaVista_Reporteador
+﻿using CapaVista_BtnGuardar;
+using CapaVista_BtnImprimir;
+using CapaVista_BtnRuta;
+using CapaVista_BtnRuta; // O la librería/namespace correspondiente donde están creados los controles
+using CapaVista_BtnGuardar;
+using CapaVista_BtnImprimir;
+
+namespace CapaVista_Reporteador
 {
     partial class FrmReportes
     {
@@ -51,6 +58,7 @@
             this.BtnRuta = new CapaVista_BtnRuta.BtnRuta();
             this.BtnGuardar = new CapaVista_BtnGuardar.BtnGuardar();
             this.BtnImprimir = new CapaVista_BtnImprimir.BtnImprimir();
+            this.btnBusqueda1 = new CapaVista_BtnBusqueda.BtnBusqueda();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbFooter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbBanner)).BeginInit();
@@ -241,6 +249,7 @@
             // 
             // BtnRuta
             // 
+            this.BtnRuta.BackColor = System.Drawing.Color.Transparent;
             this.BtnRuta.CampoTextoRuta = null;
             this.BtnRuta.Location = new System.Drawing.Point(718, 101);
             this.BtnRuta.Name = "BtnRuta";
@@ -264,12 +273,27 @@
             this.BtnImprimir.Size = new System.Drawing.Size(56, 56);
             this.BtnImprimir.TabIndex = 16;
             // 
+            // btnBusqueda1
+            // 
+            this.btnBusqueda1.BackColor = System.Drawing.Color.Transparent;
+            this.btnBusqueda1.ChkFechaReporte = null;
+            this.btnBusqueda1.ChkNombreReporte = null;
+            this.btnBusqueda1.DgvReportes = null;
+            this.btnBusqueda1.DtpFechaReporte = null;
+            this.btnBusqueda1.Location = new System.Drawing.Point(510, 328);
+            this.btnBusqueda1.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBusqueda1.Name = "btnBusqueda1";
+            this.btnBusqueda1.Size = new System.Drawing.Size(55, 56);
+            this.btnBusqueda1.TabIndex = 17;
+            this.btnBusqueda1.TxtNombreReporte = null;
+            // 
             // FrmReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
             this.ClientSize = new System.Drawing.Size(874, 661);
+            this.Controls.Add(this.btnBusqueda1);
             this.Controls.Add(this.BtnImprimir);
             this.Controls.Add(this.BtnGuardar);
             this.Controls.Add(this.BtnRuta);
@@ -320,8 +344,9 @@
         private System.Windows.Forms.TextBox ReporteadorTxtNombreReporte2;
         private System.Windows.Forms.DateTimePicker ReporteadorDtpFechaReporte;
         private System.Windows.Forms.Panel ReporteadorPnlFiltroBuscarReporte;
-        private CapaVista_BtnRuta.BtnRuta BtnRuta;
-        private CapaVista_BtnGuardar.BtnGuardar BtnGuardar;
-        private CapaVista_BtnImprimir.BtnImprimir BtnImprimir;
+        private BtnRuta BtnRuta;
+        private BtnGuardar BtnGuardar;
+        private BtnImprimir BtnImprimir;
+        private CapaVista_BtnBusqueda.BtnBusqueda btnBusqueda1;
     }
 }

@@ -53,6 +53,28 @@ namespace CapaVista_Reporteador
                 // El UserControl solamente avisa del Click.
                 BtnGuardar.Click += BtnGuardar1_Click;
             }
+            // =====================================================
+            // BTN BUSQUEDA
+            // =====================================================
+
+            if (btnBusqueda1 != null)
+            {
+                btnBusqueda1.TxtNombreReporte =
+                    ReporteadorTxtNombreReporte2;
+
+                btnBusqueda1.DtpFechaReporte =
+                    ReporteadorDtpFechaReporte;
+
+                btnBusqueda1.ChkNombreReporte =
+                    ReporteadorChkNombreReporte;
+
+                btnBusqueda1.ChkFechaReporte =
+                    ReporteadorChkFechaReporte;
+
+                btnBusqueda1.DgvReportes =
+                    ReporteadorDgvReportes;
+            }
+
 
             // =====================================================
             // BTN Imprimir
