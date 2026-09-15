@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{82BA879B-9FC9-4BAD-8EB6-3BB958EF1AD4}</ProjectGuid>
+    <ProjectGuid>{6C8EFD4F-E953-4F15-996E-874A6991CB0B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Ejecucion_Reporteador</RootNamespace>
     <AssemblyName>Ejecucion_Reporteador</AssemblyName>
@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="CapaVista_Reporteador">
       <HintPath>..\..\Reporteador\CapaVista_Reporteador\bin\Debug\CapaVista_Reporteador.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_Reportedor">
+      <HintPath>..\..\Reporteador\CapaVista_Reporteador\bin\Debug\CapaVista_Reportedor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
