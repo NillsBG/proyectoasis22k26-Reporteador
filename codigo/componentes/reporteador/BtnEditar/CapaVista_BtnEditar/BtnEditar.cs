@@ -20,7 +20,7 @@ namespace CapaVista_BtnEditar
         {
             InitializeComponent();
 
-            btnAccionEditar.Click += BtnAccionEditar_Click;
+            RtnEditarReporte.Click += BtnAccionEditar_Click;
         }
 
         private void BtnAccionEditar_Click(object sender, EventArgs e)

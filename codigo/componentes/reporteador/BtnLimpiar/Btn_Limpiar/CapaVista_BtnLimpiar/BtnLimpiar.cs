@@ -23,7 +23,7 @@ namespace CapaVista_BtnLimpiar
             controlador =
                 new ClsModeloBtnLimpiar();
 
-            btnAccionLimpiar.Click +=
+            BtnLimpiarReportes.Click +=
                 BtnAccionLimpiar_Click;
         }
 

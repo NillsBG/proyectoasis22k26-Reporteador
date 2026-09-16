@@ -18,68 +18,38 @@
 
         private void InitializeComponent()
         {
-            this.btnAccionEditar = new System.Windows.Forms.Button();
+            this.RtnEditarReporte = new System.Windows.Forms.Button();
             this.SuspendLayout();
-
             // 
-            // btnAccionEditar
+            // RtnEditarReporte
             // 
-            this.btnAccionEditar.BackColor =
-                System.Drawing.Color.Transparent;
-
-            this.btnAccionEditar.BackgroundImageLayout =
-                System.Windows.Forms.ImageLayout.Center;
-
-            this.btnAccionEditar.Cursor =
-                System.Windows.Forms.Cursors.Hand;
-
-            this.btnAccionEditar.Dock =
-                System.Windows.Forms.DockStyle.Fill;
-
-            this.btnAccionEditar.FlatAppearance.BorderSize = 0;
-
-            this.btnAccionEditar.FlatStyle =
-                System.Windows.Forms.FlatStyle.Flat;
-
-            this.btnAccionEditar.Image =
-                global::CapaVista_BtnEditar.Properties.Resources.btn_modificar;
-
-            this.btnAccionEditar.Location =
-                new System.Drawing.Point(0, 0);
-
-            this.btnAccionEditar.Name =
-                "btnAccionEditar";
-
-            this.btnAccionEditar.Size =
-                new System.Drawing.Size(56, 56);
-
-            this.btnAccionEditar.TabIndex = 0;
-
-            this.btnAccionEditar.UseVisualStyleBackColor =
-                false;
-
+            this.RtnEditarReporte.BackColor = System.Drawing.Color.Transparent;
+            this.RtnEditarReporte.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.RtnEditarReporte.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RtnEditarReporte.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RtnEditarReporte.FlatAppearance.BorderSize = 0;
+            this.RtnEditarReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RtnEditarReporte.Image = global::CapaVista_BtnEditar.Properties.Resources.btn_modificar;
+            this.RtnEditarReporte.Location = new System.Drawing.Point(0, 0);
+            this.RtnEditarReporte.Name = "RtnEditarReporte";
+            this.RtnEditarReporte.Size = new System.Drawing.Size(56, 56);
+            this.RtnEditarReporte.TabIndex = 0;
+            this.RtnEditarReporte.UseVisualStyleBackColor = false;
             // 
             // BtnEditar
             // 
-            this.AutoScaleDimensions =
-                new System.Drawing.SizeF(6F, 13F);
-
-            this.AutoScaleMode =
-                System.Windows.Forms.AutoScaleMode.Font;
-
-            this.Controls.Add(this.btnAccionEditar);
-
-            this.Name =
-                "BtnEditar";
-
-            this.Size =
-                new System.Drawing.Size(56, 56);
-
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.RtnEditarReporte);
+            this.Name = "BtnEditar";
+            this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnAccionEditar;
+        private System.Windows.Forms.Button RtnEditarReporte;
     }
 }
