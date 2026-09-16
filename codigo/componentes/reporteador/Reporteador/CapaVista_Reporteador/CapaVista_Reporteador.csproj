@@ -31,8 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CapaVista_BtnActualizar">
+      <HintPath>..\..\BtnActualizar\CapaVista_BtnActualizar\bin\Debug\CapaVista_BtnActualizar.dll</HintPath>
+    </Reference>
     <Reference Include="CapaVista_BtnBusqueda">
       <HintPath>..\..\BtnBusqueda\CapaVista_BtnBusqueda\bin\Debug\CapaVista_BtnBusqueda.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_BtnEditar">
+      <HintPath>..\..\BtnEditar\CapaVista_BtnEditar\bin\Debug\CapaVista_BtnEditar.dll</HintPath>
     </Reference>
     <Reference Include="CapaVista_BtnGuardar, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

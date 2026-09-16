@@ -59,6 +59,9 @@ namespace CapaVista_Reporteador
             this.BtnGuardar = new CapaVista_BtnGuardar.BtnGuardar();
             this.BtnImprimir = new CapaVista_BtnImprimir.BtnImprimir();
             this.btnBusqueda1 = new CapaVista_BtnBusqueda.BtnBusqueda();
+            this.BtnLimpiar = new CapaVista_BtnLimpiar.BtnLimpiar();
+            this.BtnActualizar = new CapaVista_BtnActualizar.BtnActualizar();
+            this.BtnEditar = new CapaVista_BtnEditar.BtnEditar();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbFooter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbBanner)).BeginInit();
@@ -267,7 +270,7 @@ namespace CapaVista_Reporteador
             // 
             // BtnImprimir
             // 
-            this.BtnImprimir.Location = new System.Drawing.Point(150, 227);
+            this.BtnImprimir.Location = new System.Drawing.Point(377, 227);
             this.BtnImprimir.Name = "BtnImprimir";
             this.BtnImprimir.RutaReporte = null;
             this.BtnImprimir.Size = new System.Drawing.Size(56, 56);
@@ -287,12 +290,42 @@ namespace CapaVista_Reporteador
             this.btnBusqueda1.TabIndex = 17;
             this.btnBusqueda1.TxtNombreReporte = null;
             // 
+            // BtnLimpiar
+            // 
+            this.BtnLimpiar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnLimpiar.Location = new System.Drawing.Point(155, 227);
+            this.BtnLimpiar.Name = "BtnLimpiar";
+            this.BtnLimpiar.Size = new System.Drawing.Size(56, 56);
+            this.BtnLimpiar.TabIndex = 18;
+            // 
+            // BtnActualizar
+            // 
+            this.BtnActualizar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnActualizar.DgvReportes = null;
+            this.BtnActualizar.Location = new System.Drawing.Point(228, 227);
+            this.BtnActualizar.Name = "BtnActualizar";
+            this.BtnActualizar.Size = new System.Drawing.Size(56, 56);
+            this.BtnActualizar.TabIndex = 19;
+            // 
+            // BtnEditar
+            // 
+            this.BtnEditar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnEditar.Location = new System.Drawing.Point(299, 227);
+            this.BtnEditar.Name = "BtnEditar";
+            this.BtnEditar.Size = new System.Drawing.Size(56, 56);
+            this.BtnEditar.TabIndex = 20;
+            this.BtnEditar.TxtNombreReporte = null;
+            this.BtnEditar.TxtRutaReporte = null;
+            // 
             // FrmReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
             this.ClientSize = new System.Drawing.Size(874, 661);
+            this.Controls.Add(this.BtnEditar);
+            this.Controls.Add(this.BtnActualizar);
+            this.Controls.Add(this.BtnLimpiar);
             this.Controls.Add(this.btnBusqueda1);
             this.Controls.Add(this.BtnImprimir);
             this.Controls.Add(this.BtnGuardar);
@@ -348,5 +381,8 @@ namespace CapaVista_Reporteador
         private BtnGuardar BtnGuardar;
         private BtnImprimir BtnImprimir;
         private CapaVista_BtnBusqueda.BtnBusqueda btnBusqueda1;
+        private CapaVista_BtnLimpiar.BtnLimpiar BtnLimpiar;
+        private CapaVista_BtnActualizar.BtnActualizar BtnActualizar;
+        private CapaVista_BtnEditar.BtnEditar BtnEditar;
     }
 }

@@ -66,6 +66,9 @@
     <Content Include="Resources\btn_limpiarReporte.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BtnLimpiar.resx">
+      <DependentUpon>BtnLimpiar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
