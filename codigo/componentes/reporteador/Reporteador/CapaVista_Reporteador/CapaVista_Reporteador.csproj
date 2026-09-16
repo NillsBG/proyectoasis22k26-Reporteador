@@ -40,9 +40,6 @@
     <Reference Include="CapaVista_BtnEditar">
       <HintPath>..\..\BtnEditar\CapaVista_BtnEditar\bin\Debug\CapaVista_BtnEditar.dll</HintPath>
     </Reference>
-    <Reference Include="CapaVista_BtnEliminar">
-      <HintPath>..\..\BtnEliminar\CapaVista_BtnEliminar\bin\Debug\CapaVista_BtnEliminar.dll</HintPath>
-    </Reference>
     <Reference Include="CapaVista_BtnGuardar, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BtnGuardar\CapaVista_BtnGuardar\bin\Debug\CapaVista_BtnGuardar.dll</HintPath>

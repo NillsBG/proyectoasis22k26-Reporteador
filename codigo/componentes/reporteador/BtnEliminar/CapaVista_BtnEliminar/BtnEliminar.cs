@@ -12,13 +12,9 @@ using CapaModelo_BtnEliminar.Entidades;
 
 namespace CapaVista_BtnEliminar
 {
-    // El boton se sigue viendo y llamando "Eliminar",
-    // pero NO borra el registro y NO toca la base de
-    // datos: solo guarda el numero de reporte en un
-    // archivo de texto local (ReportesDeshabilitados.txt)
-    // y pinta la fila en el grid.
 
-    public partial class BtnEliminar : UserControl
+
+    public partial class BtnEliminarReporte : UserControl
     {
         // =====================================================
         // CONTROLADOR
@@ -95,14 +91,14 @@ namespace CapaVista_BtnEliminar
         // CONSTRUCTOR
         // =====================================================
 
-        public BtnEliminar()
+        public BtnEliminarReporte()
         {
             InitializeComponent();
 
             controladorDeshabilitar =
                 new ClsModeloDeshabilitar();
 
-            BotonEliminar.Click +=
+            BtnEliminar.Click +=
                 BtnEliminarInterno_Click;
         }
 
@@ -345,11 +341,9 @@ namespace CapaVista_BtnEliminar
         // =====================================================
         // MARCAR VISUALMENTE LAS FILAS DESHABILITADAS
         // =====================================================
-        // Como no se toca la BD ni el GetAll() del proyecto
-        // principal, la tabla sigue trayendo todos los
-        // reportes. Esto pinta en gris/cursiva los que estan
-        // en el archivo de deshabilitados, para que se
-        // distingan a simple vista.
+
+        // Como no se toca la BD ni el GetAll() del proyecto principal, la tabla sigue trayendo todos los reportes. Esto pinta en gris/cursiva los que estan
+        // en el archivo de deshabilitados, para que se distingan a simple vista.
 
         private void MarcarFilasDeshabilitadas()
         {

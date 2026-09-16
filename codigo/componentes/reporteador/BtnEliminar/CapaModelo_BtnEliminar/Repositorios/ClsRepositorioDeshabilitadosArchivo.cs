@@ -10,14 +10,6 @@ using System.IO;
 
 namespace CapaModelo_BtnEliminar.Repositorios
 {
-    // NO toca la base de datos. El estado "deshabilitado"
-    // se guarda en un archivo de texto plano: un numero
-    // de reporte por linea.
-    //
-    // Ejemplo de contenido de ReportesDeshabilitados.txt:
-    //     3001
-    //     3005
-    //     3012
 
     public class ClsRepositorioDeshabilitadosArchivo
         : ClsRepositorioDeshabilitar
@@ -44,7 +36,7 @@ namespace CapaModelo_BtnEliminar.Repositorios
 
 
         // Carpeta donde corre el ejecutable
-        // (o donde este cargada la DLL).
+ 
         private static string RutaPorDefecto()
         {
             string carpeta =

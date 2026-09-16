@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace CapaModelo_BtnEliminar.Entidades
 {
     // Representa la fila que el usuario selecciono

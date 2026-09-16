@@ -62,7 +62,6 @@ namespace CapaVista_Reporteador
             this.BtnLimpiar = new CapaVista_BtnLimpiar.BtnLimpiar();
             this.BtnActualizar = new CapaVista_BtnActualizar.BtnActualizar();
             this.BtnEditar = new CapaVista_BtnEditar.BtnEditar();
-            this.btnEliminar1 = new CapaVista_BtnEliminar.BtnEliminar();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbFooter)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbBanner)).BeginInit();
@@ -339,20 +338,12 @@ namespace CapaVista_Reporteador
             this.BtnEditar.TxtNombreReporte = null;
             this.BtnEditar.TxtRutaReporte = null;
             // 
-            // btnEliminar1
-            // 
-            this.btnEliminar1.Location = new System.Drawing.Point(629, 279);
-            this.btnEliminar1.Name = "btnEliminar1";
-            this.btnEliminar1.Size = new System.Drawing.Size(73, 69);
-            this.btnEliminar1.TabIndex = 21;
-            // 
             // FrmReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
             this.ClientSize = new System.Drawing.Size(1163, 804);
-            this.Controls.Add(this.btnEliminar1);
             this.Controls.Add(this.BtnEditar);
             this.Controls.Add(this.BtnActualizar);
             this.Controls.Add(this.BtnLimpiar);
@@ -415,6 +406,5 @@ namespace CapaVista_Reporteador
         private CapaVista_BtnLimpiar.BtnLimpiar BtnLimpiar;
         private CapaVista_BtnActualizar.BtnActualizar BtnActualizar;
         private CapaVista_BtnEditar.BtnEditar BtnEditar;
-        private CapaVista_BtnEliminar.BtnEliminar btnEliminar1;
     }
 }

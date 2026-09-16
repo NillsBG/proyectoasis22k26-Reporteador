@@ -1,6 +1,6 @@
 ﻿namespace CapaVista_BtnEliminar
 {
-    partial class BtnEliminar
+    partial class BtnEliminarReporte
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -28,33 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BotonEliminar = new System.Windows.Forms.Button();
+            this.BtnEliminar = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // BotonEliminar
-            // 
-            this.BotonEliminar.BackColor = System.Drawing.Color.Transparent;
-            this.BotonEliminar.BackgroundImage = global::CapaVista_BtnEliminar.Properties.Resources.btn_eliminar;
-            this.BotonEliminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.BotonEliminar.Location = new System.Drawing.Point(3, 3);
-            this.BotonEliminar.Name = "BotonEliminar";
-            this.BotonEliminar.Size = new System.Drawing.Size(65, 63);
-            this.BotonEliminar.TabIndex = 0;
-            this.BotonEliminar.UseVisualStyleBackColor = false;
             // 
             // BtnEliminar
             // 
+            this.BtnEliminar.BackColor = System.Drawing.Color.Transparent;
+            this.BtnEliminar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BtnEliminar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BtnEliminar.FlatAppearance.BorderSize = 0;
+            this.BtnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnEliminar.Image = global::CapaVista_BtnEliminar.Properties.Resources.btn_eliminar;
+            this.BtnEliminar.Location = new System.Drawing.Point(0, 0);
+            this.BtnEliminar.Name = "BtnEliminar";
+            this.BtnEliminar.Size = new System.Drawing.Size(56, 56);
+            this.BtnEliminar.TabIndex = 0;
+            this.BtnEliminar.UseVisualStyleBackColor = false;
+            // 
+            // BtnEliminarReporte
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.BotonEliminar);
-            this.Name = "BtnEliminar";
-            this.Size = new System.Drawing.Size(73, 69);
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.BtnEliminar);
+            this.Name = "BtnEliminarReporte";
+            this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button BotonEliminar;
+        private System.Windows.Forms.Button BtnEliminar;
     }
 }
