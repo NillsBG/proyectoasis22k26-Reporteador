@@ -23,6 +23,7 @@ namespace CapaVista_Reporteador
         private int numeroReporteEdicion = 0;
 
 
+
         // =========================================================
         // CONSTRUCTOR
         // =========================================================
@@ -43,6 +44,7 @@ namespace CapaVista_Reporteador
             {
                 BtnRuta.CampoTextoRuta =
                     ReporteadorTxtRutaReporte;
+                ReporteadorTxtRutaReporte.ReadOnly = true;
             }
 
 
