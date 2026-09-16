@@ -12,8 +12,6 @@ using CapaModelo_BtnEliminar.Entidades;
 
 namespace CapaVista_BtnEliminar
 {
-
-
     public partial class BtnEliminarReporte : UserControl
     {
         // =====================================================
@@ -64,8 +62,6 @@ namespace CapaVista_BtnEliminar
             = "FechaReporte";
 
 
-        // Metodo publico del formulario que recarga
-        // la tabla despues de deshabilitar.
         [Category("Reporteador")]
         [DefaultValue("CargarTabla")]
         public string MetodoRecargar { get; set; }
@@ -78,11 +74,14 @@ namespace CapaVista_BtnEliminar
 
         public event EventHandler Deshabilitado;
 
+
         protected virtual void OnDeshabilitado()
         {
             if (Deshabilitado != null)
             {
-                Deshabilitado(this, EventArgs.Empty);
+                Deshabilitado(
+                    this,
+                    EventArgs.Empty);
             }
         }
 
@@ -104,7 +103,7 @@ namespace CapaVista_BtnEliminar
 
 
         // =====================================================
-        // AUTODETECCION DEL GRID
+        // CARGA DEL CONTROL
         // =====================================================
 
         protected override void OnLoad(EventArgs e)
@@ -116,22 +115,68 @@ namespace CapaVista_BtnEliminar
                 return;
             }
 
+
             if (GridReportes == null)
             {
                 GridReportes = BuscarGrid();
             }
 
+
             if (GridReportes != null)
             {
-                // Cada vez que el form vuelve a cargar
-                // datos en el grid, se repinta.
-                GridReportes.DataBindingComplete +=
-                    (s, args) => MarcarFilasDeshabilitadas();
+                // Cuando se cargan nuevamente los datos
+                GridReportes.DataBindingComplete -=
+                    GridReportes_DataBindingComplete;
 
+                GridReportes.DataBindingComplete +=
+                    GridReportes_DataBindingComplete;
+
+
+                // Cuando cambia la fila seleccionada
+                GridReportes.SelectionChanged -=
+                    GridReportes_SelectionChanged;
+
+                GridReportes.SelectionChanged +=
+                    GridReportes_SelectionChanged;
+
+
+                // Estado inicial
                 MarcarFilasDeshabilitadas();
+
+                ActualizarEstadoBotones();
             }
         }
 
+
+        // =====================================================
+        // CUANDO TERMINA DE CARGAR EL DATAGRIDVIEW
+        // =====================================================
+
+        private void GridReportes_DataBindingComplete(
+            object sender,
+            DataGridViewBindingCompleteEventArgs e)
+        {
+            MarcarFilasDeshabilitadas();
+
+            ActualizarEstadoBotones();
+        }
+
+
+        // =====================================================
+        // CUANDO CAMBIA LA FILA SELECCIONADA
+        // =====================================================
+
+        private void GridReportes_SelectionChanged(
+            object sender,
+            EventArgs e)
+        {
+            ActualizarEstadoBotones();
+        }
+
+
+        // =====================================================
+        // BUSCAR DATAGRIDVIEW
+        // =====================================================
 
         private DataGridView BuscarGrid()
         {
@@ -139,20 +184,24 @@ namespace CapaVista_BtnEliminar
             {
                 Form contenedor = FindForm();
 
+
                 if (contenedor == null)
                 {
                     return null;
                 }
+
 
                 Control[] encontrados =
                     contenedor.Controls.Find(
                         NombreGridReportes,
                         true);
 
+
                 foreach (Control control in encontrados)
                 {
                     DataGridView grid =
                         control as DataGridView;
+
 
                     if (grid != null)
                     {
@@ -160,16 +209,19 @@ namespace CapaVista_BtnEliminar
                     }
                 }
 
+
                 return PrimerGrid(contenedor);
             }
             catch (Exception)
             {
-                // Falla silenciosa: se reintenta
-                // al hacer click.
                 return null;
             }
         }
 
+
+        // =====================================================
+        // BUSCAR PRIMER DATAGRIDVIEW
+        // =====================================================
 
         private DataGridView PrimerGrid(
             Control contenedor)
@@ -180,13 +232,16 @@ namespace CapaVista_BtnEliminar
                 DataGridView grid =
                     control as DataGridView;
 
+
                 if (grid != null)
                 {
                     return grid;
                 }
 
+
                 DataGridView anidado =
                     PrimerGrid(control);
+
 
                 if (anidado != null)
                 {
@@ -194,16 +249,18 @@ namespace CapaVista_BtnEliminar
                 }
             }
 
+
             return null;
         }
 
 
         // =====================================================
-        // CLICK
+        // CLICK DEL BOTON ELIMINAR
         // =====================================================
 
         private void BtnEliminarInterno_Click(
-            object sender, EventArgs e)
+            object sender,
+            EventArgs e)
         {
             DeshabilitarSeleccionado();
 
@@ -212,7 +269,7 @@ namespace CapaVista_BtnEliminar
 
 
         // =====================================================
-        // DESHABILITAR SELECCIONADO
+        // DESHABILITAR REPORTE SELECCIONADO
         // =====================================================
 
         public void DeshabilitarSeleccionado()
@@ -220,13 +277,15 @@ namespace CapaVista_BtnEliminar
             try
             {
                 // -----------------------------------------
-                // GRID
+                // OBTENER GRID
                 // -----------------------------------------
 
                 if (GridReportes == null)
                 {
-                    GridReportes = BuscarGrid();
+                    GridReportes =
+                        BuscarGrid();
                 }
+
 
                 if (GridReportes == null)
                 {
@@ -245,7 +304,9 @@ namespace CapaVista_BtnEliminar
                 DataGridViewRow fila =
                     GridReportes.CurrentRow;
 
-                if (fila == null || fila.IsNewRow)
+
+                if (fila == null ||
+                    fila.IsNewRow)
                 {
                     MostrarError(
                         "Seleccione el reporte que desea " +
@@ -256,11 +317,12 @@ namespace CapaVista_BtnEliminar
 
 
                 // -----------------------------------------
-                // LEER LA FILA
+                // LEER FILA
                 // -----------------------------------------
 
                 ClsReporteSeleccionado seleccionado =
                     LeerFila(fila);
+
 
                 if (seleccionado == null)
                 {
@@ -269,9 +331,8 @@ namespace CapaVista_BtnEliminar
 
 
                 // -----------------------------------------
-                // VENTANA DE ADVERTENCIA / CONFIRMACION
+                // CONFIRMACION
                 // -----------------------------------------
-                // SIEMPRE se pregunta antes de deshabilitar.
 
                 string pregunta =
                     "Esta seguro que desea deshabilitar " +
@@ -290,20 +351,22 @@ namespace CapaVista_BtnEliminar
                     "quedara marcado como inactivo en este " +
                     "equipo.";
 
-                if (!MostrarConfirmacion(pregunta))
+
+                if (!MostrarConfirmacion(
+                        pregunta))
                 {
-                    // El usuario cancelo. No se hace nada.
                     return;
                 }
 
 
                 // -----------------------------------------
-                // DESHABILITAR (CONTROLADOR)
+                // DESHABILITAR
                 // -----------------------------------------
 
                 string error =
                     controladorDeshabilitar.Deshabilitar(
                         seleccionado);
+
 
                 if (string.IsNullOrWhiteSpace(error))
                 {
@@ -311,14 +374,24 @@ namespace CapaVista_BtnEliminar
                         "El reporte se deshabilito " +
                         "correctamente.");
 
+
+                    // Recargar tabla
                     RecargarTabla();
 
+
+                    // Pintar filas
                     MarcarFilasDeshabilitadas();
+
+
+                    // Actualizar botones
+                    ActualizarEstadoBotones();
+
 
                     OnDeshabilitado();
 
                     return;
                 }
+
 
                 MostrarError(
                     "No se pudo deshabilitar el reporte." +
@@ -339,11 +412,423 @@ namespace CapaVista_BtnEliminar
 
 
         // =====================================================
-        // MARCAR VISUALMENTE LAS FILAS DESHABILITADAS
+        // ACTUALIZAR ESTADO DE LOS BOTONES
         // =====================================================
 
-        // Como no se toca la BD ni el GetAll() del proyecto principal, la tabla sigue trayendo todos los reportes. Esto pinta en gris/cursiva los que estan
-        // en el archivo de deshabilitados, para que se distingan a simple vista.
+        private void ActualizarEstadoBotones()
+        {
+            try
+            {
+                if (GridReportes == null)
+                {
+                    RestaurarTodosLosBotones();
+
+                    return;
+                }
+
+
+                DataGridViewRow fila =
+                    GridReportes.CurrentRow;
+
+
+                // -------------------------------------------------
+                // NO HAY FILA
+                // -------------------------------------------------
+
+                if (fila == null ||
+                    fila.IsNewRow)
+                {
+                    RestaurarTodosLosBotones();
+
+                    return;
+                }
+
+
+                // -------------------------------------------------
+                // OBTENER NUMERO
+                // -------------------------------------------------
+
+                object valorNumero =
+                    ObtenerValor(
+                        fila,
+                        ColumnaNumeroReporte);
+
+
+                if (valorNumero == null ||
+                    valorNumero == DBNull.Value)
+                {
+                    RestaurarTodosLosBotones();
+
+                    return;
+                }
+
+
+                int numeroReporte;
+
+
+                if (!int.TryParse(
+                        valorNumero.ToString(),
+                        out numeroReporte))
+                {
+                    RestaurarTodosLosBotones();
+
+                    return;
+                }
+
+
+                // -------------------------------------------------
+                // COMPROBAR SI ESTA DESHABILITADO
+                // -------------------------------------------------
+
+                bool estaDeshabilitado =
+                    EstaReporteDeshabilitado(
+                        numeroReporte,
+                        fila);
+
+
+                // -------------------------------------------------
+                // REPORTE DESHABILITADO
+                // -------------------------------------------------
+
+                if (estaDeshabilitado)
+                {
+                    BloquearTodosLosBotones();
+
+                    return;
+                }
+
+
+                // -------------------------------------------------
+                // REPORTE ACTIVO
+                // -------------------------------------------------
+
+                RestaurarTodosLosBotones();
+            }
+            catch (Exception)
+            {
+                // Si ocurre un problema, dejamos los botones
+                // en funcionamiento normal.
+                RestaurarTodosLosBotones();
+            }
+        }
+
+
+        // =====================================================
+        // COMPROBAR SI EL REPORTE ESTA DESHABILITADO
+        // =====================================================
+
+        private bool EstaReporteDeshabilitado(
+            int numeroReporte,
+            DataGridViewRow fila)
+        {
+            try
+            {
+                // -------------------------------------------------
+                // PRIMERA OPCION:
+                // INTENTAR OBTENER LA LISTA MEDIANTE REFLEXION
+                // -------------------------------------------------
+
+                List<int> numeros =
+                    ObtenerNumerosDeshabilitados();
+
+
+                if (numeros != null)
+                {
+                    return numeros.Contains(
+                        numeroReporte);
+                }
+            }
+            catch
+            {
+                // Si no existe el metodo o falla,
+                // usamos la informacion visual de la fila.
+            }
+
+
+            // -------------------------------------------------
+            // SEGUNDA OPCION:
+            // COMPROBAR EL ESTILO VISUAL DE LA FILA
+            // -------------------------------------------------
+
+            if (fila != null)
+            {
+                Color fondo =
+                    fila.DefaultCellStyle.BackColor;
+
+
+                Font fuente =
+                    fila.DefaultCellStyle.Font;
+
+
+                if (fondo == Color.Gainsboro)
+                {
+                    return true;
+                }
+
+
+                if (fuente != null &&
+                    fuente.Italic)
+                {
+                    return true;
+                }
+            }
+
+
+            return false;
+        }
+
+
+        // =====================================================
+        // OBTENER NUMEROS DESHABILITADOS
+        // =====================================================
+        //
+        // IMPORTANTE:
+        // Aqui NO se llama directamente a:
+        //
+        // controladorDeshabilitar
+        //     .ObtenerNumerosDeshabilitados();
+        //
+        // Se utiliza reflexion para evitar el error de
+        // compilacion si ese metodo no esta expuesto
+        // directamente por ClsDeshabilitarReporte.
+        // =====================================================
+
+        private List<int> ObtenerNumerosDeshabilitados()
+        {
+            List<int> resultado =
+                new List<int>();
+
+
+            try
+            {
+                Type tipo =
+                    controladorDeshabilitar.GetType();
+
+
+                MethodInfo metodo =
+                    tipo.GetMethod(
+                        "ObtenerNumerosDeshabilitados",
+                        BindingFlags.Public |
+                        BindingFlags.NonPublic |
+                        BindingFlags.Instance);
+
+
+                if (metodo == null)
+                {
+                    return resultado;
+                }
+
+
+                object respuesta =
+                    metodo.Invoke(
+                        controladorDeshabilitar,
+                        null);
+
+
+                if (respuesta == null)
+                {
+                    return resultado;
+                }
+
+
+                // -------------------------------------------------
+                // CASO List<int>
+                // -------------------------------------------------
+
+                List<int> lista =
+                    respuesta as List<int>;
+
+
+                if (lista != null)
+                {
+                    return lista;
+                }
+
+
+                // -------------------------------------------------
+                // CASO IEnumerable<int>
+                // -------------------------------------------------
+
+                IEnumerable<int> enumerable =
+                    respuesta as IEnumerable<int>;
+
+
+                if (enumerable != null)
+                {
+                    foreach (int numero
+                             in enumerable)
+                    {
+                        resultado.Add(numero);
+                    }
+
+
+                    return resultado;
+                }
+            }
+            catch
+            {
+                // Si no existe el metodo o no puede ejecutarse,
+                // devolvemos una lista vacia.
+            }
+
+
+            return resultado;
+        }
+
+
+        // =====================================================
+        // BLOQUEAR TODOS LOS BOTONES
+        // =====================================================
+
+        private void BloquearTodosLosBotones()
+        {
+            // IMPORTANTE:
+            // NO deshabilitamos este UserControl completo.
+            //
+            // Si hacemos:
+            //
+            // this.Enabled = false;
+            //
+            // despues puede ser complicado volver a habilitar
+            // correctamente el control desde la seleccion.
+            //
+            // Por eso bloqueamos solamente sus botones.
+
+            BloquearBotonesRecursivamente(
+                FindForm());
+        }
+
+
+        // =====================================================
+        // BLOQUEAR BOTONES RECURSIVAMENTE
+        // =====================================================
+
+        private void BloquearBotonesRecursivamente(
+            Control contenedor)
+        {
+            if (contenedor == null)
+            {
+                return;
+            }
+
+
+            foreach (Control control
+                     in contenedor.Controls)
+            {
+                // -------------------------------------------------
+                // CONTROLES QUE EMPIEZAN CON Btn
+                // -------------------------------------------------
+
+                if (!string.IsNullOrEmpty(
+                        control.Name) &&
+                    control.Name.StartsWith(
+                        "Btn",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    control.Enabled = false;
+                }
+
+
+                // -------------------------------------------------
+                // BUTTONS NORMALES
+                // -------------------------------------------------
+
+                if (control is ButtonBase)
+                {
+                    control.Enabled = false;
+                }
+
+
+                // -------------------------------------------------
+                // CONTROLES INTERNOS
+                // -------------------------------------------------
+
+                if (control.HasChildren)
+                {
+                    BloquearBotonesRecursivamente(
+                        control);
+                }
+            }
+        }
+
+
+        // =====================================================
+        // RESTAURAR TODOS LOS BOTONES
+        // =====================================================
+
+        private void RestaurarTodosLosBotones()
+        {
+            Control formulario =
+                FindForm();
+
+
+            if (formulario == null)
+            {
+                return;
+            }
+
+
+            HabilitarBotonesRecursivamente(
+                formulario);
+        }
+
+
+        // =====================================================
+        // HABILITAR BOTONES RECURSIVAMENTE
+        // =====================================================
+
+        private void HabilitarBotonesRecursivamente(
+            Control contenedor)
+        {
+            if (contenedor == null)
+            {
+                return;
+            }
+
+
+            foreach (Control control
+                     in contenedor.Controls)
+            {
+                // -------------------------------------------------
+                // CONTROLES QUE EMPIEZAN CON Btn
+                // -------------------------------------------------
+
+                if (!string.IsNullOrEmpty(
+                        control.Name) &&
+                    control.Name.StartsWith(
+                        "Btn",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    control.Enabled = true;
+                }
+
+
+                // -------------------------------------------------
+                // BUTTONS NORMALES
+                // -------------------------------------------------
+
+                if (control is ButtonBase)
+                {
+                    control.Enabled = true;
+                }
+
+
+                // -------------------------------------------------
+                // CONTROLES INTERNOS
+                // -------------------------------------------------
+
+                if (control.HasChildren)
+                {
+                    HabilitarBotonesRecursivamente(
+                        control);
+                }
+            }
+        }
+
+
+        // =====================================================
+        // MARCAR FILAS DESHABILITADAS
+        // =====================================================
 
         private void MarcarFilasDeshabilitadas()
         {
@@ -354,19 +839,32 @@ namespace CapaVista_BtnEliminar
                     return;
                 }
 
+
+                // -------------------------------------------------
+                // OBTENER LISTA SIN LLAMADA DIRECTA AL METODO
+                // -------------------------------------------------
+
+                List<int> numerosDeshabilitados =
+                    ObtenerNumerosDeshabilitados();
+
+
                 HashSet<int> deshabilitados =
                     new HashSet<int>(
-                        controladorDeshabilitar
-                        .ObtenerNumerosDeshabilitados());
+                        numerosDeshabilitados);
+
 
                 Font fuenteNormal =
-                    GridReportes.DefaultCellStyle.Font
+                    GridReportes
+                    .DefaultCellStyle
+                    .Font
                     ?? GridReportes.Font;
+
 
                 Font fuenteCursiva =
                     new Font(
                         fuenteNormal,
                         FontStyle.Italic);
+
 
                 foreach (DataGridViewRow fila
                          in GridReportes.Rows)
@@ -376,52 +874,73 @@ namespace CapaVista_BtnEliminar
                         continue;
                     }
 
+
                     object valor =
                         ObtenerValor(
-                            fila, ColumnaNumeroReporte);
+                            fila,
+                            ColumnaNumeroReporte);
+
 
                     int numero;
+
 
                     bool estaDeshabilitado =
                         valor != null &&
                         int.TryParse(
                             valor.ToString(),
                             out numero) &&
-                        deshabilitados.Contains(numero);
+                        deshabilitados.Contains(
+                            numero);
+
+
+                    // -------------------------------------------------
+                    // DESHABILITADO
+                    // -------------------------------------------------
 
                     if (estaDeshabilitado)
                     {
                         fila.DefaultCellStyle.BackColor =
                             Color.Gainsboro;
 
+
                         fila.DefaultCellStyle.ForeColor =
                             Color.DimGray;
+
 
                         fila.DefaultCellStyle.Font =
                             fuenteCursiva;
                     }
+
+
+                    // -------------------------------------------------
+                    // ACTIVO
+                    // -------------------------------------------------
+
                     else
                     {
                         fila.DefaultCellStyle.BackColor =
                             Color.Empty;
 
+
                         fila.DefaultCellStyle.ForeColor =
                             Color.Empty;
 
-                        fila.DefaultCellStyle.Font = null;
+
+                        fila.DefaultCellStyle.Font =
+                            null;
                     }
                 }
             }
-            catch (Exception)
+            catch
             {
-                // El marcado visual es un extra:
-                // si falla, no debe interrumpir el flujo.
+                // El marcado visual no debe detener
+                // el funcionamiento del formulario.
             }
         }
 
 
         // =====================================================
-        // LEER LA FILA DEL GRID
+        // LEER FILA
         // =====================================================
 
         private ClsReporteSeleccionado LeerFila(
@@ -429,11 +948,18 @@ namespace CapaVista_BtnEliminar
         {
             try
             {
+                // -----------------------------------------
+                // NUMERO
+                // -----------------------------------------
+
                 object valorNumero =
                     ObtenerValor(
-                        fila, ColumnaNumeroReporte);
+                        fila,
+                        ColumnaNumeroReporte);
+
 
                 int numeroReporte;
+
 
                 if (valorNumero == null ||
                     !int.TryParse(
@@ -445,48 +971,80 @@ namespace CapaVista_BtnEliminar
                         "reporte seleccionado." +
                         Environment.NewLine +
                         "Verifique que exista la columna '" +
-                        ColumnaNumeroReporte + "'.");
+                        ColumnaNumeroReporte +
+                        "'.");
 
                     return null;
                 }
 
+
+                // -----------------------------------------
+                // NOMBRE
+                // -----------------------------------------
+
                 object valorNombre =
                     ObtenerValor(
-                        fila, ColumnaNombreReporte);
+                        fila,
+                        ColumnaNombreReporte);
+
+
+                // -----------------------------------------
+                // RUTA
+                // -----------------------------------------
 
                 object valorRuta =
                     ObtenerValor(
-                        fila, ColumnaRutaReporte);
+                        fila,
+                        ColumnaRutaReporte);
+
+
+                // -----------------------------------------
+                // FECHA
+                // -----------------------------------------
 
                 object valorFecha =
                     ObtenerValor(
-                        fila, ColumnaFechaReporte);
+                        fila,
+                        ColumnaFechaReporte);
+
 
                 DateTime fechaReporte;
+
 
                 if (valorFecha == null ||
                     !DateTime.TryParse(
                         valorFecha.ToString(),
                         out fechaReporte))
                 {
-                    fechaReporte = DateTime.Now.Date;
+                    fechaReporte =
+                        DateTime.Now.Date;
                 }
+
+
+                // -----------------------------------------
+                // OBJETO
+                // -----------------------------------------
 
                 return new ClsReporteSeleccionado
                 {
-                    NumeroReporte = numeroReporte,
+                    NumeroReporte =
+                        numeroReporte,
+
 
                     NombreReporte =
                         valorNombre == null
                             ? ""
                             : valorNombre.ToString(),
 
+
                     RutaReporte =
                         valorRuta == null
                             ? ""
                             : valorRuta.ToString(),
 
-                    FechaReporte = fechaReporte
+
+                    FechaReporte =
+                        fechaReporte
                 };
             }
             catch (Exception ex)
@@ -501,34 +1059,57 @@ namespace CapaVista_BtnEliminar
         }
 
 
+        // =====================================================
+        // OBTENER VALOR DE CELDA
+        // =====================================================
+
         private object ObtenerValor(
             DataGridViewRow fila,
             string nombreColumna)
         {
-            if (string.IsNullOrWhiteSpace(nombreColumna))
+            if (fila == null)
             {
                 return null;
             }
+
+
+            if (string.IsNullOrWhiteSpace(
+                nombreColumna))
+            {
+                return null;
+            }
+
+
+            if (fila.DataGridView == null)
+            {
+                return null;
+            }
+
 
             if (!fila.DataGridView
-                 .Columns.Contains(nombreColumna))
+                .Columns.Contains(
+                    nombreColumna))
             {
                 return null;
             }
 
-            return fila.Cells[nombreColumna].Value;
+
+            return fila.Cells[
+                nombreColumna].Value;
         }
 
 
         // =====================================================
-        // RECARGAR LA TABLA DEL FORM
+        // RECARGAR TABLA
         // =====================================================
 
         private void RecargarTabla()
         {
             try
             {
-                Form contenedor = FindForm();
+                Form contenedor =
+                    FindForm();
+
 
                 if (contenedor == null ||
                     string.IsNullOrWhiteSpace(
@@ -536,6 +1117,7 @@ namespace CapaVista_BtnEliminar
                 {
                     return;
                 }
+
 
                 MethodInfo metodo =
                     contenedor.GetType().GetMethod(
@@ -547,12 +1129,16 @@ namespace CapaVista_BtnEliminar
                         Type.EmptyTypes,
                         null);
 
+
                 if (metodo != null)
                 {
-                    metodo.Invoke(contenedor, null);
+                    metodo.Invoke(
+                        contenedor,
+                        null);
 
                     return;
                 }
+
 
                 if (GridReportes != null)
                 {
@@ -571,10 +1157,11 @@ namespace CapaVista_BtnEliminar
 
 
         // =====================================================
-        // DIALOGOS
+        // MENSAJE DE EXITO
         // =====================================================
 
-        private void MostrarExito(string mensaje)
+        private void MostrarExito(
+            string mensaje)
         {
             MessageBox.Show(
                 mensaje,
@@ -584,7 +1171,12 @@ namespace CapaVista_BtnEliminar
         }
 
 
-        private void MostrarError(string mensaje)
+        // =====================================================
+        // MENSAJE DE ERROR
+        // =====================================================
+
+        private void MostrarError(
+            string mensaje)
         {
             MessageBox.Show(
                 mensaje,
@@ -594,8 +1186,12 @@ namespace CapaVista_BtnEliminar
         }
 
 
-        // Ventana emergente de advertencia con Si/No.
-        private bool MostrarConfirmacion(string mensaje)
+        // =====================================================
+        // CONFIRMACION
+        // =====================================================
+
+        private bool MostrarConfirmacion(
+            string mensaje)
         {
             DialogResult resultado =
                 MessageBox.Show(
@@ -605,7 +1201,9 @@ namespace CapaVista_BtnEliminar
                     MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2);
 
-            return resultado == DialogResult.Yes;
+
+            return resultado ==
+                   DialogResult.Yes;
         }
     }
 }
