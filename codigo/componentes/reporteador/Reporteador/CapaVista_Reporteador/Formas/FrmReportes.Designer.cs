@@ -71,27 +71,30 @@ namespace CapaVista_Reporteador
             // ReporteadorPbLogo
             // 
             this.ReporteadorPbLogo.Image = global::CapaVista_Reportedor.Properties.Resources.img_mascota;
-            this.ReporteadorPbLogo.Location = new System.Drawing.Point(680, 261);
+            this.ReporteadorPbLogo.Location = new System.Drawing.Point(907, 321);
+            this.ReporteadorPbLogo.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorPbLogo.Name = "ReporteadorPbLogo";
-            this.ReporteadorPbLogo.Size = new System.Drawing.Size(195, 210);
+            this.ReporteadorPbLogo.Size = new System.Drawing.Size(260, 258);
             this.ReporteadorPbLogo.TabIndex = 2;
             this.ReporteadorPbLogo.TabStop = false;
             // 
             // ReporteadorPbFooter
             // 
             this.ReporteadorPbFooter.Image = global::CapaVista_Reportedor.Properties.Resources.Footer_reporteador;
-            this.ReporteadorPbFooter.Location = new System.Drawing.Point(-6, 555);
+            this.ReporteadorPbFooter.Location = new System.Drawing.Point(-8, 683);
+            this.ReporteadorPbFooter.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorPbFooter.Name = "ReporteadorPbFooter";
-            this.ReporteadorPbFooter.Size = new System.Drawing.Size(890, 110);
+            this.ReporteadorPbFooter.Size = new System.Drawing.Size(1187, 135);
             this.ReporteadorPbFooter.TabIndex = 1;
             this.ReporteadorPbFooter.TabStop = false;
             // 
             // ReporteadorPbBanner
             // 
             this.ReporteadorPbBanner.Image = global::CapaVista_Reportedor.Properties.Resources.banner_Reporteador;
-            this.ReporteadorPbBanner.Location = new System.Drawing.Point(-6, -3);
+            this.ReporteadorPbBanner.Location = new System.Drawing.Point(-8, -4);
+            this.ReporteadorPbBanner.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorPbBanner.Name = "ReporteadorPbBanner";
-            this.ReporteadorPbBanner.Size = new System.Drawing.Size(890, 110);
+            this.ReporteadorPbBanner.Size = new System.Drawing.Size(1187, 135);
             this.ReporteadorPbBanner.TabIndex = 0;
             this.ReporteadorPbBanner.TabStop = false;
             // 
@@ -100,9 +103,10 @@ namespace CapaVista_Reporteador
             this.ReporteadorLblRutaReporte.AutoSize = true;
             this.ReporteadorLblRutaReporte.Font = new System.Drawing.Font("Tahoma", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorLblRutaReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorLblRutaReporte.Location = new System.Drawing.Point(28, 125);
+            this.ReporteadorLblRutaReporte.Location = new System.Drawing.Point(37, 154);
+            this.ReporteadorLblRutaReporte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ReporteadorLblRutaReporte.Name = "ReporteadorLblRutaReporte";
-            this.ReporteadorLblRutaReporte.Size = new System.Drawing.Size(151, 21);
+            this.ReporteadorLblRutaReporte.Size = new System.Drawing.Size(198, 27);
             this.ReporteadorLblRutaReporte.TabIndex = 3;
             this.ReporteadorLblRutaReporte.Text = "Ruta del reporte: *";
             // 
@@ -111,9 +115,10 @@ namespace CapaVista_Reporteador
             this.ReporteadorLblNombreReporte.AutoSize = true;
             this.ReporteadorLblNombreReporte.Font = new System.Drawing.Font("Tahoma", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorLblNombreReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorLblNombreReporte.Location = new System.Drawing.Point(28, 186);
+            this.ReporteadorLblNombreReporte.Location = new System.Drawing.Point(37, 229);
+            this.ReporteadorLblNombreReporte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ReporteadorLblNombreReporte.Name = "ReporteadorLblNombreReporte";
-            this.ReporteadorLblNombreReporte.Size = new System.Drawing.Size(174, 21);
+            this.ReporteadorLblNombreReporte.Size = new System.Drawing.Size(230, 27);
             this.ReporteadorLblNombreReporte.TabIndex = 4;
             this.ReporteadorLblNombreReporte.Text = "Nombre del reporte: *";
             // 
@@ -122,9 +127,10 @@ namespace CapaVista_Reporteador
             this.ReporteadorLblDatosBuscarReporte.AutoSize = true;
             this.ReporteadorLblDatosBuscarReporte.Font = new System.Drawing.Font("Tahoma", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorLblDatosBuscarReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorLblDatosBuscarReporte.Location = new System.Drawing.Point(28, 286);
+            this.ReporteadorLblDatosBuscarReporte.Location = new System.Drawing.Point(37, 352);
+            this.ReporteadorLblDatosBuscarReporte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ReporteadorLblDatosBuscarReporte.Name = "ReporteadorLblDatosBuscarReporte";
-            this.ReporteadorLblDatosBuscarReporte.Size = new System.Drawing.Size(211, 21);
+            this.ReporteadorLblDatosBuscarReporte.Size = new System.Drawing.Size(276, 27);
             this.ReporteadorLblDatosBuscarReporte.TabIndex = 5;
             this.ReporteadorLblDatosBuscarReporte.Text = "Datos para buscar reporte:";
             // 
@@ -132,18 +138,20 @@ namespace CapaVista_Reporteador
             // 
             this.ReporteadorTxtRutaReporte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ReporteadorTxtRutaReporte.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReporteadorTxtRutaReporte.Location = new System.Drawing.Point(219, 113);
+            this.ReporteadorTxtRutaReporte.Location = new System.Drawing.Point(292, 139);
+            this.ReporteadorTxtRutaReporte.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorTxtRutaReporte.Name = "ReporteadorTxtRutaReporte";
-            this.ReporteadorTxtRutaReporte.Size = new System.Drawing.Size(480, 33);
+            this.ReporteadorTxtRutaReporte.Size = new System.Drawing.Size(639, 39);
             this.ReporteadorTxtRutaReporte.TabIndex = 6;
             // 
             // ReporteadorTxtNombreReporte
             // 
             this.ReporteadorTxtNombreReporte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ReporteadorTxtNombreReporte.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReporteadorTxtNombreReporte.Location = new System.Drawing.Point(219, 174);
+            this.ReporteadorTxtNombreReporte.Location = new System.Drawing.Point(292, 214);
+            this.ReporteadorTxtNombreReporte.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorTxtNombreReporte.Name = "ReporteadorTxtNombreReporte";
-            this.ReporteadorTxtNombreReporte.Size = new System.Drawing.Size(480, 33);
+            this.ReporteadorTxtNombreReporte.Size = new System.Drawing.Size(639, 39);
             this.ReporteadorTxtNombreReporte.TabIndex = 7;
             // 
             // ReporteadorDgvReportes
@@ -178,7 +186,8 @@ namespace CapaVista_Reporteador
             this.ReporteadorDgvReportes.DefaultCellStyle = dataGridViewCellStyle3;
             this.ReporteadorDgvReportes.EnableHeadersVisualStyles = false;
             this.ReporteadorDgvReportes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(118)))), ((int)(((byte)(63)))));
-            this.ReporteadorDgvReportes.Location = new System.Drawing.Point(32, 405);
+            this.ReporteadorDgvReportes.Location = new System.Drawing.Point(43, 498);
+            this.ReporteadorDgvReportes.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorDgvReportes.Name = "ReporteadorDgvReportes";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
@@ -188,11 +197,12 @@ namespace CapaVista_Reporteador
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.ReporteadorDgvReportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.ReporteadorDgvReportes.RowHeadersWidth = 51;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
             this.ReporteadorDgvReportes.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.ReporteadorDgvReportes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ReporteadorDgvReportes.Size = new System.Drawing.Size(654, 144);
+            this.ReporteadorDgvReportes.Size = new System.Drawing.Size(872, 177);
             this.ReporteadorDgvReportes.TabIndex = 8;
             // 
             // ReporteadorChkNombreReporte
@@ -200,9 +210,10 @@ namespace CapaVista_Reporteador
             this.ReporteadorChkNombreReporte.AutoSize = true;
             this.ReporteadorChkNombreReporte.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorChkNombreReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorChkNombreReporte.Location = new System.Drawing.Point(32, 321);
+            this.ReporteadorChkNombreReporte.Location = new System.Drawing.Point(43, 395);
+            this.ReporteadorChkNombreReporte.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorChkNombreReporte.Name = "ReporteadorChkNombreReporte";
-            this.ReporteadorChkNombreReporte.Size = new System.Drawing.Size(181, 27);
+            this.ReporteadorChkNombreReporte.Size = new System.Drawing.Size(231, 34);
             this.ReporteadorChkNombreReporte.TabIndex = 9;
             this.ReporteadorChkNombreReporte.Text = "Nombre del reporte";
             this.ReporteadorChkNombreReporte.UseVisualStyleBackColor = true;
@@ -212,9 +223,10 @@ namespace CapaVista_Reporteador
             this.ReporteadorChkFechaReporte.AutoSize = true;
             this.ReporteadorChkFechaReporte.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorChkFechaReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorChkFechaReporte.Location = new System.Drawing.Point(283, 321);
+            this.ReporteadorChkFechaReporte.Location = new System.Drawing.Point(377, 395);
+            this.ReporteadorChkFechaReporte.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorChkFechaReporte.Name = "ReporteadorChkFechaReporte";
-            this.ReporteadorChkFechaReporte.Size = new System.Drawing.Size(162, 27);
+            this.ReporteadorChkFechaReporte.Size = new System.Drawing.Size(206, 34);
             this.ReporteadorChkFechaReporte.TabIndex = 10;
             this.ReporteadorChkFechaReporte.Text = "Fecha del reporte";
             this.ReporteadorChkFechaReporte.UseVisualStyleBackColor = true;
@@ -223,9 +235,10 @@ namespace CapaVista_Reporteador
             // 
             this.ReporteadorTxtNombreReporte2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ReporteadorTxtNombreReporte2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReporteadorTxtNombreReporte2.Location = new System.Drawing.Point(32, 354);
+            this.ReporteadorTxtNombreReporte2.Location = new System.Drawing.Point(43, 436);
+            this.ReporteadorTxtNombreReporte2.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorTxtNombreReporte2.Name = "ReporteadorTxtNombreReporte2";
-            this.ReporteadorTxtNombreReporte2.Size = new System.Drawing.Size(214, 33);
+            this.ReporteadorTxtNombreReporte2.Size = new System.Drawing.Size(285, 39);
             this.ReporteadorTxtNombreReporte2.TabIndex = 11;
             // 
             // ReporteadorDtpFechaReporte
@@ -236,44 +249,49 @@ namespace CapaVista_Reporteador
             this.ReporteadorDtpFechaReporte.CalendarTrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(118)))), ((int)(((byte)(63)))));
             this.ReporteadorDtpFechaReporte.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.ReporteadorDtpFechaReporte.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.ReporteadorDtpFechaReporte.Location = new System.Drawing.Point(283, 353);
+            this.ReporteadorDtpFechaReporte.Location = new System.Drawing.Point(377, 434);
+            this.ReporteadorDtpFechaReporte.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorDtpFechaReporte.MaxDate = new System.DateTime(2026, 12, 31, 0, 0, 0, 0);
             this.ReporteadorDtpFechaReporte.MinDate = new System.DateTime(2025, 1, 1, 0, 0, 0, 0);
             this.ReporteadorDtpFechaReporte.Name = "ReporteadorDtpFechaReporte";
-            this.ReporteadorDtpFechaReporte.Size = new System.Drawing.Size(162, 31);
+            this.ReporteadorDtpFechaReporte.Size = new System.Drawing.Size(215, 36);
             this.ReporteadorDtpFechaReporte.TabIndex = 12;
             // 
             // ReporteadorPnlFiltroBuscarReporte
             // 
-            this.ReporteadorPnlFiltroBuscarReporte.Location = new System.Drawing.Point(12, 311);
+            this.ReporteadorPnlFiltroBuscarReporte.Location = new System.Drawing.Point(16, 383);
+            this.ReporteadorPnlFiltroBuscarReporte.Margin = new System.Windows.Forms.Padding(4);
             this.ReporteadorPnlFiltroBuscarReporte.Name = "ReporteadorPnlFiltroBuscarReporte";
-            this.ReporteadorPnlFiltroBuscarReporte.Size = new System.Drawing.Size(462, 88);
+            this.ReporteadorPnlFiltroBuscarReporte.Size = new System.Drawing.Size(616, 108);
             this.ReporteadorPnlFiltroBuscarReporte.TabIndex = 13;
             // 
             // BtnRuta
             // 
             this.BtnRuta.BackColor = System.Drawing.Color.Transparent;
             this.BtnRuta.CampoTextoRuta = null;
-            this.BtnRuta.Location = new System.Drawing.Point(718, 101);
+            this.BtnRuta.Location = new System.Drawing.Point(957, 124);
+            this.BtnRuta.Margin = new System.Windows.Forms.Padding(5);
             this.BtnRuta.Name = "BtnRuta";
-            this.BtnRuta.Size = new System.Drawing.Size(56, 56);
+            this.BtnRuta.Size = new System.Drawing.Size(75, 69);
             this.BtnRuta.TabIndex = 14;
             // 
             // BtnGuardar
             // 
-            this.BtnGuardar.Location = new System.Drawing.Point(83, 227);
+            this.BtnGuardar.Location = new System.Drawing.Point(111, 279);
+            this.BtnGuardar.Margin = new System.Windows.Forms.Padding(5);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(56, 56);
+            this.BtnGuardar.Size = new System.Drawing.Size(75, 69);
             this.BtnGuardar.TabIndex = 15;
             this.BtnGuardar.TxtNombreReporte = null;
             this.BtnGuardar.TxtRutaReporte = null;
             // 
             // BtnImprimir
             // 
-            this.BtnImprimir.Location = new System.Drawing.Point(377, 227);
+            this.BtnImprimir.Location = new System.Drawing.Point(503, 279);
+            this.BtnImprimir.Margin = new System.Windows.Forms.Padding(5);
             this.BtnImprimir.Name = "BtnImprimir";
             this.BtnImprimir.RutaReporte = null;
-            this.BtnImprimir.Size = new System.Drawing.Size(56, 56);
+            this.BtnImprimir.Size = new System.Drawing.Size(75, 69);
             this.BtnImprimir.TabIndex = 16;
             // 
             // btnBusqueda1
@@ -283,46 +301,49 @@ namespace CapaVista_Reporteador
             this.btnBusqueda1.ChkNombreReporte = null;
             this.btnBusqueda1.DgvReportes = null;
             this.btnBusqueda1.DtpFechaReporte = null;
-            this.btnBusqueda1.Location = new System.Drawing.Point(510, 328);
-            this.btnBusqueda1.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBusqueda1.Location = new System.Drawing.Point(680, 404);
+            this.btnBusqueda1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBusqueda1.Name = "btnBusqueda1";
-            this.btnBusqueda1.Size = new System.Drawing.Size(55, 56);
+            this.btnBusqueda1.Size = new System.Drawing.Size(73, 69);
             this.btnBusqueda1.TabIndex = 17;
             this.btnBusqueda1.TxtNombreReporte = null;
             // 
             // BtnLimpiar
             // 
             this.BtnLimpiar.BackColor = System.Drawing.Color.Transparent;
-            this.BtnLimpiar.Location = new System.Drawing.Point(155, 227);
+            this.BtnLimpiar.Location = new System.Drawing.Point(207, 279);
+            this.BtnLimpiar.Margin = new System.Windows.Forms.Padding(5);
             this.BtnLimpiar.Name = "BtnLimpiar";
-            this.BtnLimpiar.Size = new System.Drawing.Size(56, 56);
+            this.BtnLimpiar.Size = new System.Drawing.Size(75, 69);
             this.BtnLimpiar.TabIndex = 18;
             // 
             // BtnActualizar
             // 
             this.BtnActualizar.BackColor = System.Drawing.Color.Transparent;
             this.BtnActualizar.DgvReportes = null;
-            this.BtnActualizar.Location = new System.Drawing.Point(228, 227);
+            this.BtnActualizar.Location = new System.Drawing.Point(304, 279);
+            this.BtnActualizar.Margin = new System.Windows.Forms.Padding(5);
             this.BtnActualizar.Name = "BtnActualizar";
-            this.BtnActualizar.Size = new System.Drawing.Size(56, 56);
+            this.BtnActualizar.Size = new System.Drawing.Size(75, 69);
             this.BtnActualizar.TabIndex = 19;
             // 
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.Transparent;
-            this.BtnEditar.Location = new System.Drawing.Point(299, 227);
+            this.BtnEditar.Location = new System.Drawing.Point(399, 279);
+            this.BtnEditar.Margin = new System.Windows.Forms.Padding(5);
             this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(56, 56);
+            this.BtnEditar.Size = new System.Drawing.Size(75, 69);
             this.BtnEditar.TabIndex = 20;
             this.BtnEditar.TxtNombreReporte = null;
             this.BtnEditar.TxtRutaReporte = null;
             // 
             // FrmReportes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
-            this.ClientSize = new System.Drawing.Size(874, 661);
+            this.ClientSize = new System.Drawing.Size(1163, 804);
             this.Controls.Add(this.BtnEditar);
             this.Controls.Add(this.BtnActualizar);
             this.Controls.Add(this.BtnLimpiar);
@@ -346,9 +367,10 @@ namespace CapaVista_Reporteador
             this.Controls.Add(this.ReporteadorPnlFiltroBuscarReporte);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(890, 700);
-            this.MinimumSize = new System.Drawing.Size(890, 700);
+            this.MaximumSize = new System.Drawing.Size(1181, 851);
+            this.MinimumSize = new System.Drawing.Size(1181, 851);
             this.Name = "FrmReportes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "3001 - ListaReportes";
