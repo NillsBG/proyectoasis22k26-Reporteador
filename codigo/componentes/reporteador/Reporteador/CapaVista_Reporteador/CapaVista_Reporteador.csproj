@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BtnImprimir\BtnImprimir\CapaVista_BtnImprimir\bin\Debug\CapaVista_BtnImprimir.dll</HintPath>
     </Reference>
+    <Reference Include="CapaVista_BtnLimpiar">
+      <HintPath>..\..\BtnLimpiar\Btn_Limpiar\CapaVista_BtnLimpiar\bin\Debug\CapaVista_BtnLimpiar.dll</HintPath>
+    </Reference>
     <Reference Include="CapaVista_BtnRuta, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BtnRuta\CapaVista_BtnRuta\bin\Debug\CapaVista_BtnRuta.dll</HintPath>
