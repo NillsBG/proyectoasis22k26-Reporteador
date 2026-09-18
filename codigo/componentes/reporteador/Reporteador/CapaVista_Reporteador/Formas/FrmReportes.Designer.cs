@@ -48,6 +48,9 @@
             this.ReporteadorPbLogo = new System.Windows.Forms.PictureBox();
             this.ReporteadorPbFooter = new System.Windows.Forms.PictureBox();
             this.ReporteadorPbBanner = new System.Windows.Forms.PictureBox();
+            this.BtnActualizar_Reporteador = new CapaVista_BtnActualizar.BtnActualizarReporteador();
+            this.BtnBusqueda_Reporteador = new CapaVista_BtnBusqueda_Reporteador.BtnBusquedaReporteador();
+            this.BtnLimpiarReporteador = new CapaVista_BtnLimpiar_Reporteador.BtnLimpiarReporteador();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorDgvReportes)).BeginInit();
             this.ReporteadorPnlFiltroBuscarReporte.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbLogo)).BeginInit();
@@ -60,10 +63,9 @@
             this.ReporteadorLblRutaReporte.AutoSize = true;
             this.ReporteadorLblRutaReporte.Font = new System.Drawing.Font("Tahoma", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorLblRutaReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorLblRutaReporte.Location = new System.Drawing.Point(37, 154);
-            this.ReporteadorLblRutaReporte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ReporteadorLblRutaReporte.Location = new System.Drawing.Point(28, 125);
             this.ReporteadorLblRutaReporte.Name = "ReporteadorLblRutaReporte";
-            this.ReporteadorLblRutaReporte.Size = new System.Drawing.Size(198, 27);
+            this.ReporteadorLblRutaReporte.Size = new System.Drawing.Size(151, 21);
             this.ReporteadorLblRutaReporte.TabIndex = 3;
             this.ReporteadorLblRutaReporte.Text = "Ruta del reporte: *";
             // 
@@ -72,10 +74,9 @@
             this.ReporteadorLblNombreReporte.AutoSize = true;
             this.ReporteadorLblNombreReporte.Font = new System.Drawing.Font("Tahoma", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorLblNombreReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorLblNombreReporte.Location = new System.Drawing.Point(37, 229);
-            this.ReporteadorLblNombreReporte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ReporteadorLblNombreReporte.Location = new System.Drawing.Point(28, 186);
             this.ReporteadorLblNombreReporte.Name = "ReporteadorLblNombreReporte";
-            this.ReporteadorLblNombreReporte.Size = new System.Drawing.Size(230, 27);
+            this.ReporteadorLblNombreReporte.Size = new System.Drawing.Size(174, 21);
             this.ReporteadorLblNombreReporte.TabIndex = 4;
             this.ReporteadorLblNombreReporte.Text = "Nombre del reporte: *";
             // 
@@ -84,10 +85,9 @@
             this.ReporteadorLblDatosBuscarReporte.AutoSize = true;
             this.ReporteadorLblDatosBuscarReporte.Font = new System.Drawing.Font("Tahoma", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorLblDatosBuscarReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorLblDatosBuscarReporte.Location = new System.Drawing.Point(37, 384);
-            this.ReporteadorLblDatosBuscarReporte.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ReporteadorLblDatosBuscarReporte.Location = new System.Drawing.Point(28, 312);
             this.ReporteadorLblDatosBuscarReporte.Name = "ReporteadorLblDatosBuscarReporte";
-            this.ReporteadorLblDatosBuscarReporte.Size = new System.Drawing.Size(276, 27);
+            this.ReporteadorLblDatosBuscarReporte.Size = new System.Drawing.Size(211, 21);
             this.ReporteadorLblDatosBuscarReporte.TabIndex = 5;
             this.ReporteadorLblDatosBuscarReporte.Text = "Datos para buscar reporte:";
             // 
@@ -95,20 +95,18 @@
             // 
             this.ReporteadorTxtRutaReporte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ReporteadorTxtRutaReporte.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReporteadorTxtRutaReporte.Location = new System.Drawing.Point(292, 139);
-            this.ReporteadorTxtRutaReporte.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorTxtRutaReporte.Location = new System.Drawing.Point(219, 113);
             this.ReporteadorTxtRutaReporte.Name = "ReporteadorTxtRutaReporte";
-            this.ReporteadorTxtRutaReporte.Size = new System.Drawing.Size(639, 39);
+            this.ReporteadorTxtRutaReporte.Size = new System.Drawing.Size(480, 33);
             this.ReporteadorTxtRutaReporte.TabIndex = 6;
             // 
             // ReporteadorTxtNombreReporte
             // 
             this.ReporteadorTxtNombreReporte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ReporteadorTxtNombreReporte.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReporteadorTxtNombreReporte.Location = new System.Drawing.Point(292, 214);
-            this.ReporteadorTxtNombreReporte.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorTxtNombreReporte.Location = new System.Drawing.Point(219, 174);
             this.ReporteadorTxtNombreReporte.Name = "ReporteadorTxtNombreReporte";
-            this.ReporteadorTxtNombreReporte.Size = new System.Drawing.Size(639, 39);
+            this.ReporteadorTxtNombreReporte.Size = new System.Drawing.Size(480, 33);
             this.ReporteadorTxtNombreReporte.TabIndex = 7;
             // 
             // ReporteadorDgvReportes
@@ -143,8 +141,7 @@
             this.ReporteadorDgvReportes.DefaultCellStyle = dataGridViewCellStyle3;
             this.ReporteadorDgvReportes.EnableHeadersVisualStyles = false;
             this.ReporteadorDgvReportes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(118)))), ((int)(((byte)(63)))));
-            this.ReporteadorDgvReportes.Location = new System.Drawing.Point(43, 537);
-            this.ReporteadorDgvReportes.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorDgvReportes.Location = new System.Drawing.Point(32, 436);
             this.ReporteadorDgvReportes.Name = "ReporteadorDgvReportes";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
@@ -159,7 +156,7 @@
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
             this.ReporteadorDgvReportes.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.ReporteadorDgvReportes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ReporteadorDgvReportes.Size = new System.Drawing.Size(872, 177);
+            this.ReporteadorDgvReportes.Size = new System.Drawing.Size(654, 144);
             this.ReporteadorDgvReportes.TabIndex = 8;
             // 
             // ReporteadorPnlFiltroBuscarReporte
@@ -168,10 +165,9 @@
             this.ReporteadorPnlFiltroBuscarReporte.Controls.Add(this.ReporteadorChkFechaReporte);
             this.ReporteadorPnlFiltroBuscarReporte.Controls.Add(this.ReporteadorTxtNombreReporte2);
             this.ReporteadorPnlFiltroBuscarReporte.Controls.Add(this.ReporteadorDtpFechaReporte);
-            this.ReporteadorPnlFiltroBuscarReporte.Location = new System.Drawing.Point(43, 421);
-            this.ReporteadorPnlFiltroBuscarReporte.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorPnlFiltroBuscarReporte.Location = new System.Drawing.Point(32, 342);
             this.ReporteadorPnlFiltroBuscarReporte.Name = "ReporteadorPnlFiltroBuscarReporte";
-            this.ReporteadorPnlFiltroBuscarReporte.Size = new System.Drawing.Size(616, 108);
+            this.ReporteadorPnlFiltroBuscarReporte.Size = new System.Drawing.Size(462, 88);
             this.ReporteadorPnlFiltroBuscarReporte.TabIndex = 13;
             // 
             // ReporteadorChkNombreReporte
@@ -179,10 +175,9 @@
             this.ReporteadorChkNombreReporte.AutoSize = true;
             this.ReporteadorChkNombreReporte.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorChkNombreReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorChkNombreReporte.Location = new System.Drawing.Point(27, 12);
-            this.ReporteadorChkNombreReporte.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorChkNombreReporte.Location = new System.Drawing.Point(20, 10);
             this.ReporteadorChkNombreReporte.Name = "ReporteadorChkNombreReporte";
-            this.ReporteadorChkNombreReporte.Size = new System.Drawing.Size(231, 34);
+            this.ReporteadorChkNombreReporte.Size = new System.Drawing.Size(181, 27);
             this.ReporteadorChkNombreReporte.TabIndex = 9;
             this.ReporteadorChkNombreReporte.Text = "Nombre del reporte";
             this.ReporteadorChkNombreReporte.UseVisualStyleBackColor = true;
@@ -192,10 +187,9 @@
             this.ReporteadorChkFechaReporte.AutoSize = true;
             this.ReporteadorChkFechaReporte.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReporteadorChkFechaReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(87)))), ((int)(((byte)(91)))));
-            this.ReporteadorChkFechaReporte.Location = new System.Drawing.Point(361, 12);
-            this.ReporteadorChkFechaReporte.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorChkFechaReporte.Location = new System.Drawing.Point(271, 10);
             this.ReporteadorChkFechaReporte.Name = "ReporteadorChkFechaReporte";
-            this.ReporteadorChkFechaReporte.Size = new System.Drawing.Size(206, 34);
+            this.ReporteadorChkFechaReporte.Size = new System.Drawing.Size(162, 27);
             this.ReporteadorChkFechaReporte.TabIndex = 10;
             this.ReporteadorChkFechaReporte.Text = "Fecha del reporte";
             this.ReporteadorChkFechaReporte.UseVisualStyleBackColor = true;
@@ -204,10 +198,9 @@
             // 
             this.ReporteadorTxtNombreReporte2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ReporteadorTxtNombreReporte2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReporteadorTxtNombreReporte2.Location = new System.Drawing.Point(27, 53);
-            this.ReporteadorTxtNombreReporte2.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorTxtNombreReporte2.Location = new System.Drawing.Point(20, 43);
             this.ReporteadorTxtNombreReporte2.Name = "ReporteadorTxtNombreReporte2";
-            this.ReporteadorTxtNombreReporte2.Size = new System.Drawing.Size(285, 39);
+            this.ReporteadorTxtNombreReporte2.Size = new System.Drawing.Size(214, 33);
             this.ReporteadorTxtNombreReporte2.TabIndex = 11;
             // 
             // ReporteadorDtpFechaReporte
@@ -218,54 +211,86 @@
             this.ReporteadorDtpFechaReporte.CalendarTrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(118)))), ((int)(((byte)(63)))));
             this.ReporteadorDtpFechaReporte.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.ReporteadorDtpFechaReporte.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.ReporteadorDtpFechaReporte.Location = new System.Drawing.Point(361, 52);
-            this.ReporteadorDtpFechaReporte.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorDtpFechaReporte.Location = new System.Drawing.Point(271, 42);
             this.ReporteadorDtpFechaReporte.MaxDate = new System.DateTime(2026, 12, 31, 0, 0, 0, 0);
             this.ReporteadorDtpFechaReporte.MinDate = new System.DateTime(2025, 1, 1, 0, 0, 0, 0);
             this.ReporteadorDtpFechaReporte.Name = "ReporteadorDtpFechaReporte";
-            this.ReporteadorDtpFechaReporte.Size = new System.Drawing.Size(215, 36);
+            this.ReporteadorDtpFechaReporte.Size = new System.Drawing.Size(162, 31);
             this.ReporteadorDtpFechaReporte.TabIndex = 12;
             // 
             // ReporteadorPbLogo
             // 
             this.ReporteadorPbLogo.Image = global::CapaVista_Reporteador.Properties.Resources.img_mascota;
-            this.ReporteadorPbLogo.Location = new System.Drawing.Point(889, 319);
-            this.ReporteadorPbLogo.Margin = new System.Windows.Forms.Padding(4);
+            this.ReporteadorPbLogo.Location = new System.Drawing.Point(667, 259);
             this.ReporteadorPbLogo.Name = "ReporteadorPbLogo";
-            this.ReporteadorPbLogo.Size = new System.Drawing.Size(260, 258);
+            this.ReporteadorPbLogo.Size = new System.Drawing.Size(195, 210);
             this.ReporteadorPbLogo.TabIndex = 2;
             this.ReporteadorPbLogo.TabStop = false;
             // 
             // ReporteadorPbFooter
             // 
             this.ReporteadorPbFooter.Image = global::CapaVista_Reporteador.Properties.Resources.Footer_reporteador;
-            this.ReporteadorPbFooter.Location = new System.Drawing.Point(-8, 718);
-            this.ReporteadorPbFooter.Margin = new System.Windows.Forms.Padding(4);
-            this.ReporteadorPbFooter.MaximumSize = new System.Drawing.Size(1187, 135);
-            this.ReporteadorPbFooter.MinimumSize = new System.Drawing.Size(1187, 135);
+            this.ReporteadorPbFooter.Location = new System.Drawing.Point(-6, 583);
+            this.ReporteadorPbFooter.MaximumSize = new System.Drawing.Size(890, 110);
+            this.ReporteadorPbFooter.MinimumSize = new System.Drawing.Size(890, 110);
             this.ReporteadorPbFooter.Name = "ReporteadorPbFooter";
-            this.ReporteadorPbFooter.Size = new System.Drawing.Size(1187, 135);
+            this.ReporteadorPbFooter.Size = new System.Drawing.Size(890, 110);
             this.ReporteadorPbFooter.TabIndex = 1;
             this.ReporteadorPbFooter.TabStop = false;
             // 
             // ReporteadorPbBanner
             // 
             this.ReporteadorPbBanner.Image = global::CapaVista_Reporteador.Properties.Resources.banner_Reporteador;
-            this.ReporteadorPbBanner.Location = new System.Drawing.Point(-8, -4);
-            this.ReporteadorPbBanner.Margin = new System.Windows.Forms.Padding(4);
-            this.ReporteadorPbBanner.MaximumSize = new System.Drawing.Size(1187, 135);
-            this.ReporteadorPbBanner.MinimumSize = new System.Drawing.Size(1187, 135);
+            this.ReporteadorPbBanner.Location = new System.Drawing.Point(-6, -3);
+            this.ReporteadorPbBanner.MaximumSize = new System.Drawing.Size(890, 110);
+            this.ReporteadorPbBanner.MinimumSize = new System.Drawing.Size(890, 110);
             this.ReporteadorPbBanner.Name = "ReporteadorPbBanner";
-            this.ReporteadorPbBanner.Size = new System.Drawing.Size(1187, 135);
+            this.ReporteadorPbBanner.Size = new System.Drawing.Size(890, 110);
             this.ReporteadorPbBanner.TabIndex = 0;
             this.ReporteadorPbBanner.TabStop = false;
             // 
+            // BtnActualizar_Reporteador
+            // 
+            this.BtnActualizar_Reporteador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
+            this.BtnActualizar_Reporteador.DgvReportes = null;
+            this.BtnActualizar_Reporteador.Location = new System.Drawing.Point(32, 243);
+            this.BtnActualizar_Reporteador.Name = "BtnActualizar_Reporteador";
+            this.BtnActualizar_Reporteador.Size = new System.Drawing.Size(56, 56);
+            this.BtnActualizar_Reporteador.TabIndex = 14;
+            // 
+            // BtnBusqueda_Reporteador
+            // 
+            this.BtnBusqueda_Reporteador.BackColor = System.Drawing.Color.Transparent;
+            this.BtnBusqueda_Reporteador.ChkFechaReporte = null;
+            this.BtnBusqueda_Reporteador.ChkNombreReporte = null;
+            this.BtnBusqueda_Reporteador.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnBusqueda_Reporteador.DgvReportes = null;
+            this.BtnBusqueda_Reporteador.DtpFechaReporte = null;
+            this.BtnBusqueda_Reporteador.ForeColor = System.Drawing.Color.Transparent;
+            this.BtnBusqueda_Reporteador.Location = new System.Drawing.Point(517, 352);
+            this.BtnBusqueda_Reporteador.Margin = new System.Windows.Forms.Padding(0);
+            this.BtnBusqueda_Reporteador.Name = "BtnBusqueda_Reporteador";
+            this.BtnBusqueda_Reporteador.Size = new System.Drawing.Size(56, 56);
+            this.BtnBusqueda_Reporteador.TabIndex = 16;
+            this.BtnBusqueda_Reporteador.TxtNombreReporte = null;
+            // 
+            // BtnLimpiarReporteador
+            // 
+            this.BtnLimpiarReporteador.BackColor = System.Drawing.Color.Transparent;
+            this.BtnLimpiarReporteador.Location = new System.Drawing.Point(183, 243);
+            this.BtnLimpiarReporteador.Name = "BtnLimpiarReporteador";
+            this.BtnLimpiarReporteador.Size = new System.Drawing.Size(56, 56);
+            this.BtnLimpiarReporteador.TabIndex = 17;
+            // 
             // FrmReportes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
-            this.ClientSize = new System.Drawing.Size(1163, 844);
+            this.ClientSize = new System.Drawing.Size(874, 609);
+            this.Controls.Add(this.BtnLimpiarReporteador);
+            this.Controls.Add(this.BtnBusqueda_Reporteador);
+            this.Controls.Add(this.BtnActualizar_Reporteador);
             this.Controls.Add(this.ReporteadorDgvReportes);
             this.Controls.Add(this.ReporteadorTxtNombreReporte);
             this.Controls.Add(this.ReporteadorTxtRutaReporte);
@@ -278,10 +303,9 @@
             this.Controls.Add(this.ReporteadorPnlFiltroBuscarReporte);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1181, 912);
-            this.MinimumSize = new System.Drawing.Size(1181, 873);
+            this.MaximumSize = new System.Drawing.Size(890, 748);
+            this.MinimumSize = new System.Drawing.Size(890, 591);
             this.Name = "FrmReportes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "3001 - ListaReportes";
@@ -312,5 +336,8 @@
         private System.Windows.Forms.TextBox ReporteadorTxtNombreReporte2;
         private System.Windows.Forms.DateTimePicker ReporteadorDtpFechaReporte;
         private System.Windows.Forms.Panel ReporteadorPnlFiltroBuscarReporte;
+        private CapaVista_BtnActualizar.BtnActualizarReporteador BtnActualizar_Reporteador;
+        private CapaVista_BtnBusqueda_Reporteador.BtnBusquedaReporteador BtnBusqueda_Reporteador;
+        private CapaVista_BtnLimpiar_Reporteador.BtnLimpiarReporteador BtnLimpiarReporteador;
     }
 }

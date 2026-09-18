@@ -1,5 +1,4 @@
 ﻿using CapaControlador_Reporteador;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +44,50 @@ namespace CapaVista_Reporteador
 
 
             // =====================================================
+            // BTN BUSQUEDA (CONFIGURACIÓN)
+            // =====================================================
+
+            if (BtnBusqueda_Reporteador != null)
+            {
+                BtnBusqueda_Reporteador.TxtNombreReporte =
+                    ReporteadorTxtNombreReporte2;
+
+                BtnBusqueda_Reporteador.DtpFechaReporte =
+                    ReporteadorDtpFechaReporte;
+
+                BtnBusqueda_Reporteador.ChkNombreReporte =
+                    ReporteadorChkNombreReporte;
+
+                BtnBusqueda_Reporteador.ChkFechaReporte =
+                    ReporteadorChkFechaReporte;
+
+                BtnBusqueda_Reporteador.DgvReportes =
+                    ReporteadorDgvReportes;
+            }
+
+
+            // =====================================================
+            // BTN ACTUALIZAR
+            // =====================================================
+
+            if (BtnActualizar_Reporteador != null)
+            {
+                BtnActualizar_Reporteador.DgvReportes =
+                    ReporteadorDgvReportes;
+            }
+
+
+            // =====================================================
+            // BTN LIMPIAR (VINCULACIÓN CON EL DESIGNER)
+            // =====================================================
+
+            if (BtnLimpiarReporteador != null)
+            {
+                BtnLimpiarReporteador.Click += BtnLimpiar_Click;
+            }
+
+
+            // =====================================================
             // CARGAR FORMULARIO
             // =====================================================
 
@@ -62,9 +105,6 @@ namespace CapaVista_Reporteador
         {
             try
             {
-                
-
-
                 // =================================================
                 // CARGAR TABLA
                 // =================================================
@@ -317,6 +357,21 @@ namespace CapaVista_Reporteador
 
 
                 // =================================================
+                // DESMARCAR CHECKBOXES
+                // =================================================
+
+                if (ReporteadorChkNombreReporte != null)
+                {
+                    ReporteadorChkNombreReporte.Checked = false;
+                }
+
+                if (ReporteadorChkFechaReporte != null)
+                {
+                    ReporteadorChkFechaReporte.Checked = false;
+                }
+
+
+                // =================================================
                 // CANCELAR MODO EDICIÓN
                 // =================================================
 
@@ -338,6 +393,13 @@ namespace CapaVista_Reporteador
                 // =================================================
 
                 PrepararNuevoRegistro();
+
+
+                // =================================================
+                // RECARGAR TABLA COMPLETA
+                // =================================================
+
+                CargarTabla();
 
 
                 // =================================================
@@ -452,10 +514,6 @@ namespace CapaVista_Reporteador
 
                 if (modoEdicion)
                 {
-                    // ---------------------------------------------
-                    // ACTUALIZAR
-                    // ---------------------------------------------
-
                     modeloReporteador.Estado =
                         ClsEstadoEntidad.Modified;
 
@@ -464,10 +522,6 @@ namespace CapaVista_Reporteador
                 }
                 else
                 {
-                    // ---------------------------------------------
-                    // NUEVO REGISTRO
-                    // ---------------------------------------------
-
                     modeloReporteador.Estado =
                         ClsEstadoEntidad.Added;
 
@@ -478,24 +532,14 @@ namespace CapaVista_Reporteador
 
 
                 // =================================================
-                // ASIGNAR NOMBRE
+                // ASIGNAR PROPIEDADES
                 // =================================================
 
                 modeloReporteador.NombreReporte =
                     nombre;
 
-
-                // =================================================
-                // ASIGNAR RUTA
-                // =================================================
-
                 modeloReporteador.RutaReporte =
                     ruta;
-
-
-                // =================================================
-                // ASIGNAR FECHA
-                // =================================================
 
                 if (ReporteadorDtpFechaReporte != null)
                 {
@@ -527,11 +571,6 @@ namespace CapaVista_Reporteador
                     bool fueEdicion =
                         modoEdicion;
 
-
-                    // =================================================
-                    // MOSTRAR MENSAJE
-                    // =================================================
-
                     if (fueEdicion)
                     {
                         MostrarExito(
@@ -545,41 +584,16 @@ namespace CapaVista_Reporteador
                         );
                     }
 
-
-                    // =================================================
-                    // SALIR DE EDICIÓN
-                    // =================================================
-
                     modoEdicion = false;
 
                     numeroReporteEdicion = 0;
 
-
-                    // =================================================
-                    // LIMPIAR
-                    // =================================================
-
                     LimpiarFormulario();
-
-
-                    // =================================================
-                    // CREAR NUEVO MODELO
-                    // =================================================
 
                     modeloReporteador =
                         new ClsModeloReporteador();
 
-
-                    // =================================================
-                    // PREPARAR NUEVO REGISTRO
-                    // =================================================
-
                     PrepararNuevoRegistro();
-
-
-                    // =================================================
-                    // ACTUALIZAR DATAGRIDVIEW
-                    // =================================================
 
                     CargarTabla();
 
@@ -587,11 +601,6 @@ namespace CapaVista_Reporteador
 
                     return;
                 }
-
-
-                // =================================================
-                // ERROR
-                // =================================================
 
                 MostrarError(
                     "No se pudo guardar el reporte.\n\n" +
@@ -616,34 +625,15 @@ namespace CapaVista_Reporteador
         {
             try
             {
-                // =================================================
-                // ESTADO
-                // =================================================
-
                 modeloReporteador.Estado =
                     ClsEstadoEntidad.Added;
-
-
-                // =================================================
-                // GENERAR NUMERO
-                // =================================================
 
                 modeloReporteador.NumeroReporte =
                     modeloReporteador
                     .GenerarSiguienteNumeroReporte(30);
 
-
-                // =================================================
-                // FECHA
-                // =================================================
-
                 modeloReporteador.FechaReporte =
                     DateTime.Now.Date;
-
-
-                // =================================================
-                // DATE TIME PICKER
-                // =================================================
 
                 if (ReporteadorDtpFechaReporte != null)
                 {
@@ -669,28 +659,14 @@ namespace CapaVista_Reporteador
         {
             try
             {
-                // =================================================
-                // ASEGURAR MODELO
-                // =================================================
-
                 if (modeloReporteador == null)
                 {
                     modeloReporteador =
                         new ClsModeloReporteador();
                 }
 
-
-                // =================================================
-                // OBTENER DATOS
-                // =================================================
-
                 var lista =
                     modeloReporteador.GetAll();
-
-
-                // =================================================
-                // LIMPIAR DATAGRIDVIEW
-                // =================================================
 
                 ReporteadorDgvReportes.DataSource =
                     null;
@@ -702,115 +678,48 @@ namespace CapaVista_Reporteador
 
 
                 // =================================================
-                // NUMERO REPORTE
+                // COLUMNAS
                 // =================================================
 
                 DataGridViewTextBoxColumn colNumero =
                     new DataGridViewTextBoxColumn();
+                colNumero.Name = "NumeroReporte";
+                colNumero.HeaderText = "NumeroReporte";
+                colNumero.DataPropertyName = "NumeroReporte";
+                colNumero.Width = 100;
+                ReporteadorDgvReportes.Columns.Add(colNumero);
 
-                colNumero.Name =
-                    "NumeroReporte";
-
-                colNumero.HeaderText =
-                    "NumeroReporte";
-
-                colNumero.DataPropertyName =
-                    "NumeroReporte";
-
-                colNumero.Width =
-                    100;
-
-                ReporteadorDgvReportes.Columns.Add(
-                    colNumero
-                );
-
-
-                // =================================================
-                // NOMBRE REPORTE
-                // =================================================
 
                 DataGridViewTextBoxColumn colNombre =
                     new DataGridViewTextBoxColumn();
+                colNombre.Name = "NombreReporte";
+                colNombre.HeaderText = "NombreReporte";
+                colNombre.DataPropertyName = "NombreReporte";
+                colNombre.Width = 180;
+                ReporteadorDgvReportes.Columns.Add(colNombre);
 
-                colNombre.Name =
-                    "NombreReporte";
-
-                colNombre.HeaderText =
-                    "NombreReporte";
-
-                colNombre.DataPropertyName =
-                    "NombreReporte";
-
-                colNombre.Width =
-                    180;
-
-                ReporteadorDgvReportes.Columns.Add(
-                    colNombre
-                );
-
-
-                // =================================================
-                // RUTA REPORTE
-                // =================================================
 
                 DataGridViewTextBoxColumn colRuta =
                     new DataGridViewTextBoxColumn();
+                colRuta.Name = "RutaReporte";
+                colRuta.HeaderText = "RutaReporte";
+                colRuta.DataPropertyName = "RutaReporte";
+                colRuta.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                ReporteadorDgvReportes.Columns.Add(colRuta);
 
-                colRuta.Name =
-                    "RutaReporte";
-
-                colRuta.HeaderText =
-                    "RutaReporte";
-
-                colRuta.DataPropertyName =
-                    "RutaReporte";
-
-                colRuta.AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
-
-                ReporteadorDgvReportes.Columns.Add(
-                    colRuta
-                );
-
-
-                // =================================================
-                // FECHA REPORTE
-                // =================================================
 
                 DataGridViewTextBoxColumn colFecha =
                     new DataGridViewTextBoxColumn();
+                colFecha.Name = "FechaReporte";
+                colFecha.HeaderText = "FechaReporte";
+                colFecha.DataPropertyName = "FechaReporte";
+                colFecha.Width = 100;
+                colFecha.DefaultCellStyle.Format = "dd/MM/yyyy";
+                ReporteadorDgvReportes.Columns.Add(colFecha);
 
-                colFecha.Name =
-                    "FechaReporte";
-
-                colFecha.HeaderText =
-                    "FechaReporte";
-
-                colFecha.DataPropertyName =
-                    "FechaReporte";
-
-                colFecha.Width =
-                    100;
-
-                colFecha.DefaultCellStyle.Format =
-                    "dd/MM/yyyy";
-
-                ReporteadorDgvReportes.Columns.Add(
-                    colFecha
-                );
-
-
-                // =================================================
-                // CARGAR DATOS
-                // =================================================
 
                 ReporteadorDgvReportes.DataSource =
                     lista;
-
-
-                // =================================================
-                // REFRESCAR
-                // =================================================
 
                 ReporteadorDgvReportes.Refresh();
             }
@@ -825,7 +734,7 @@ namespace CapaVista_Reporteador
 
 
         // =========================================================
-        // SELECCIÓN DEL REPORTE PARA IMPRIMIR
+        // SELECCIÓN DEL REPORTE
         // =========================================================
 
         private void ReporteadorDgvReportes_SelectionChanged(
@@ -836,7 +745,7 @@ namespace CapaVista_Reporteador
 
 
         // =========================================================
-        // LIMPIAR FORMULARIO
+        // LIMPIAR FORMULARIO (MÉTODO INTERNO)
         // =========================================================
 
         private void LimpiarFormulario()
@@ -847,13 +756,21 @@ namespace CapaVista_Reporteador
 
             ReporteadorTxtNombreReporte2.Clear();
 
-
             if (ReporteadorDtpFechaReporte != null)
             {
                 ReporteadorDtpFechaReporte.Value =
                     DateTime.Now;
             }
 
+            if (ReporteadorChkNombreReporte != null)
+            {
+                ReporteadorChkNombreReporte.Checked = false;
+            }
+
+            if (ReporteadorChkFechaReporte != null)
+            {
+                ReporteadorChkFechaReporte.Checked = false;
+            }
 
             ReporteadorTxtNombreReporte.Focus();
         }
@@ -867,183 +784,53 @@ namespace CapaVista_Reporteador
         {
             using (Form frmExito = new Form())
             {
-                // =================================================
-                // CONFIGURACIÓN
-                // =================================================
+                frmExito.Text = "Operación exitosa";
+                frmExito.StartPosition = FormStartPosition.CenterParent;
+                frmExito.FormBorderStyle = FormBorderStyle.FixedDialog;
+                frmExito.MaximizeBox = false;
+                frmExito.MinimizeBox = false;
+                frmExito.ShowInTaskbar = false;
+                frmExito.ClientSize = new System.Drawing.Size(430, 180);
 
-                frmExito.Text =
-                    "Operación exitosa";
-
-                frmExito.StartPosition =
-                    FormStartPosition.CenterParent;
-
-                frmExito.FormBorderStyle =
-                    FormBorderStyle.FixedDialog;
-
-                frmExito.MaximizeBox =
-                    false;
-
-                frmExito.MinimizeBox =
-                    false;
-
-                frmExito.ShowInTaskbar =
-                    false;
-
-                frmExito.ClientSize =
-                    new System.Drawing.Size(
-                        430,
-                        180
-                    );
-
-
-                // =================================================
-                // CÍRCULO VERDE
-                // =================================================
-
-                Panel circulo =
-                    new Panel();
-
-                circulo.Size =
-                    new System.Drawing.Size(
-                        52,
-                        52
-                    );
-
-                circulo.Location =
-                    new System.Drawing.Point(
-                        25,
-                        45
-                    );
-
-                circulo.BackColor =
-                    System.Drawing.Color.ForestGreen;
-
+                Panel circulo = new Panel();
+                circulo.Size = new System.Drawing.Size(52, 52);
+                circulo.Location = new System.Drawing.Point(25, 45);
+                circulo.BackColor = System.Drawing.Color.ForestGreen;
 
                 circulo.Paint += (sender, e) =>
                 {
-                    using (
-                        System.Drawing.SolidBrush pincel =
-                        new System.Drawing.SolidBrush(
-                            System.Drawing.Color.White))
+                    using (System.Drawing.SolidBrush pincel = new System.Drawing.SolidBrush(System.Drawing.Color.White))
                     {
-                        e.Graphics.FillEllipse(
-                            pincel,
-                            14,
-                            14,
-                            24,
-                            24
-                        );
+                        e.Graphics.FillEllipse(pincel, 14, 14, 24, 24);
                     }
 
-
-                    using (
-                        System.Drawing.Pen lapiz =
-                        new System.Drawing.Pen(
-                            System.Drawing.Color.ForestGreen,
-                            3))
+                    using (System.Drawing.Pen lapiz = new System.Drawing.Pen(System.Drawing.Color.ForestGreen, 3))
                     {
-                        e.Graphics.DrawLine(
-                            lapiz,
-                            19,
-                            26,
-                            24,
-                            31
-                        );
-
-                        e.Graphics.DrawLine(
-                            lapiz,
-                            24,
-                            31,
-                            35,
-                            20
-                        );
+                        e.Graphics.DrawLine(lapiz, 19, 26, 24, 31);
+                        e.Graphics.DrawLine(lapiz, 24, 31, 35, 20);
                     }
                 };
 
+                frmExito.Controls.Add(circulo);
 
-                frmExito.Controls.Add(
-                    circulo
-                );
+                Label lblMensaje = new Label();
+                lblMensaje.AutoSize = false;
+                lblMensaje.Location = new System.Drawing.Point(95, 40);
+                lblMensaje.Size = new System.Drawing.Size(300, 55);
+                lblMensaje.Text = mensaje;
+                lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 
+                frmExito.Controls.Add(lblMensaje);
 
-                // =================================================
-                // MENSAJE
-                // =================================================
+                Button btnAceptar = new Button();
+                btnAceptar.Text = "Aceptar";
+                btnAceptar.Size = new System.Drawing.Size(90, 32);
+                btnAceptar.Location = new System.Drawing.Point(320, 120);
+                btnAceptar.DialogResult = DialogResult.OK;
 
-                Label lblMensaje =
-                    new Label();
-
-                lblMensaje.AutoSize =
-                    false;
-
-                lblMensaje.Location =
-                    new System.Drawing.Point(
-                        95,
-                        40
-                    );
-
-                lblMensaje.Size =
-                    new System.Drawing.Size(
-                        300,
-                        55
-                    );
-
-                lblMensaje.Text =
-                    mensaje;
-
-                lblMensaje.Font =
-                    new System.Drawing.Font(
-                        "Microsoft Sans Serif",
-                        10F
-                    );
-
-                lblMensaje.TextAlign =
-                    System.Drawing.ContentAlignment.MiddleLeft;
-
-
-                frmExito.Controls.Add(
-                    lblMensaje
-                );
-
-
-                // =================================================
-                // BOTÓN ACEPTAR
-                // =================================================
-
-                Button btnAceptar =
-                    new Button();
-
-                btnAceptar.Text =
-                    "Aceptar";
-
-                btnAceptar.Size =
-                    new System.Drawing.Size(
-                        90,
-                        32
-                    );
-
-                btnAceptar.Location =
-                    new System.Drawing.Point(
-                        320,
-                        120
-                    );
-
-                btnAceptar.DialogResult =
-                    DialogResult.OK;
-
-
-                frmExito.Controls.Add(
-                    btnAceptar
-                );
-
-
-                frmExito.AcceptButton =
-                    btnAceptar;
-
-
-                // =================================================
-                // MOSTRAR
-                // =================================================
+                frmExito.Controls.Add(btnAceptar);
+                frmExito.AcceptButton = btnAceptar;
 
                 frmExito.ShowDialog(this);
             }
@@ -1069,8 +856,7 @@ namespace CapaVista_Reporteador
         // CONFIRMACIÓN
         // =========================================================
 
-        private bool MostrarConfirmacion(
-            string mensaje)
+        private bool MostrarConfirmacion(string mensaje)
         {
             DialogResult resultado =
                 MessageBox.Show(
@@ -1080,8 +866,7 @@ namespace CapaVista_Reporteador
                     MessageBoxIcon.Warning
                 );
 
-            return resultado ==
-                   DialogResult.Yes;
+            return resultado == DialogResult.Yes;
         }
     }
 }

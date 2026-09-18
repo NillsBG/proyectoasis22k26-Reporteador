@@ -29,22 +29,22 @@
             this.ReporteadorBtnAccionLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ReporteadorBtnAccionLimpiar.Image = global::CapaVista_BtnLimpiar_Reporteador.Properties.Resources.btn_limpiarReporte;
             this.ReporteadorBtnAccionLimpiar.Location = new System.Drawing.Point(0, 0);
-            this.ReporteadorBtnAccionLimpiar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ReporteadorBtnAccionLimpiar.Name = "ReporteadorBtnAccionLimpiar";
-            this.ReporteadorBtnAccionLimpiar.Size = new System.Drawing.Size(75, 69);
+            this.ReporteadorBtnAccionLimpiar.Size = new System.Drawing.Size(56, 56);
             this.ReporteadorBtnAccionLimpiar.TabIndex = 0;
             this.ReporteadorBtnAccionLimpiar.UseVisualStyleBackColor = false;
             this.ReporteadorBtnAccionLimpiar.Click += new System.EventHandler(this.ReporteadorMetLimpiarClick);
             // 
-            // BtnLimpiar
+            // BtnLimpiarReporteador
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.ReporteadorBtnAccionLimpiar);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "BtnLimpiar";
-            this.Size = new System.Drawing.Size(75, 69);
+            this.Name = "BtnLimpiarReporteador";
+            this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
+
         }
 
 
