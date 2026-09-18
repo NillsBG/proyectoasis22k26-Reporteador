@@ -40,7 +40,6 @@ namespace CapaVista_Reporteador
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmReportes));
             this.ReporteadorPbLogo = new System.Windows.Forms.PictureBox();
             this.ReporteadorPbFooter = new System.Windows.Forms.PictureBox();
             this.ReporteadorPbBanner = new System.Windows.Forms.PictureBox();
