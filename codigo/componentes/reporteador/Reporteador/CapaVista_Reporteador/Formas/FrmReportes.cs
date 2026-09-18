@@ -36,8 +36,6 @@ namespace CapaVista_Reporteador
                 new ClsModeloReporteador();
 
 
-
-
             // =====================================================
             // SELECTION CHANGED
             // =====================================================
