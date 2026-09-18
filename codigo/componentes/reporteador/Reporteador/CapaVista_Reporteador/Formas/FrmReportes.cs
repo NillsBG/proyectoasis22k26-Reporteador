@@ -1,5 +1,5 @@
 ﻿using CapaControlador_Reporteador;
-using CapaVista_BtnGuardar;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,100 +36,6 @@ namespace CapaVista_Reporteador
                 new ClsModeloReporteador();
 
 
-            // =====================================================
-            // BTN RUTA
-            // =====================================================
-
-            if (BtnRuta != null)
-            {
-                BtnRuta.CampoTextoRuta =
-                    ReporteadorTxtRutaReporte;
-                ReporteadorTxtRutaReporte.ReadOnly = true;
-            }
-
-
-            // =====================================================
-            // BTN GUARDAR
-            // =====================================================
-
-            if (BtnGuardar != null)
-            {
-                BtnGuardar.TxtNombreReporte =
-                    ReporteadorTxtNombreReporte;
-
-                BtnGuardar.TxtRutaReporte =
-                    ReporteadorTxtRutaReporte;
-
-                BtnGuardar.Click +=
-                    BtnGuardar1_Click;
-            }
-
-
-            // =====================================================
-            // BTN BUSQUEDA
-            // =====================================================
-
-            if (btnBusqueda1 != null)
-            {
-                btnBusqueda1.TxtNombreReporte =
-                    ReporteadorTxtNombreReporte2;
-
-                btnBusqueda1.DtpFechaReporte =
-                    ReporteadorDtpFechaReporte;
-
-                btnBusqueda1.ChkNombreReporte =
-                    ReporteadorChkNombreReporte;
-
-                btnBusqueda1.ChkFechaReporte =
-                    ReporteadorChkFechaReporte;
-
-                btnBusqueda1.DgvReportes =
-                    ReporteadorDgvReportes;
-            }
-
-
-            // =====================================================
-            // BTN ACTUALIZAR
-            // =====================================================
-
-            if (BtnActualizar != null)
-            {
-                BtnActualizar.DgvReportes =
-                    ReporteadorDgvReportes;
-            }
-
-
-            // =====================================================
-            // BTN IMPRIMIR
-            // =====================================================
-
-            if (BtnImprimir != null)
-            {
-                BtnImprimir.RutaReporte =
-                    null;
-            }
-
-
-            // =====================================================
-            // BTN EDITAR
-            // =====================================================
-
-            if (BtnEditar != null)
-            {
-                BtnEditar.Click +=
-                    BtnEditar_Click;
-            }
-
-
-            // =====================================================
-            // BTN LIMPIAR
-            // =====================================================
-
-            if (BtnLimpiar != null)
-            {
-                BtnLimpiar.Click +=
-                    BtnLimpiar_Click;
-            }
 
 
             // =====================================================
@@ -158,63 +64,7 @@ namespace CapaVista_Reporteador
         {
             try
             {
-                // =================================================
-                // BTN RUTA
-                // =================================================
-
-                if (BtnRuta != null)
-                {
-                    BtnRuta.CampoTextoRuta =
-                        ReporteadorTxtRutaReporte;
-                }
-
-
-                // =================================================
-                // BTN GUARDAR
-                // =================================================
-
-                if (BtnGuardar != null)
-                {
-                    BtnGuardar.TxtNombreReporte =
-                        ReporteadorTxtNombreReporte;
-
-                    BtnGuardar.TxtRutaReporte =
-                        ReporteadorTxtRutaReporte;
-                }
-
-
-                // =================================================
-                // BTN BUSQUEDA
-                // =================================================
-
-                if (btnBusqueda1 != null)
-                {
-                    btnBusqueda1.TxtNombreReporte =
-                        ReporteadorTxtNombreReporte2;
-
-                    btnBusqueda1.DtpFechaReporte =
-                        ReporteadorDtpFechaReporte;
-
-                    btnBusqueda1.ChkNombreReporte =
-                        ReporteadorChkNombreReporte;
-
-                    btnBusqueda1.ChkFechaReporte =
-                        ReporteadorChkFechaReporte;
-
-                    btnBusqueda1.DgvReportes =
-                        ReporteadorDgvReportes;
-                }
-
-
-                // =================================================
-                // BTN ACTUALIZAR
-                // =================================================
-
-                if (BtnActualizar != null)
-                {
-                    BtnActualizar.DgvReportes =
-                        ReporteadorDgvReportes;
-                }
+                
 
 
                 // =================================================
@@ -984,48 +834,6 @@ namespace CapaVista_Reporteador
             object sender,
             EventArgs e)
         {
-            try
-            {
-                if (BtnImprimir == null)
-                {
-                    return;
-                }
-
-
-                if (ReporteadorDgvReportes.CurrentRow == null)
-                {
-                    BtnImprimir.RutaReporte =
-                        null;
-
-                    return;
-                }
-
-
-                object valorRuta =
-                    ReporteadorDgvReportes
-                    .CurrentRow
-                    .Cells["RutaReporte"]
-                    .Value;
-
-
-                if (valorRuta == null ||
-                    valorRuta == DBNull.Value)
-                {
-                    BtnImprimir.RutaReporte =
-                        null;
-
-                    return;
-                }
-
-
-                BtnImprimir.RutaReporte =
-                    valorRuta.ToString();
-            }
-            catch
-            {
-                BtnImprimir.RutaReporte =
-                    null;
-            }
         }
 
 
