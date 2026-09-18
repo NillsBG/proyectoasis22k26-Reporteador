@@ -34,8 +34,14 @@
     <Reference Include="CapaControlador_Reporteador">
       <HintPath>..\CapaControlador_Reporteador\bin\Debug\CapaControlador_Reporteador.dll</HintPath>
     </Reference>
+    <Reference Include="CapaVista_BtnActualizar_Reporteador">
+      <HintPath>..\..\BtnActualizar_Reporteador\CapaVista_BtnActualizar_Reporteador\bin\Debug\CapaVista_BtnActualizar_Reporteador.dll</HintPath>
+    </Reference>
     <Reference Include="CapaVista_BtnBusqueda_Reporteador">
       <HintPath>..\..\BtnBusqueda_Reporteador\CapaVista_BtnBusqueda_Reporteador\bin\Debug\CapaVista_BtnBusqueda_Reporteador.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_BtnLimpiar_Reporteador">
+      <HintPath>..\..\BtnLimpiar_Reporteador\CapaVista_BtnLimpiar_Reporteador\bin\Debug\CapaVista_BtnLimpiar_Reporteador.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

@@ -8,13 +8,13 @@ namespace CapaVista_BtnActualizar
 {
     [ToolboxItem(true)]
     [Description("Boton reutilizable para actualizar el listado de reportes.")]
-    public partial class BtnActualizar_Reporteador : UserControl
+    public partial class BtnActualizarReporteador : UserControl
     {
         private ClsControladorBtnActualizar _Controlador;
 
         public DataGridView DgvReportes { get; set; }
 
-        public BtnActualizar_Reporteador()
+        public BtnActualizarReporteador()
         {
             InitializeComponent();
             _Controlador = new ClsControladorBtnActualizar();

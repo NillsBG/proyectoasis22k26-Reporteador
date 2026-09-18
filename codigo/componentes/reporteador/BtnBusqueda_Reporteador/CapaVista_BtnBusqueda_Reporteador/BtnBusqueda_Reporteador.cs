@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace CapaVista_BtnBusqueda_Reporteador
 {
-    public partial class BtnBusqueda_Reporteador : UserControl
+    public partial class BtnBusquedaReporteador : UserControl
     {
         private ClsModeloBtnBusquedaReporteador modeloBusqueda;
 
@@ -15,12 +15,12 @@ namespace CapaVista_BtnBusqueda_Reporteador
         public CheckBox ChkFechaReporte { get; set; }
         public DataGridView DgvReportes { get; set; }
 
-        public BtnBusqueda_Reporteador()
+        public BtnBusquedaReporteador()
         {
             InitializeComponent();
 
             modeloBusqueda = new ClsModeloBtnBusquedaReporteador();
-            btnAccionBusqueda.Click += BtnAccionBusqueda_Click;
+            BbtAccionBusqueda.Click += BtnAccionBusqueda_Click;
         }
 
         private void BtnAccionBusqueda_Click(object sender, EventArgs e)
