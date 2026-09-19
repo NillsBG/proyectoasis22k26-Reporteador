@@ -29,31 +29,31 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BtnBusquedaReporteador));
-            this.BbtAccionBusqueda = new System.Windows.Forms.Button();
+            this.BtnBusqueda = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // BbtAccionBusqueda
+            // BtnBusqueda
             // 
-            this.BbtAccionBusqueda.BackColor = System.Drawing.Color.Transparent;
-            this.BbtAccionBusqueda.FlatAppearance.BorderSize = 0;
-            this.BbtAccionBusqueda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BbtAccionBusqueda.Image = ((System.Drawing.Image)(resources.GetObject("BbtAccionBusqueda.Image")));
-            this.BbtAccionBusqueda.Location = new System.Drawing.Point(0, 0);
-            this.BbtAccionBusqueda.Margin = new System.Windows.Forms.Padding(0);
-            this.BbtAccionBusqueda.Name = "BbtAccionBusqueda";
-            this.BbtAccionBusqueda.Size = new System.Drawing.Size(56, 56);
-            this.BbtAccionBusqueda.TabIndex = 0;
-            this.BbtAccionBusqueda.UseVisualStyleBackColor = false;
+            this.BtnBusqueda.BackColor = System.Drawing.Color.Transparent;
+            this.BtnBusqueda.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BtnBusqueda.FlatAppearance.BorderSize = 0;
+            this.BtnBusqueda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnBusqueda.Image = ((System.Drawing.Image)(resources.GetObject("BtnBusqueda.Image")));
+            this.BtnBusqueda.Location = new System.Drawing.Point(0, 0);
+            this.BtnBusqueda.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnBusqueda.Name = "BtnBusqueda";
+            this.BtnBusqueda.Size = new System.Drawing.Size(56, 56);
+            this.BtnBusqueda.TabIndex = 0;
+            this.BtnBusqueda.UseVisualStyleBackColor = false;
             // 
             // BtnBusquedaReporteador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.BbtAccionBusqueda);
+            this.Controls.Add(this.BtnBusqueda);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ForeColor = System.Drawing.Color.Transparent;
-            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "BtnBusquedaReporteador";
             this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
@@ -62,6 +62,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button BbtAccionBusqueda;
+        private System.Windows.Forms.Button BtnBusqueda;
     }
 }
