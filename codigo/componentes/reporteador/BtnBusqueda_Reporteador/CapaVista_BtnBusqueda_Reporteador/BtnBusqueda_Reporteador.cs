@@ -20,7 +20,7 @@ namespace CapaVista_BtnBusqueda_Reporteador
             InitializeComponent();
 
             modeloBusqueda = new ClsModeloBtnBusquedaReporteador();
-            BbtAccionBusqueda.Click += BtnAccionBusqueda_Click;
+            BtnBusqueda.Click += BtnAccionBusqueda_Click;
         }
 
         private void BtnAccionBusqueda_Click(object sender, EventArgs e)
