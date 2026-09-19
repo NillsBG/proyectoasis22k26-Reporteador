@@ -1,6 +1,5 @@
 ﻿using CapaControlador_Reporteador;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -8,357 +7,187 @@ namespace CapaVista_Reporteador
 {
     public partial class FrmReportes : Form
     {
-        // =========================================================
-        // MODELO
-        // =========================================================
-
         private ClsModeloReporteador modeloReporteador;
-
-        // =========================================================
-        // VARIABLES PARA BTN EDITAR
-        // =========================================================
 
         private bool modoEdicion = false;
         private int numeroReporteEdicion = 0;
-
-
-
-        // =========================================================
-        // CONSTRUCTOR
-        // =========================================================
 
         public FrmReportes()
         {
             InitializeComponent();
 
-            modeloReporteador =
-                new ClsModeloReporteador();
+            modeloReporteador = new ClsModeloReporteador();
 
+            // NOMBRE DEL REPORTE (1) - NUNCA BLOQUEADO, EDITABLE
+            ReporteadorTxtNombreReporte.Enabled = true;
+            ReporteadorTxtNombreReporte.ReadOnly = false;
+            ReporteadorTxtNombreReporte.TabStop = true;
 
-            // =====================================================
-            // SELECTION CHANGED
-            // =====================================================
+            // NOMBRE DEL REPORTE (2) - NUNCA BLOQUEADO, EDITABLE
+            ReporteadorTxtNombreReporte2.Enabled = true;
+            ReporteadorTxtNombreReporte2.ReadOnly = false;
+            ReporteadorTxtNombreReporte2.TabStop = true;
 
-            ReporteadorDgvReportes.SelectionChanged +=
-                ReporteadorDgvReportes_SelectionChanged;
+            // RUTA DEL REPORTE - BLOQUEADA PARA ESCRITURA MANUAL
+            ReporteadorTxtRutaReporte.Enabled = true;
+            ReporteadorTxtRutaReporte.ReadOnly = true;
+            ReporteadorTxtRutaReporte.TabStop = false;
 
-
-            // =====================================================
-            // BTN BUSQUEDA (CONFIGURACIÓN)
-            // =====================================================
-
-            if (BtnBusqueda_Reporteador != null)
+            // CONECTAR BOTON DE RUTA
+            if (BtnRutaReporteador != null)
             {
-                BtnBusqueda_Reporteador.TxtNombreReporte =
-                    ReporteadorTxtNombreReporte2;
-
-                BtnBusqueda_Reporteador.DtpFechaReporte =
-                    ReporteadorDtpFechaReporte;
-
-                BtnBusqueda_Reporteador.ChkNombreReporte =
-                    ReporteadorChkNombreReporte;
-
-                BtnBusqueda_Reporteador.ChkFechaReporte =
-                    ReporteadorChkFechaReporte;
-
-                BtnBusqueda_Reporteador.DgvReportes =
-                    ReporteadorDgvReportes;
+                BtnRutaReporteador.CampoTextoRuta = ReporteadorTxtRutaReporte;
             }
 
+            ReporteadorDgvReportes.SelectionChanged += ReporteadorDgvReportes_SelectionChanged;
 
-            // =====================================================
-            // BTN ACTUALIZAR
-            // =====================================================
-
-            if (BtnActualizar_Reporteador != null)
+            if (BtnBusquedaReporteador != null)
             {
-                BtnActualizar_Reporteador.DgvReportes =
-                    ReporteadorDgvReportes;
+                BtnBusquedaReporteador.TxtNombreReporte = ReporteadorTxtNombreReporte2;
+                BtnBusquedaReporteador.DtpFechaReporte = ReporteadorDtpFechaReporte;
+                BtnBusquedaReporteador.ChkNombreReporte = ReporteadorChkNombreReporte;
+                BtnBusquedaReporteador.ChkFechaReporte = ReporteadorChkFechaReporte;
+                BtnBusquedaReporteador.DgvReportes = ReporteadorDgvReportes;
             }
 
-
-            // =====================================================
-            // BTN LIMPIAR (VINCULACIÓN CON EL DESIGNER)
-            // =====================================================
+            if (BtnActualizarReporteador != null)
+            {
+                BtnActualizarReporteador.DgvReportes = ReporteadorDgvReportes;
+            }
 
             if (BtnLimpiarReporteador != null)
             {
                 BtnLimpiarReporteador.Click += BtnLimpiar_Click;
             }
 
-
-            // =====================================================
-            // CARGAR FORMULARIO
-            // =====================================================
+            if (BtnImprimirReporteador != null)
+            {
+                BtnImprimirReporteador.RutaReporte = null;
+            }
 
             Load += FrmReportes_Load;
         }
 
-
-        // =========================================================
-        // LOAD
-        // =========================================================
-
-        private void FrmReportes_Load(
-            object sender,
-            EventArgs e)
+        private void FrmReportes_Load(object sender, EventArgs e)
         {
             try
             {
-                // =================================================
-                // CARGAR TABLA
-                // =================================================
+                // NOMBRE DEL REPORTE (1) - SIEMPRE EDITABLE
+                ReporteadorTxtNombreReporte.Enabled = true;
+                ReporteadorTxtNombreReporte.ReadOnly = false;
+                ReporteadorTxtNombreReporte.TabStop = true;
+
+                // NOMBRE DEL REPORTE (2) - SIEMPRE EDITABLE
+                ReporteadorTxtNombreReporte2.Enabled = true;
+                ReporteadorTxtNombreReporte2.ReadOnly = false;
+                ReporteadorTxtNombreReporte2.TabStop = true;
+
+                // RUTA DEL REPORTE - SIEMPRE BLOQUEADA PARA ESCRITURA
+                ReporteadorTxtRutaReporte.Enabled = true;
+                ReporteadorTxtRutaReporte.ReadOnly = true;
+                ReporteadorTxtRutaReporte.TabStop = false;
+
+                if (BtnRutaReporteador != null)
+                {
+                    BtnRutaReporteador.CampoTextoRuta = ReporteadorTxtRutaReporte;
+                }
 
                 CargarTabla();
 
-
-                // =================================================
-                // PREPARAR NUEVO REGISTRO
-                // =================================================
-
                 modoEdicion = false;
-
                 numeroReporteEdicion = 0;
 
                 PrepararNuevoRegistro();
-            }
-            catch (Exception ex)
-            {
-                MostrarError(
-                    "No se pudo cargar el formulario.\n\n" +
-                    ex.Message
-                );
-            }
-        }
-
-
-        // =========================================================
-        // CLICK BTN GUARDAR
-        // =========================================================
-
-        private void BtnGuardar1_Click(
-            object sender,
-            EventArgs e)
-        {
-            GuardarReporte();
-        }
-
-
-        // =========================================================
-        // CLICK BTN EDITAR
-        // =========================================================
-
-        private void BtnEditar_Click(
-            object sender,
-            EventArgs e)
-        {
-            try
-            {
-                // =================================================
-                // VALIDAR SELECCIÓN
-                // =================================================
-
-                if (ReporteadorDgvReportes.CurrentRow == null)
-                {
-                    MostrarError(
-                        "Debe seleccionar un reporte para editar."
-                    );
-
-                    return;
-                }
-
-
-                // =================================================
-                // OBTENER NUMERO
-                // =================================================
-
-                object numero =
-                    ReporteadorDgvReportes
-                    .CurrentRow
-                    .Cells["NumeroReporte"]
-                    .Value;
-
-
-                // =================================================
-                // OBTENER NOMBRE
-                // =================================================
-
-                object nombre =
-                    ReporteadorDgvReportes
-                    .CurrentRow
-                    .Cells["NombreReporte"]
-                    .Value;
-
-
-                // =================================================
-                // OBTENER RUTA
-                // =================================================
-
-                object ruta =
-                    ReporteadorDgvReportes
-                    .CurrentRow
-                    .Cells["RutaReporte"]
-                    .Value;
-
-
-                // =================================================
-                // OBTENER FECHA
-                // =================================================
-
-                object fecha =
-                    ReporteadorDgvReportes
-                    .CurrentRow
-                    .Cells["FechaReporte"]
-                    .Value;
-
-
-                // =================================================
-                // VALIDAR NUMERO
-                // =================================================
-
-                if (numero == null ||
-                    numero == DBNull.Value)
-                {
-                    MostrarError(
-                        "No se pudo obtener el número del reporte."
-                    );
-
-                    return;
-                }
-
-
-                // =================================================
-                // GUARDAR NUMERO A EDITAR
-                // =================================================
-
-                numeroReporteEdicion =
-                    Convert.ToInt32(numero);
-
-
-                // =================================================
-                // CARGAR NOMBRE
-                // =================================================
-
-                ReporteadorTxtNombreReporte.Text =
-                    nombre == null ||
-                    nombre == DBNull.Value
-                        ? ""
-                        : nombre.ToString();
-
-
-                // =================================================
-                // CARGAR RUTA
-                // =================================================
-
-                ReporteadorTxtRutaReporte.Text =
-                    ruta == null ||
-                    ruta == DBNull.Value
-                        ? ""
-                        : ruta.ToString();
-
-
-                // =================================================
-                // CREAR MODELO
-                // =================================================
-
-                modeloReporteador =
-                    new ClsModeloReporteador();
-
-
-                // =================================================
-                // INDICAR MODIFICACIÓN
-                // =================================================
-
-                modeloReporteador.Estado =
-                    ClsEstadoEntidad.Modified;
-
-                modeloReporteador.NumeroReporte =
-                    numeroReporteEdicion;
-
-
-                // =================================================
-                // CARGAR FECHA
-                // =================================================
-
-                if (fecha != null &&
-                    fecha != DBNull.Value)
-                {
-                    modeloReporteador.FechaReporte =
-                        Convert.ToDateTime(fecha);
-                }
-                else
-                {
-                    modeloReporteador.FechaReporte =
-                        DateTime.Now.Date;
-                }
-
-
-                // =================================================
-                // CARGAR DATE TIME PICKER
-                // =================================================
-
-                if (ReporteadorDtpFechaReporte != null)
-                {
-                    ReporteadorDtpFechaReporte.Value =
-                        modeloReporteador.FechaReporte;
-                }
-
-
-                // =================================================
-                // ACTIVAR MODO EDICIÓN
-                // =================================================
-
-                modoEdicion = true;
-
-
-                // =================================================
-                // FOCUS
-                // =================================================
 
                 ReporteadorTxtNombreReporte.Focus();
             }
             catch (Exception ex)
             {
-                MostrarError(
-                    "No se pudo preparar el reporte para editar.\n\n" +
-                    ex.Message
-                );
+                MostrarError("No se pudo cargar el formulario.\n\n" + ex.Message);
             }
         }
 
+        private void BtnGuardar_Click(object sender, EventArgs e)
+        {
+            GuardarReporte();
+        }
 
-        // =========================================================
-        // CLICK BTN LIMPIAR
-        // =========================================================
-
-        private void BtnLimpiar_Click(
-            object sender,
-            EventArgs e)
+        private void BtnEditar_Click(object sender, EventArgs e)
         {
             try
             {
-                // =================================================
-                // LIMPIAR CAMPOS
-                // =================================================
+                if (ReporteadorDgvReportes.CurrentRow == null)
+                {
+                    MostrarError("Debe seleccionar un reporte para editar.");
+                    return;
+                }
 
+                object numero = ReporteadorDgvReportes.CurrentRow.Cells["NumeroReporte"].Value;
+                object nombre = ReporteadorDgvReportes.CurrentRow.Cells["NombreReporte"].Value;
+                object ruta = ReporteadorDgvReportes.CurrentRow.Cells["RutaReporte"].Value;
+                object fecha = ReporteadorDgvReportes.CurrentRow.Cells["FechaReporte"].Value;
+
+                if (numero == null || numero == DBNull.Value)
+                {
+                    MostrarError("No se pudo obtener el número del reporte.");
+                    return;
+                }
+
+                numeroReporteEdicion = Convert.ToInt32(numero);
+
+                ReporteadorTxtNombreReporte.Text = nombre == null || nombre == DBNull.Value ? "" : nombre.ToString();
+                ReporteadorTxtRutaReporte.Text = ruta == null || ruta == DBNull.Value ? "" : ruta.ToString();
+
+                // NOMBRES EDITABLES
+                ReporteadorTxtNombreReporte.Enabled = true;
+                ReporteadorTxtNombreReporte.ReadOnly = false;
+                ReporteadorTxtNombreReporte.TabStop = true;
+
+                ReporteadorTxtNombreReporte2.Enabled = true;
+                ReporteadorTxtNombreReporte2.ReadOnly = false;
+                ReporteadorTxtNombreReporte2.TabStop = true;
+
+                // RUTA BLOQUEADA
+                ReporteadorTxtRutaReporte.Enabled = true;
+                ReporteadorTxtRutaReporte.ReadOnly = true;
+                ReporteadorTxtRutaReporte.TabStop = false;
+
+                modeloReporteador = new ClsModeloReporteador();
+                modeloReporteador.Estado = ClsEstadoEntidad.Modified;
+                modeloReporteador.NumeroReporte = numeroReporteEdicion;
+
+                if (fecha != null && fecha != DBNull.Value)
+                {
+                    modeloReporteador.FechaReporte = Convert.ToDateTime(fecha);
+                }
+                else
+                {
+                    modeloReporteador.FechaReporte = DateTime.Now.Date;
+                }
+
+                if (ReporteadorDtpFechaReporte != null)
+                {
+                    ReporteadorDtpFechaReporte.Value = modeloReporteador.FechaReporte;
+                }
+
+                modoEdicion = true;
+                ReporteadorTxtNombreReporte.Focus();
+            }
+            catch (Exception ex)
+            {
+                MostrarError("No se pudo preparar el reporte para editar.\n\n" + ex.Message);
+            }
+        }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            try
+            {
                 ReporteadorTxtRutaReporte.Clear();
-
                 ReporteadorTxtNombreReporte.Clear();
-
                 ReporteadorTxtNombreReporte2.Clear();
 
-
-                // =================================================
-                // REINICIAR FECHA
-                // =================================================
-
-                ReporteadorDtpFechaReporte.Value =
-                    DateTime.Now;
-
-
-                // =================================================
-                // DESMARCAR CHECKBOXES
-                // =================================================
+                ReporteadorDtpFechaReporte.Value = DateTime.Now;
 
                 if (ReporteadorChkNombreReporte != null)
                 {
@@ -370,290 +199,159 @@ namespace CapaVista_Reporteador
                     ReporteadorChkFechaReporte.Checked = false;
                 }
 
-
-                // =================================================
-                // CANCELAR MODO EDICIÓN
-                // =================================================
-
                 modoEdicion = false;
-
                 numeroReporteEdicion = 0;
 
-
-                // =================================================
-                // CREAR MODELO NUEVO
-                // =================================================
-
-                modeloReporteador =
-                    new ClsModeloReporteador();
-
-
-                // =================================================
-                // PREPARAR NUEVO REGISTRO
-                // =================================================
+                modeloReporteador = new ClsModeloReporteador();
 
                 PrepararNuevoRegistro();
-
-
-                // =================================================
-                // RECARGAR TABLA COMPLETA
-                // =================================================
-
                 CargarTabla();
 
+                if (BtnImprimirReporteador != null)
+                {
+                    BtnImprimirReporteador.RutaReporte = null;
+                }
 
-                // =================================================
-                // FOCUS
-                // =================================================
+                // NOMBRES EDITABLES
+                ReporteadorTxtNombreReporte.Enabled = true;
+                ReporteadorTxtNombreReporte.ReadOnly = false;
+                ReporteadorTxtNombreReporte.TabStop = true;
+
+                ReporteadorTxtNombreReporte2.Enabled = true;
+                ReporteadorTxtNombreReporte2.ReadOnly = false;
+                ReporteadorTxtNombreReporte2.TabStop = true;
+
+                // RUTA BLOQUEADA
+                ReporteadorTxtRutaReporte.Enabled = true;
+                ReporteadorTxtRutaReporte.ReadOnly = true;
+                ReporteadorTxtRutaReporte.TabStop = false;
+
+                if (BtnRutaReporteador != null)
+                {
+                    BtnRutaReporteador.CampoTextoRuta = ReporteadorTxtRutaReporte;
+                }
 
                 ReporteadorTxtNombreReporte.Focus();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Limpiar formulario",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show(ex.Message, "Limpiar formulario", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-
-        // =========================================================
-        // GUARDAR / ACTUALIZAR REPORTE
-        // =========================================================
 
         private void GuardarReporte()
         {
             try
             {
-                // =================================================
-                // VALIDAR NOMBRE
-                // =================================================
-
-                string nombre =
-                    ReporteadorTxtNombreReporte.Text.Trim();
-
+                string nombre = ReporteadorTxtNombreReporte.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(nombre))
                 {
-                    MostrarError(
-                        "Debe ingresar el nombre del reporte."
-                    );
-
+                    MostrarError("Debe ingresar el nombre del reporte.");
                     ReporteadorTxtNombreReporte.Focus();
-
                     return;
                 }
 
-
-                // =================================================
-                // VALIDAR RUTA
-                // =================================================
-
-                string ruta =
-                    ReporteadorTxtRutaReporte.Text.Trim();
-
+                string ruta = ReporteadorTxtRutaReporte.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(ruta))
                 {
-                    MostrarError(
-                        "Debe seleccionar el archivo PDF del reporte."
-                    );
-
+                    MostrarError("Debe seleccionar el archivo PDF del reporte.");
                     return;
                 }
 
-
-                // =================================================
-                // VALIDAR EXTENSIÓN
-                // =================================================
-
-                if (!ruta.EndsWith(
-                    ".pdf",
-                    StringComparison.OrdinalIgnoreCase))
+                if (!ruta.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
                 {
-                    MostrarError(
-                        "El archivo seleccionado debe ser un PDF."
-                    );
-
+                    MostrarError("El archivo seleccionado debe ser un PDF.");
                     return;
                 }
-
-
-                // =================================================
-                // VALIDAR ARCHIVO
-                // =================================================
 
                 if (!File.Exists(ruta))
                 {
-                    MostrarError(
-                        "El archivo seleccionado no existe.\n\n" +
-                        "Seleccione nuevamente el PDF."
-                    );
-
+                    MostrarError("El archivo seleccionado no existe.\n\nSeleccione nuevamente el PDF.");
                     return;
                 }
 
-
-                // =================================================
-                // ASEGURAR MODELO
-                // =================================================
-
                 if (modeloReporteador == null)
                 {
-                    modeloReporteador =
-                        new ClsModeloReporteador();
+                    modeloReporteador = new ClsModeloReporteador();
                 }
-
-
-                // =================================================
-                // PREPARAR OPERACIÓN
-                // =================================================
 
                 if (modoEdicion)
                 {
-                    modeloReporteador.Estado =
-                        ClsEstadoEntidad.Modified;
-
-                    modeloReporteador.NumeroReporte =
-                        numeroReporteEdicion;
+                    modeloReporteador.Estado = ClsEstadoEntidad.Modified;
+                    modeloReporteador.NumeroReporte = numeroReporteEdicion;
                 }
                 else
                 {
-                    modeloReporteador.Estado =
-                        ClsEstadoEntidad.Added;
-
-                    modeloReporteador.NumeroReporte =
-                        modeloReporteador
-                        .GenerarSiguienteNumeroReporte(30);
+                    modeloReporteador.Estado = ClsEstadoEntidad.Added;
+                    modeloReporteador.NumeroReporte = modeloReporteador.GenerarSiguienteNumeroReporte(30);
                 }
 
-
-                // =================================================
-                // ASIGNAR PROPIEDADES
-                // =================================================
-
-                modeloReporteador.NombreReporte =
-                    nombre;
-
-                modeloReporteador.RutaReporte =
-                    ruta;
+                modeloReporteador.NombreReporte = nombre;
+                modeloReporteador.RutaReporte = ruta;
 
                 if (ReporteadorDtpFechaReporte != null)
                 {
-                    modeloReporteador.FechaReporte =
-                        ReporteadorDtpFechaReporte.Value.Date;
+                    modeloReporteador.FechaReporte = ReporteadorDtpFechaReporte.Value.Date;
                 }
                 else
                 {
-                    modeloReporteador.FechaReporte =
-                        DateTime.Now.Date;
+                    modeloReporteador.FechaReporte = DateTime.Now.Date;
                 }
 
+                string resultado = modeloReporteador.GrabarCambios();
 
-                // =================================================
-                // GRABAR CAMBIOS
-                // =================================================
-
-                string resultado =
-                    modeloReporteador.GrabarCambios();
-
-
-                // =================================================
-                // OPERACIÓN EXITOSA
-                // =================================================
-
-                if (resultado == "Grabación exitosa" ||
-                    resultado == "Actualización exitosa")
+                if (resultado == "Grabación exitosa" || resultado == "Actualización exitosa")
                 {
-                    bool fueEdicion =
-                        modoEdicion;
-
-                    if (fueEdicion)
+                    if (modoEdicion)
                     {
-                        MostrarExito(
-                            "Actualización exitosa"
-                        );
+                        MostrarExito("Actualización exitosa");
                     }
                     else
                     {
-                        MostrarExito(
-                            "Grabación exitosa"
-                        );
+                        MostrarExito("Grabación exitosa");
                     }
 
                     modoEdicion = false;
-
                     numeroReporteEdicion = 0;
 
                     LimpiarFormulario();
 
-                    modeloReporteador =
-                        new ClsModeloReporteador();
-
+                    modeloReporteador = new ClsModeloReporteador();
                     PrepararNuevoRegistro();
-
                     CargarTabla();
 
                     ReporteadorDgvReportes.Refresh();
-
                     return;
                 }
 
-                MostrarError(
-                    "No se pudo guardar el reporte.\n\n" +
-                    resultado
-                );
+                MostrarError("No se pudo guardar el reporte.\n\n" + resultado);
             }
             catch (Exception ex)
             {
-                MostrarError(
-                    "Ocurrió un error al guardar el reporte.\n\n" +
-                    ex.Message
-                );
+                MostrarError("Ocurrió un error al guardar el reporte.\n\n" + ex.Message);
             }
         }
-
-
-        // =========================================================
-        // PREPARAR NUEVO REGISTRO
-        // =========================================================
 
         private void PrepararNuevoRegistro()
         {
             try
             {
-                modeloReporteador.Estado =
-                    ClsEstadoEntidad.Added;
-
-                modeloReporteador.NumeroReporte =
-                    modeloReporteador
-                    .GenerarSiguienteNumeroReporte(30);
-
-                modeloReporteador.FechaReporte =
-                    DateTime.Now.Date;
+                modeloReporteador.Estado = ClsEstadoEntidad.Added;
+                modeloReporteador.NumeroReporte = modeloReporteador.GenerarSiguienteNumeroReporte(30);
+                modeloReporteador.FechaReporte = DateTime.Now.Date;
 
                 if (ReporteadorDtpFechaReporte != null)
                 {
-                    ReporteadorDtpFechaReporte.Value =
-                        DateTime.Now;
+                    ReporteadorDtpFechaReporte.Value = DateTime.Now;
                 }
             }
             catch (Exception ex)
             {
-                MostrarError(
-                    "No se pudo generar el número del reporte.\n\n" +
-                    ex.Message
-                );
+                MostrarError("No se pudo generar el número del reporte.\n\n" + ex.Message);
             }
         }
-
-
-        // =========================================================
-        // CARGAR DATAGRIDVIEW
-        // =========================================================
 
         public void CargarTabla()
         {
@@ -661,55 +359,37 @@ namespace CapaVista_Reporteador
             {
                 if (modeloReporteador == null)
                 {
-                    modeloReporteador =
-                        new ClsModeloReporteador();
+                    modeloReporteador = new ClsModeloReporteador();
                 }
 
-                var lista =
-                    modeloReporteador.GetAll();
+                var lista = modeloReporteador.GetAll();
 
-                ReporteadorDgvReportes.DataSource =
-                    null;
-
+                ReporteadorDgvReportes.DataSource = null;
                 ReporteadorDgvReportes.Columns.Clear();
+                ReporteadorDgvReportes.AutoGenerateColumns = false;
 
-                ReporteadorDgvReportes.AutoGenerateColumns =
-                    false;
-
-
-                // =================================================
-                // COLUMNAS
-                // =================================================
-
-                DataGridViewTextBoxColumn colNumero =
-                    new DataGridViewTextBoxColumn();
+                DataGridViewTextBoxColumn colNumero = new DataGridViewTextBoxColumn();
                 colNumero.Name = "NumeroReporte";
                 colNumero.HeaderText = "NumeroReporte";
                 colNumero.DataPropertyName = "NumeroReporte";
                 colNumero.Width = 100;
                 ReporteadorDgvReportes.Columns.Add(colNumero);
 
-
-                DataGridViewTextBoxColumn colNombre =
-                    new DataGridViewTextBoxColumn();
+                DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
                 colNombre.Name = "NombreReporte";
                 colNombre.HeaderText = "NombreReporte";
                 colNombre.DataPropertyName = "NombreReporte";
                 colNombre.Width = 180;
                 ReporteadorDgvReportes.Columns.Add(colNombre);
 
-
-                DataGridViewTextBoxColumn colRuta =
-                    new DataGridViewTextBoxColumn();
+                DataGridViewTextBoxColumn colRuta = new DataGridViewTextBoxColumn();
                 colRuta.Name = "RutaReporte";
                 colRuta.HeaderText = "RutaReporte";
                 colRuta.DataPropertyName = "RutaReporte";
                 colRuta.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 ReporteadorDgvReportes.Columns.Add(colRuta);
 
-
-                DataGridViewTextBoxColumn colFecha =
-                    new DataGridViewTextBoxColumn();
+                DataGridViewTextBoxColumn colFecha = new DataGridViewTextBoxColumn();
                 colFecha.Name = "FechaReporte";
                 colFecha.HeaderText = "FechaReporte";
                 colFecha.DataPropertyName = "FechaReporte";
@@ -717,49 +397,58 @@ namespace CapaVista_Reporteador
                 colFecha.DefaultCellStyle.Format = "dd/MM/yyyy";
                 ReporteadorDgvReportes.Columns.Add(colFecha);
 
-
-                ReporteadorDgvReportes.DataSource =
-                    lista;
-
+                ReporteadorDgvReportes.DataSource = lista;
                 ReporteadorDgvReportes.Refresh();
             }
             catch (Exception ex)
             {
-                MostrarError(
-                    "No se pudo cargar la lista de reportes.\n\n" +
-                    ex.Message
-                );
+                MostrarError("No se pudo cargar la lista de reportes.\n\n" + ex.Message);
             }
         }
 
-
-        // =========================================================
-        // SELECCIÓN DEL REPORTE
-        // =========================================================
-
-        private void ReporteadorDgvReportes_SelectionChanged(
-            object sender,
-            EventArgs e)
+        private void ReporteadorDgvReportes_SelectionChanged(object sender, EventArgs e)
         {
+            try
+            {
+                if (BtnImprimirReporteador == null)
+                {
+                    return;
+                }
+
+                if (ReporteadorDgvReportes.CurrentRow == null)
+                {
+                    BtnImprimirReporteador.RutaReporte = null;
+                    return;
+                }
+
+                object ruta = ReporteadorDgvReportes.CurrentRow.Cells["RutaReporte"].Value;
+
+                if (ruta == null || ruta == DBNull.Value)
+                {
+                    BtnImprimirReporteador.RutaReporte = null;
+                    return;
+                }
+
+                BtnImprimirReporteador.RutaReporte = ruta.ToString();
+            }
+            catch
+            {
+                if (BtnImprimirReporteador != null)
+                {
+                    BtnImprimirReporteador.RutaReporte = null;
+                }
+            }
         }
-
-
-        // =========================================================
-        // LIMPIAR FORMULARIO (MÉTODO INTERNO)
-        // =========================================================
 
         private void LimpiarFormulario()
         {
             ReporteadorTxtNombreReporte.Clear();
-
             ReporteadorTxtRutaReporte.Clear();
-
             ReporteadorTxtNombreReporte2.Clear();
 
             if (ReporteadorDtpFechaReporte != null)
             {
-                ReporteadorDtpFechaReporte.Value =
-                    DateTime.Now;
+                ReporteadorDtpFechaReporte.Value = DateTime.Now;
             }
 
             if (ReporteadorChkNombreReporte != null)
@@ -772,13 +461,27 @@ namespace CapaVista_Reporteador
                 ReporteadorChkFechaReporte.Checked = false;
             }
 
+            if (BtnImprimirReporteador != null)
+            {
+                BtnImprimirReporteador.RutaReporte = null;
+            }
+
+            // NOMBRES EDITABLES
+            ReporteadorTxtNombreReporte.Enabled = true;
+            ReporteadorTxtNombreReporte.ReadOnly = false;
+            ReporteadorTxtNombreReporte.TabStop = true;
+
+            ReporteadorTxtNombreReporte2.Enabled = true;
+            ReporteadorTxtNombreReporte2.ReadOnly = false;
+            ReporteadorTxtNombreReporte2.TabStop = true;
+
+            // RUTA BLOQUEADA
+            ReporteadorTxtRutaReporte.Enabled = true;
+            ReporteadorTxtRutaReporte.ReadOnly = true;
+            ReporteadorTxtRutaReporte.TabStop = false;
+
             ReporteadorTxtNombreReporte.Focus();
         }
-
-
-        // =========================================================
-        // MENSAJE DE ÉXITO
-        // =========================================================
 
         private void MostrarExito(string mensaje)
         {
@@ -836,35 +539,19 @@ namespace CapaVista_Reporteador
             }
         }
 
-
-        // =========================================================
-        // MENSAJE DE ERROR
-        // =========================================================
-
         private void MostrarError(string mensaje)
         {
-            MessageBox.Show(
-                mensaje,
-                "Ocurrió un error",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-            );
+            MessageBox.Show(mensaje, "Ocurrió un error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
-
-        // =========================================================
-        // CONFIRMACIÓN
-        // =========================================================
 
         private bool MostrarConfirmacion(string mensaje)
         {
-            DialogResult resultado =
-                MessageBox.Show(
-                    mensaje,
-                    "Confirmar",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
+            DialogResult resultado = MessageBox.Show(
+                mensaje,
+                "Confirmar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
 
             return resultado == DialogResult.Yes;
         }
