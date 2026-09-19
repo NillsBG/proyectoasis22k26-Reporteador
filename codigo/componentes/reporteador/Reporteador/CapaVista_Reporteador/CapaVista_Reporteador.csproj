@@ -40,8 +40,14 @@
     <Reference Include="CapaVista_BtnBusqueda_Reporteador">
       <HintPath>..\..\BtnBusqueda_Reporteador\CapaVista_BtnBusqueda_Reporteador\bin\Debug\CapaVista_BtnBusqueda_Reporteador.dll</HintPath>
     </Reference>
+    <Reference Include="CapaVista_BtnEditar_Reporteador">
+      <HintPath>..\..\BtnEditar_Reporteador\CapaVista_BtnEditar_Reporteador\bin\Debug\CapaVista_BtnEditar_Reporteador.dll</HintPath>
+    </Reference>
     <Reference Include="CapaVista_BtnEliminar_Reporteador">
       <HintPath>..\..\BtnEliminar_Reporteador\CapaVista_BtnEliminar_Reporteador\bin\Debug\CapaVista_BtnEliminar_Reporteador.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_BtnGuardar_Reporteador">
+      <HintPath>..\..\BtnGuardar_Reporteador\CapaVista_BtnGuardar_Reporteador\bin\Debug\CapaVista_BtnGuardar_Reporteador.dll</HintPath>
     </Reference>
     <Reference Include="CapaVista_BtnImprimir_Reporteador">
       <HintPath>..\..\BtnImprimir_Reporteador\CapaVista_BtnImprimir_Reporteador\bin\Debug\CapaVista_BtnImprimir_Reporteador.dll</HintPath>
