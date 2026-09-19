@@ -72,17 +72,14 @@ namespace CapaVista_Reporteador
         {
             try
             {
-                // NOMBRE DEL REPORTE (1) - SIEMPRE EDITABLE
                 ReporteadorTxtNombreReporte.Enabled = true;
                 ReporteadorTxtNombreReporte.ReadOnly = false;
                 ReporteadorTxtNombreReporte.TabStop = true;
 
-                // NOMBRE DEL REPORTE (2) - SIEMPRE EDITABLE
                 ReporteadorTxtNombreReporte2.Enabled = true;
                 ReporteadorTxtNombreReporte2.ReadOnly = false;
                 ReporteadorTxtNombreReporte2.TabStop = true;
 
-                // RUTA DEL REPORTE - SIEMPRE BLOQUEADA PARA ESCRITURA
                 ReporteadorTxtRutaReporte.Enabled = true;
                 ReporteadorTxtRutaReporte.ReadOnly = true;
                 ReporteadorTxtRutaReporte.TabStop = false;
@@ -107,7 +104,7 @@ namespace CapaVista_Reporteador
             }
         }
 
-        private void BtnGuardar_Click(object sender, EventArgs e)
+        private void BtnGuardarReporteador_Click(object sender, EventArgs e)
         {
             GuardarReporte();
         }
@@ -138,7 +135,6 @@ namespace CapaVista_Reporteador
                 ReporteadorTxtNombreReporte.Text = nombre == null || nombre == DBNull.Value ? "" : nombre.ToString();
                 ReporteadorTxtRutaReporte.Text = ruta == null || ruta == DBNull.Value ? "" : ruta.ToString();
 
-                // NOMBRES EDITABLES
                 ReporteadorTxtNombreReporte.Enabled = true;
                 ReporteadorTxtNombreReporte.ReadOnly = false;
                 ReporteadorTxtNombreReporte.TabStop = true;
@@ -147,7 +143,6 @@ namespace CapaVista_Reporteador
                 ReporteadorTxtNombreReporte2.ReadOnly = false;
                 ReporteadorTxtNombreReporte2.TabStop = true;
 
-                // RUTA BLOQUEADA
                 ReporteadorTxtRutaReporte.Enabled = true;
                 ReporteadorTxtRutaReporte.ReadOnly = true;
                 ReporteadorTxtRutaReporte.TabStop = false;
@@ -212,7 +207,6 @@ namespace CapaVista_Reporteador
                     BtnImprimirReporteador.RutaReporte = null;
                 }
 
-                // NOMBRES EDITABLES
                 ReporteadorTxtNombreReporte.Enabled = true;
                 ReporteadorTxtNombreReporte.ReadOnly = false;
                 ReporteadorTxtNombreReporte.TabStop = true;
@@ -221,7 +215,6 @@ namespace CapaVista_Reporteador
                 ReporteadorTxtNombreReporte2.ReadOnly = false;
                 ReporteadorTxtNombreReporte2.TabStop = true;
 
-                // RUTA BLOQUEADA
                 ReporteadorTxtRutaReporte.Enabled = true;
                 ReporteadorTxtRutaReporte.ReadOnly = true;
                 ReporteadorTxtRutaReporte.TabStop = false;
@@ -285,7 +278,11 @@ namespace CapaVista_Reporteador
                 else
                 {
                     modeloReporteador.Estado = ClsEstadoEntidad.Added;
-                    modeloReporteador.NumeroReporte = modeloReporteador.GenerarSiguienteNumeroReporte(30);
+
+                    // Asignación automática comenzando desde 3001, recalculada aquí
+                    // mismo justo antes de guardar para GARANTIZAR que nunca quede en 0
+                    // (evita el error "Debe ingresar el número de reporte" del modelo).
+                    modeloReporteador.NumeroReporte = ObtenerSiguienteNumeroReporte();
                 }
 
                 modeloReporteador.NombreReporte = nombre;
@@ -298,6 +295,13 @@ namespace CapaVista_Reporteador
                 else
                 {
                     modeloReporteador.FechaReporte = DateTime.Now.Date;
+                }
+
+                // Verificación de seguridad adicional: si por cualquier motivo
+                // el número sigue en 0, se asigna aquí antes de llamar a GrabarCambios.
+                if (modeloReporteador.NumeroReporte <= 0)
+                {
+                    modeloReporteador.NumeroReporte = ObtenerSiguienteNumeroReporte();
                 }
 
                 string resultado = modeloReporteador.GrabarCambios();
@@ -334,12 +338,44 @@ namespace CapaVista_Reporteador
             }
         }
 
+        /// <summary>
+        /// Calcula el siguiente número de reporte disponible, comenzando en 3001,
+        /// en base al máximo actual presente en la tabla cargada en pantalla.
+        /// </summary>
+        private int ObtenerSiguienteNumeroReporte()
+        {
+            int nuevoNumero = 3001;
+
+            if (ReporteadorDgvReportes != null && ReporteadorDgvReportes.Rows.Count > 0)
+            {
+                int maxId = 3000;
+                foreach (DataGridViewRow row in ReporteadorDgvReportes.Rows)
+                {
+                    if (row.Cells["NumeroReporte"].Value != null && int.TryParse(row.Cells["NumeroReporte"].Value.ToString(), out int id))
+                    {
+                        if (id > maxId)
+                        {
+                            maxId = id;
+                        }
+                    }
+                }
+                nuevoNumero = maxId + 1;
+            }
+
+            return nuevoNumero;
+        }
+
         private void PrepararNuevoRegistro()
         {
             try
             {
+                if (modeloReporteador == null)
+                {
+                    modeloReporteador = new ClsModeloReporteador();
+                }
+
                 modeloReporteador.Estado = ClsEstadoEntidad.Added;
-                modeloReporteador.NumeroReporte = modeloReporteador.GenerarSiguienteNumeroReporte(30);
+                modeloReporteador.NumeroReporte = ObtenerSiguienteNumeroReporte();
                 modeloReporteador.FechaReporte = DateTime.Now.Date;
 
                 if (ReporteadorDtpFechaReporte != null)
@@ -466,7 +502,6 @@ namespace CapaVista_Reporteador
                 BtnImprimirReporteador.RutaReporte = null;
             }
 
-            // NOMBRES EDITABLES
             ReporteadorTxtNombreReporte.Enabled = true;
             ReporteadorTxtNombreReporte.ReadOnly = false;
             ReporteadorTxtNombreReporte.TabStop = true;
@@ -475,7 +510,6 @@ namespace CapaVista_Reporteador
             ReporteadorTxtNombreReporte2.ReadOnly = false;
             ReporteadorTxtNombreReporte2.TabStop = true;
 
-            // RUTA BLOQUEADA
             ReporteadorTxtRutaReporte.Enabled = true;
             ReporteadorTxtRutaReporte.ReadOnly = true;
             ReporteadorTxtRutaReporte.TabStop = false;
