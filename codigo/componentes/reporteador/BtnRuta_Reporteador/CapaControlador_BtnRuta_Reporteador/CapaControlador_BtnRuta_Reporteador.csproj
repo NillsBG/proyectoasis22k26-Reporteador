@@ -1,14 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D903C6D7-873D-4C00-B296-E69142B1CE07}</ProjectGuid>
+    <ProjectGuid>{69B88374-E89E-4952-B098-35DC77DE21B0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CapaVista_BtnImprimir_Reporteador</RootNamespace>
-    <AssemblyName>CapaVista_BtnImprimir_Reporteador</AssemblyName>
+    <RootNamespace>CapaControlador_BtnRuta_Reporteador</RootNamespace>
+    <AssemblyName>CapaControlador_BtnRuta_Reporteador</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,10 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CapaModelo_BtnRuta_Reporteador">
+      <HintPath>..\CapaModelo_BtnRuta_Reporteador\bin\Debug\CapaModelo_BtnRuta_Reporteador.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,37 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BtnImprimir.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BtnImprimir.Designer.cs">
-      <DependentUpon>BtnImprimir.cs</DependentUpon>
-    </Compile>
+    <Compile Include="ClsControladorBtnRutaReporteador.cs" />
+    <Compile Include="ClsModeloBtnRutaReporteador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CapaControlador_BtnImprimir_Reporteador\CapaControlador_BtnImprimir_Reporteador.csproj">
-      <Project>{106add83-12f2-47aa-b883-c506a6d7c61d}</Project>
-      <Name>CapaControlador_BtnImprimir_Reporteador</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <EmbeddedResource Include="BtnImprimir.resx">
-      <DependentUpon>BtnImprimir.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\btn_imprimir.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

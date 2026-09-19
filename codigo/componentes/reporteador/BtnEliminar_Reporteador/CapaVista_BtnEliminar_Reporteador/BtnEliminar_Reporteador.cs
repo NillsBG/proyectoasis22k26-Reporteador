@@ -11,7 +11,6 @@ using System.Reflection;
 
 using CapaControlador_BtnEliminar_Reporteador;
 
-
 namespace CapaVista_BtnEliminar_Reporteador
 {
     // El boton se ve y se llama "Eliminar", pero NO borra
@@ -20,8 +19,9 @@ namespace CapaVista_BtnEliminar_Reporteador
     // (ReportesDeshabilitados.txt).
     //
     // Ademas, mientras un reporte este deshabilitado,
-    // bloquea sus campos de texto (Nombre, Ruta) en el
-    // formulario para que no se puedan modificar.
+    // bloquea sus campos de texto (Nombre, Ruta) y los
+    // demas botones (excepto Buscar, Filtro, Aplicar y Refrescar)
+    // en el formulario.
 
     public partial class BtnEliminar_Reporteador
         : UserControl
@@ -151,7 +151,7 @@ namespace CapaVista_BtnEliminar_Reporteador
 
             if (GridReportes != null)
             {
-            // Cada vez que el form recarga datos en el grid, se repinta y se revisa el bloqueo de campos.
+                // Cada vez que el form recarga datos en el grid, se repinta y se revisa el bloqueo de campos y botones.
                 GridReportes.DataBindingComplete +=
                     (s, args) =>
                     {
@@ -216,9 +216,9 @@ namespace CapaVista_BtnEliminar_Reporteador
         }
 
 
- 
+
         // DESHABILITAR SELECCIONADO
- 
+
 
         public void ReporteadorMetDeshabilitarSeleccionado()
         {
@@ -290,7 +290,7 @@ namespace CapaVista_BtnEliminar_Reporteador
                         : valorNombre.ToString();
 
 
-   
+
                 // VENTANA DE ADVERTENCIA / CONFIRMACION
                 // -----------------------------------------
                 // SIEMPRE se pregunta antes de deshabilitar.
@@ -360,10 +360,7 @@ namespace CapaVista_BtnEliminar_Reporteador
         }
 
 
-        // BLOQUEAR CAMPOS SI LA FILA ACTUAL ESTA DESHABILITADA
-        // mientras el reporte seleccionado este deshabilitado,
-        // sus TextBox de Nombre y Ruta quedan inhabilitados,
-        // asi el boton Guardar no puede editarlos.
+        // BLOQUEAR CAMPOS Y BOTONES SI LA FILA ACTUAL ESTA DESHABILITADA
 
         private void ReporteadorMetActualizarBloqueoCampos()
         {
@@ -408,11 +405,67 @@ namespace CapaVista_BtnEliminar_Reporteador
                 {
                     TxtRutaReporte.Enabled = !bloquear;
                 }
+
+                // Desactivar botones del formulario excepto Busqueda, Filtro, Aplicar y Refrescar
+                ReporteadorMetActualizarBloqueoBotones(bloquear);
             }
             catch (Exception)
             {
-                // El bloqueo de campos es un extra:
+                // El bloqueo de campos y botones es un extra:
                 // si falla, no debe frenar el flujo.
+            }
+        }
+
+
+        // METODO AUXILIAR PARA RECORRER Y BLOQUEAR BOTONES DEL FORMULARIO
+        private void ReporteadorMetActualizarBloqueoBotones(bool bloquear)
+        {
+            Form contenedor = FindForm();
+            if (contenedor == null)
+            {
+                return;
+            }
+
+            ReporteadorMetActualizarBotonesRecursivo(contenedor.Controls, bloquear);
+        }
+
+        private void ReporteadorMetActualizarBotonesRecursivo(Control.ControlCollection controles, bool bloquear)
+        {
+            foreach (Control ctrl in controles)
+            {
+                // Identifica si el control es un boton estandar o un UserControl con funciones de boton
+                bool esBoton = ctrl is Button || (ctrl is UserControl && (ctrl.Name.Contains("Btn") || ctrl.Name.Contains("Reporteador")));
+
+                if (esBoton && ctrl != this)
+                {
+                    string nombreCtrl = ctrl.Name.ToLower();
+
+                    // Lista optimizada con busqueda, filtro, aplicar y refrescar permitidos
+                    bool esPermitido = nombreCtrl.Contains("buscar") ||
+                                       nombreCtrl.Contains("busqueda") ||
+                                       nombreCtrl.Contains("filtro") ||
+                                       nombreCtrl.Contains("aplicar") ||
+                                       nombreCtrl.Contains("filter") ||
+                                       nombreCtrl.Contains("search") ||
+                                       nombreCtrl.Contains("refrescar") ||
+                                       nombreCtrl.Contains("refresh") ||
+                                       nombreCtrl.Contains("actualizar");
+
+                    if (esPermitido)
+                    {
+                        ctrl.Enabled = true; // Estos se quedan siempre habilitados
+                    }
+                    else
+                    {
+                        ctrl.Enabled = !bloquear; // Se desactivan si el registro esta deshabilitado
+                    }
+                }
+
+                // Recursividad por si los botones estan dentro de paneles, groupboxes, etc.
+                if (ctrl.HasChildren)
+                {
+                    ReporteadorMetActualizarBotonesRecursivo(ctrl.Controls, bloquear);
+                }
             }
         }
 

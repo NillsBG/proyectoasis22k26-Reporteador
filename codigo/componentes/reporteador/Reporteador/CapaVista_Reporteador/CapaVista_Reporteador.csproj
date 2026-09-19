@@ -40,8 +40,17 @@
     <Reference Include="CapaVista_BtnBusqueda_Reporteador">
       <HintPath>..\..\BtnBusqueda_Reporteador\CapaVista_BtnBusqueda_Reporteador\bin\Debug\CapaVista_BtnBusqueda_Reporteador.dll</HintPath>
     </Reference>
+    <Reference Include="CapaVista_BtnEliminar_Reporteador">
+      <HintPath>..\..\BtnEliminar_Reporteador\CapaVista_BtnEliminar_Reporteador\bin\Debug\CapaVista_BtnEliminar_Reporteador.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_BtnImprimir_Reporteador">
+      <HintPath>..\..\BtnImprimir_Reporteador\CapaVista_BtnImprimir_Reporteador\bin\Debug\CapaVista_BtnImprimir_Reporteador.dll</HintPath>
+    </Reference>
     <Reference Include="CapaVista_BtnLimpiar_Reporteador">
       <HintPath>..\..\BtnLimpiar_Reporteador\CapaVista_BtnLimpiar_Reporteador\bin\Debug\CapaVista_BtnLimpiar_Reporteador.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_BtnRuta_Reporteador">
+      <HintPath>..\..\BtnRuta_Reporteador\CapaVista_BtnRuta_Reporteador\bin\Debug\CapaVista_BtnRuta_Reporteador.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

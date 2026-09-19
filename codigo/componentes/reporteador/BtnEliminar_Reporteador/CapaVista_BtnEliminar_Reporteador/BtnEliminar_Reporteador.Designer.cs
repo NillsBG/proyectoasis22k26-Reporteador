@@ -40,6 +40,7 @@
             this.BtnEliminarReporteador.ForeColor = System.Drawing.Color.Transparent;
             this.BtnEliminarReporteador.Image = global::CapaVista_BtnEliminar_Reporteador.Properties.Resources.btn_eliminar;
             this.BtnEliminarReporteador.Location = new System.Drawing.Point(0, 0);
+            this.BtnEliminarReporteador.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BtnEliminarReporteador.Name = "BtnEliminarReporteador";
             this.BtnEliminarReporteador.Size = new System.Drawing.Size(56, 56);
             this.BtnEliminarReporteador.TabIndex = 0;
@@ -47,7 +48,7 @@
             // 
             // BtnEliminar_Reporteador
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.BtnEliminarReporteador);
