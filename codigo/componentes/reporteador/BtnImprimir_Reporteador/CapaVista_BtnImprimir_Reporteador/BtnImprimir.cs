@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+    CARLOS EDUARDO CHIN CAAL
+ */
+
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using CapaControlador_BtnImprimir_Reporteador;
