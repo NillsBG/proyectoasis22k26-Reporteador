@@ -1,5 +1,5 @@
 ﻿/* 
-     velveth sarai chavez mejia 0901 23 6269
+    VELVETH SARAI CHAVEZ MEJIA 0901 23 6269
  */
 
 using CapaControlador_Reporteador;
