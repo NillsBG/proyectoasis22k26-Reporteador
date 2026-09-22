@@ -289,11 +289,14 @@
             // ReporteadorBtnEliminar
             // 
             this.ReporteadorBtnEliminar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnEliminar.GridReportes = null;
             this.ReporteadorBtnEliminar.Location = new System.Drawing.Point(195, 235);
             this.ReporteadorBtnEliminar.Margin = new System.Windows.Forms.Padding(0);
             this.ReporteadorBtnEliminar.Name = "ReporteadorBtnEliminar";
             this.ReporteadorBtnEliminar.Size = new System.Drawing.Size(56, 56);
             this.ReporteadorBtnEliminar.TabIndex = 20;
+            this.ReporteadorBtnEliminar.TxtNombreReporte = null;
+            this.ReporteadorBtnEliminar.TxtRutaReporte = null;
             // 
             // ReporteadorBtnLimpiar
             // 
@@ -326,7 +329,7 @@
             // 
             this.ReporteadorBtnRuta.BackColor = System.Drawing.Color.Transparent;
             this.ReporteadorBtnRuta.CampoTextoRuta = null;
-            this.ReporteadorBtnRuta.Location = new System.Drawing.Point(705, 90);
+            this.ReporteadorBtnRuta.Location = new System.Drawing.Point(705, 99);
             this.ReporteadorBtnRuta.Name = "ReporteadorBtnRuta";
             this.ReporteadorBtnRuta.Size = new System.Drawing.Size(56, 56);
             this.ReporteadorBtnRuta.TabIndex = 24;

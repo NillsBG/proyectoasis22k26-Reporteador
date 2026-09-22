@@ -1,3 +1,7 @@
+/*
+    Jose Xavier Bolaños Tenas 
+ */
+
 using System;
 using System.ComponentModel;
 using System.Data;
