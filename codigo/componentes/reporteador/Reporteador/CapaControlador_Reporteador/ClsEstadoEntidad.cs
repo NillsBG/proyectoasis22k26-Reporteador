@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-
-namespace CapaControlador_Reporteador
+﻿namespace CapaModelo_Reporteador.Entidades
 {
+    /// <summary>
+    /// Estados utilizados para identificar la operación
+    /// que se realizará sobre una entidad.
+    /// </summary>
     public enum ClsEstadoEntidad
     {
+        // Registro nuevo.
         Added,
-        Deleted,
-        Modified
+
+        // Registro existente que será actualizado.
+        Modified,
+
+        // Registro que será eliminado.
+        Removed,
+
+        // Estado heredado de versiones anteriores.
+        // Se conserva para evitar romper referencias existentes.
+        Agregar
     }
 }

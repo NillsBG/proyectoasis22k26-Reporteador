@@ -1,6 +1,6 @@
 ﻿namespace CapaVista_BtnEditar_Reporteador
 {
-    partial class BtnEditarReporteador
+    partial class ReporteadorUcEditar
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -28,73 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ReporteadorBtnAccionEditar =
-                new System.Windows.Forms.Button();
-
+            this.ReporteadorBtnEditar = new System.Windows.Forms.Button();
             this.SuspendLayout();
-
             // 
-            // ReporteadorBtnAccionEditar
+            // ReporteadorBtnEditar
             // 
-            this.ReporteadorBtnAccionEditar.BackColor =
-                System.Drawing.Color.Transparent;
-
-            this.ReporteadorBtnAccionEditar.BackgroundImageLayout =
-                System.Windows.Forms.ImageLayout.Center;
-
-            this.ReporteadorBtnAccionEditar.Cursor =
-                System.Windows.Forms.Cursors.Hand;
-
-            this.ReporteadorBtnAccionEditar.Dock =
-                System.Windows.Forms.DockStyle.Fill;
-
-            this.ReporteadorBtnAccionEditar.FlatAppearance.BorderSize =
-                0;
-
-            this.ReporteadorBtnAccionEditar.FlatStyle =
-                System.Windows.Forms.FlatStyle.Flat;
-
-            this.ReporteadorBtnAccionEditar.Image =
-                global::CapaVista_BtnEditar_Reporteador.Properties.Resources.btn_modificar;
-
-            this.ReporteadorBtnAccionEditar.Location =
-                new System.Drawing.Point(0, 0);
-
-            this.ReporteadorBtnAccionEditar.Name =
-                "ReporteadorBtnAccionEditar";
-
-            this.ReporteadorBtnAccionEditar.Size =
-                new System.Drawing.Size(56, 56);
-
-            this.ReporteadorBtnAccionEditar.TabIndex =
-                0;
-
-            this.ReporteadorBtnAccionEditar.UseVisualStyleBackColor =
-                false;
-
+            this.ReporteadorBtnEditar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnEditar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ReporteadorBtnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ReporteadorBtnEditar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReporteadorBtnEditar.FlatAppearance.BorderSize = 0;
+            this.ReporteadorBtnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReporteadorBtnEditar.Image = global::CapaVista_BtnEditar_Reporteador.Properties.Resources.btn_modificar;
+            this.ReporteadorBtnEditar.Location = new System.Drawing.Point(0, 0);
+            this.ReporteadorBtnEditar.Name = "ReporteadorBtnEditar";
+            this.ReporteadorBtnEditar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnEditar.TabIndex = 0;
+            this.ReporteadorBtnEditar.UseVisualStyleBackColor = false;
             // 
-            // BtnEditar
+            // ReporteadorUcEditar
             // 
-            this.AutoScaleDimensions =
-                new System.Drawing.SizeF(6F, 13F);
-
-            this.AutoScaleMode =
-                System.Windows.Forms.AutoScaleMode.Font;
-
-            this.Controls.Add(
-                this.ReporteadorBtnAccionEditar);
-
-            this.Name =
-                "BtnEditar";
-
-            this.Size =
-                new System.Drawing.Size(56, 56);
-
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.ReporteadorBtnEditar);
+            this.Name = "ReporteadorUcEditar";
+            this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private System.Windows.Forms.Button ReporteadorBtnAccionEditar;
+        private System.Windows.Forms.Button ReporteadorBtnEditar;
     }
 }

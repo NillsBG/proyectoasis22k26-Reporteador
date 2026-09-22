@@ -4,63 +4,116 @@ using System.Data.Odbc;
 
 namespace CapaModelo_Reporteador.Repositorios
 {
-    public abstract class ClsRepositorioMaestro : ClsRepositorio
+    /// <summary>
+    /// Repositorio maestro que proporciona métodos
+    /// generales para ejecutar consultas y comandos SQL.
+    /// </summary>
+    public abstract class ClsRepositorioMaestro
+        : ClsRepositorio
     {
-        protected int EjecucionNonQuery(
-            string comandoTexto,
-            List<OdbcParameter> parametros,
-            CommandType comandoTipo)
+        protected ClsRepositorioMaestro()
+            : base()
         {
-            using (var conexion = ObtenerConexion())
+        }
+
+        // =========================================================
+        // EJECUTAR NON QUERY
+        // =========================================================
+
+        /// <summary>
+        /// Ejecuta comandos INSERT, UPDATE o DELETE.
+        /// </summary>
+        protected int ReporteadorMetEjecucionNonQuery(
+            string ComandoTexto,
+            List<OdbcParameter> Parametros,
+            CommandType ComandoTipo)
+        {
+            using (
+                OdbcConnection Conexion =
+                    ReporteadorMetObtenerConexion())
             {
-                conexion.Open();
+                Conexion.Open();
 
-                using (var comando = new OdbcCommand())
+                using (
+                    OdbcCommand Comando =
+                        new OdbcCommand())
                 {
-                    comando.Connection = conexion;
-                    comando.CommandText = comandoTexto;
-                    comando.CommandType = comandoTipo;
+                    Comando.Connection =
+                        Conexion;
 
-                    if (parametros != null && parametros.Count > 0)
+                    Comando.CommandText =
+                        ComandoTexto;
+
+                    Comando.CommandType =
+                        ComandoTipo;
+
+                    if (Parametros != null &&
+                        Parametros.Count > 0)
                     {
-                        comando.Parameters.AddRange(parametros.ToArray());
+                        Comando.Parameters.AddRange(
+                            Parametros.ToArray());
                     }
 
-                    return comando.ExecuteNonQuery();
+                    return
+                        Comando.ExecuteNonQuery();
                 }
             }
         }
 
-        protected DataTable EjecucionConsulta(
-            string comandoTexto,
-            List<OdbcParameter> parametros = null,
-            CommandType comandoTipo = CommandType.Text)
+        // =========================================================
+        // EJECUTAR CONSULTA
+        // =========================================================
+
+        /// <summary>
+        /// Ejecuta una consulta SELECT y devuelve
+        /// los resultados en un DataTable.
+        /// </summary>
+        protected DataTable
+            ReporteadorMetEjecucionConsulta(
+                string ComandoTexto,
+                List<OdbcParameter> Parametros = null,
+                CommandType ComandoTipo =
+                    CommandType.Text)
         {
-            DataTable tabla = new DataTable();
+            DataTable Tabla =
+                new DataTable();
 
-            using (var conexion = ObtenerConexion())
+            using (
+                OdbcConnection Conexion =
+                    ReporteadorMetObtenerConexion())
             {
-                conexion.Open();
+                Conexion.Open();
 
-                using (var comando = new OdbcCommand())
+                using (
+                    OdbcCommand Comando =
+                        new OdbcCommand())
                 {
-                    comando.Connection = conexion;
-                    comando.CommandText = comandoTexto;
-                    comando.CommandType = comandoTipo;
+                    Comando.Connection =
+                        Conexion;
 
-                    if (parametros != null && parametros.Count > 0)
+                    Comando.CommandText =
+                        ComandoTexto;
+
+                    Comando.CommandType =
+                        ComandoTipo;
+
+                    if (Parametros != null &&
+                        Parametros.Count > 0)
                     {
-                        comando.Parameters.AddRange(parametros.ToArray());
+                        Comando.Parameters.AddRange(
+                            Parametros.ToArray());
                     }
 
-                    using (var reader = comando.ExecuteReader())
+                    using (
+                        OdbcDataReader Lector =
+                            Comando.ExecuteReader())
                     {
-                        tabla.Load(reader);
+                        Tabla.Load(Lector);
                     }
                 }
             }
 
-            return tabla;
+            return Tabla;
         }
     }
 }

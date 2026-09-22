@@ -34,6 +34,9 @@
     <Reference Include="CapaControlador_BtnGuardar_Reporteador">
       <HintPath>..\CapaControlador_BtnGuardar_Reporteador\bin\Debug\CapaControlador_BtnGuardar_Reporteador.dll</HintPath>
     </Reference>
+    <Reference Include="CapaVista_BtnActualizar_Reporteador">
+      <HintPath>..\..\BtnActualizar_Reporteador\CapaVista_BtnActualizar_Reporteador\bin\Debug\CapaVista_BtnActualizar_Reporteador.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

@@ -4,16 +4,23 @@ namespace CapaModelo_BtnRuta_Reporteador.Repositorios
 {
     public abstract class ClsRepositorioReporteador
     {
-        protected readonly string ConnectionString;
+        // Cadena utilizada para conectarse mediante el DSN
+        // configurado para el componente Reporteador.
+        protected readonly string _CadenaConexion;
 
         protected ClsRepositorioReporteador()
         {
-            ConnectionString = "Dsn=dbreporteador";
+            _CadenaConexion =
+                "Dsn=dbreporteador";
         }
 
-        protected OdbcConnection ReporteadorMetObtenerConexion()
+        // Crea la conexión ODBC para las operaciones
+        // que necesiten acceso a la base de datos.
+        protected OdbcConnection
+            ReporteadorMetObtenerConexion()
         {
-            return new OdbcConnection(ConnectionString);
+            return new OdbcConnection(
+                _CadenaConexion);
         }
     }
 }

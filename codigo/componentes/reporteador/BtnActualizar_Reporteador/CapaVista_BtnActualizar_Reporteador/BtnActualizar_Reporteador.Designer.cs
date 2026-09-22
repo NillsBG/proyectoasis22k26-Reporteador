@@ -1,6 +1,6 @@
 namespace CapaVista_BtnActualizar
 {
-    partial class BtnActualizarReporteador
+    partial class ReporteadorUcActualizar
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -36,13 +36,13 @@ namespace CapaVista_BtnActualizar
             this.ReporteadorBtnActualizar.UseVisualStyleBackColor = false;
             this.ReporteadorBtnActualizar.Click += new System.EventHandler(this.ReporteadorBtnActualizar_Click);
             // 
-            // BtnActualizarReporteador
+            // ReporteadorUcActualizar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.ReporteadorBtnActualizar);
-            this.Name = "BtnActualizarReporteador";
+            this.Name = "ReporteadorUcActualizar";
             this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
 

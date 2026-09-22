@@ -37,8 +37,8 @@
     <Reference Include="CapaVista_BtnActualizar_Reporteador">
       <HintPath>..\..\BtnActualizar_Reporteador\CapaVista_BtnActualizar_Reporteador\bin\Debug\CapaVista_BtnActualizar_Reporteador.dll</HintPath>
     </Reference>
-    <Reference Include="CapaVista_BtnBusqueda_Reporteador">
-      <HintPath>..\..\BtnBusqueda_Reporteador\CapaVista_BtnBusqueda_Reporteador\bin\Debug\CapaVista_BtnBusqueda_Reporteador.dll</HintPath>
+    <Reference Include="CapaVista_BtnBusqueda">
+      <HintPath>..\..\BtnBusqueda_Reporteador\CapaVista_BtnBusqueda\bin\Debug\CapaVista_BtnBusqueda.dll</HintPath>
     </Reference>
     <Reference Include="CapaVista_BtnEditar_Reporteador">
       <HintPath>..\..\BtnEditar_Reporteador\CapaVista_BtnEditar_Reporteador\bin\Debug\CapaVista_BtnEditar_Reporteador.dll</HintPath>
@@ -108,6 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\img_mascota.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CapaModelo_Reporteador\CapaModelo_Reporteador.csproj">
+      <Project>{BF2AE373-E969-4939-AA73-FD4535DC5C9C}</Project>
+      <Name>CapaModelo_Reporteador</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

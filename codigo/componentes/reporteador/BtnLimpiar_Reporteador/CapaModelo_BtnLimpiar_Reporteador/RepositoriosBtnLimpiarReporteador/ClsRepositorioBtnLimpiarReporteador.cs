@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CapaModelo_BtnLimpiar_Reporteador.RepositoriosBtnLimpiarReporteador
+namespace CapaModelo_BtnLimpiar_Reporteador
+    .RepositoriosBtnLimpiarReporteador
 {
     public class ClsRepositorioBtnLimpiarReporteador
     {
-        public bool ReporteadorFuncLimpiarDatos(out string MensajeError)
+        public bool ReporteadorMetLimpiarDatos(
+            out string MensajeError)
         {
-            MensajeError = string.Empty;
+            MensajeError =
+                string.Empty;
 
             try
             {
                 return true;
             }
-            catch (Exception Ex)
+            catch (Exception)
             {
-                MensajeError = Ex.Message;
+                MensajeError =
+                    "Ocurrió un error al limpiar " +
+                    "los datos del formulario.";
+
                 return false;
             }
         }

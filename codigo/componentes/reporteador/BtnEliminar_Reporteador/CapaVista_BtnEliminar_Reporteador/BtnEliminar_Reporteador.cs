@@ -1,133 +1,135 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Reflection;
-
+using System.Windows.Forms;
 using CapaControlador_BtnEliminar_Reporteador;
 
 namespace CapaVista_BtnEliminar_Reporteador
 {
-    // El boton se ve y se llama "Eliminar", pero NO borra
-    // el registro y NO toca la base de datos: guarda el
-    // numero de reporte en un archivo de texto local
-    // (ReportesDeshabilitados.txt).
-    //
-    // Ademas, mientras un reporte este deshabilitado,
-    // bloquea sus campos de texto (Nombre, Ruta) y los
-    // demas botones (excepto Buscar, Filtro, Aplicar y Refrescar)
-    // en el formulario.
-
-    public partial class BtnEliminar_Reporteador
+    public partial class ReporteadorUcEliminar
         : UserControl
     {
-
-        // CONTROLADOR
-
         private readonly ClsModeloBtnEliminarReporteador
             _Controlador;
 
-        // PROPIEDADES
+        public DataGridView GridReportes
+        {
+            get;
+            set;
+        }
 
-        [Browsable(false)]
-        [DesignerSerializationVisibility(
-            DesignerSerializationVisibility.Hidden)]
-        public DataGridView GridReportes { get; set; }
+        public TextBox TxtNombreReporte
+        {
+            get;
+            set;
+        }
 
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(
-            DesignerSerializationVisibility.Hidden)]
-        public TextBox TxtNombreReporte { get; set; }
-
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(
-            DesignerSerializationVisibility.Hidden)]
-        public TextBox TxtRutaReporte { get; set; }
-
+        public TextBox TxtRutaReporte
+        {
+            get;
+            set;
+        }
 
         [Category("Reporteador")]
         [DefaultValue("ReporteadorDgvReportes")]
-        public string NombreGridReportes { get; set; }
-            = "ReporteadorDgvReportes";
-
+        public string NombreGridReportes
+        {
+            get;
+            set;
+        } = "ReporteadorDgvReportes";
 
         [Category("Reporteador")]
         [DefaultValue("ReporteadorTxtNombreReporte")]
-        public string NombreTxtNombreReporte { get; set; }
-            = "ReporteadorTxtNombreReporte";
-
+        public string NombreTxtNombreReporte
+        {
+            get;
+            set;
+        } = "ReporteadorTxtNombreReporte";
 
         [Category("Reporteador")]
         [DefaultValue("ReporteadorTxtRutaReporte")]
-        public string NombreTxtRutaReporte { get; set; }
-            = "ReporteadorTxtRutaReporte";
-
+        public string NombreTxtRutaReporte
+        {
+            get;
+            set;
+        } = "ReporteadorTxtRutaReporte";
 
         [Category("Reporteador")]
         [DefaultValue("NumeroReporte")]
-        public string ColumnaNumeroReporte { get; set; }
-            = "NumeroReporte";
-
+        public string ColumnaNumeroReporte
+        {
+            get;
+            set;
+        } = "NumeroReporte";
 
         [Category("Reporteador")]
         [DefaultValue("NombreReporte")]
-        public string ColumnaNombreReporte { get; set; }
-            = "NombreReporte";
+        public string ColumnaNombreReporte
+        {
+            get;
+            set;
+        } = "NombreReporte";
 
-
-        // Metodo publico del formulario que recarga la tabla despues de deshabilitar.
         [Category("Reporteador")]
         [DefaultValue("CargarTabla")]
-        public string MetodoRecargar { get; set; }
-            = "CargarTabla";
-
-
-        // EVENTO
+        public string MetodoRecargar
+        {
+            get;
+            set;
+        } = "CargarTabla";
 
         public event EventHandler Deshabilitado;
 
-        protected virtual void OnDeshabilitado()
+        protected virtual void ReporteadorMetOnDeshabilitado()
         {
             if (Deshabilitado != null)
             {
-                Deshabilitado(this, EventArgs.Empty);
+                Deshabilitado(
+                    this,
+                    EventArgs.Empty);
             }
         }
 
-
-        // CONSTRUCTOR
-
-        public BtnEliminar_Reporteador()
+        public ReporteadorUcEliminar()
         {
             InitializeComponent();
 
             _Controlador =
                 new ClsModeloBtnEliminarReporteador();
 
-            BtnEliminarReporteador.Click +=
+            ReporteadorBtnEliminar.Click +=
                 ReporteadorBtnEliminar_Click;
         }
 
-
-        // AUTODETECCION DE CONTROLES DEL FORM
-
-
-        protected override void OnLoad(EventArgs e)
+        protected override void OnLoad(EventArgs E)
         {
-            base.OnLoad(e);
+            base.OnLoad(E);
 
             if (DesignMode)
             {
                 return;
             }
 
+            ReporteadorMetBuscarControles();
+
+            if (GridReportes != null)
+            {
+                GridReportes.DataBindingComplete +=
+                    ReporteadorMetGridDataBindingComplete;
+
+                GridReportes.SelectionChanged +=
+                    ReporteadorMetGridSelectionChanged;
+
+                ReporteadorMetMarcarFilasDeshabilitadas();
+
+                ReporteadorMetActualizarBloqueoCampos();
+            }
+        }
+
+        private void ReporteadorMetBuscarControles()
+        {
             if (GridReportes == null)
             {
                 GridReportes =
@@ -148,51 +150,38 @@ namespace CapaVista_BtnEliminar_Reporteador
                     ReporteadorMetBuscarControl<TextBox>(
                         NombreTxtRutaReporte);
             }
-
-            if (GridReportes != null)
-            {
-                // Cada vez que el form recarga datos en el grid, se repinta y se revisa el bloqueo de campos y botones.
-                GridReportes.DataBindingComplete +=
-                    (s, args) =>
-                    {
-                        ReporteadorMetMarcarFilasDeshabilitadas();
-                        ReporteadorMetActualizarBloqueoCampos();
-                    };
-
-                GridReportes.SelectionChanged +=
-                    (s, args) =>
-                        ReporteadorMetActualizarBloqueoCampos();
-
-                ReporteadorMetMarcarFilasDeshabilitadas();
-                ReporteadorMetActualizarBloqueoCampos();
-            }
         }
 
-
         private T ReporteadorMetBuscarControl<T>(
-            string nombre) where T : Control
+            string Nombre)
+            where T : Control
         {
             try
             {
-                Form contenedor = FindForm();
+                Form Contenedor =
+                    FindForm();
 
-                if (contenedor == null ||
-                    string.IsNullOrWhiteSpace(nombre))
+                if (Contenedor == null ||
+                    string.IsNullOrWhiteSpace(Nombre))
                 {
                     return null;
                 }
 
-                Control[] encontrados =
-                    contenedor.Controls.Find(
-                        nombre, true);
+                Control[] Encontrados =
+                    Contenedor.Controls.Find(
+                        Nombre,
+                        true);
 
-                foreach (Control control in encontrados)
+                foreach (
+                    Control ControlEncontrado
+                    in Encontrados)
                 {
-                    T tipado = control as T;
+                    T ControlTipado =
+                        ControlEncontrado as T;
 
-                    if (tipado != null)
+                    if (ControlTipado != null)
                     {
-                        return tipado;
+                        return ControlTipado;
                     }
                 }
 
@@ -204,52 +193,33 @@ namespace CapaVista_BtnEliminar_Reporteador
             }
         }
 
-
-        // CLICK
-
         private void ReporteadorBtnEliminar_Click(
-            object sender, EventArgs e)
+            object Sender,
+            EventArgs E)
         {
             ReporteadorMetDeshabilitarSeleccionado();
-
-            OnClick(EventArgs.Empty);
         }
-
-
-
-        // DESHABILITAR SELECCIONADO
-
 
         public void ReporteadorMetDeshabilitarSeleccionado()
         {
             try
             {
-
-                // GRID
-
-
-                if (GridReportes == null)
-                {
-                    GridReportes =
-                        ReporteadorMetBuscarControl<DataGridView>(
-                            NombreGridReportes);
-                }
+                ReporteadorMetBuscarControles();
 
                 if (GridReportes == null)
                 {
                     ReporteadorMetMostrarError(
-                        "No se encontro la tabla de " +
+                        "No se encontró la tabla de " +
                         "reportes en el formulario.");
 
                     return;
                 }
 
-                // FILA SELECCIONADA
-
-                DataGridViewRow fila =
+                DataGridViewRow Fila =
                     GridReportes.CurrentRow;
 
-                if (fila == null || fila.IsNewRow)
+                if (Fila == null ||
+                    Fila.IsNewRow)
                 {
                     ReporteadorMetMostrarError(
                         "Seleccione el reporte que desea " +
@@ -258,77 +228,68 @@ namespace CapaVista_BtnEliminar_Reporteador
                     return;
                 }
 
-
-                object valorNumero =
+                object ValorNumero =
                     ReporteadorMetObtenerValor(
-                        fila, ColumnaNumeroReporte);
+                        Fila,
+                        ColumnaNumeroReporte);
 
-                int numeroReporte;
+                int NumeroReporte;
 
-                if (valorNumero == null ||
+                if (ValorNumero == null ||
                     !int.TryParse(
-                        valorNumero.ToString(),
-                        out numeroReporte))
+                        ValorNumero.ToString(),
+                        out NumeroReporte))
                 {
                     ReporteadorMetMostrarError(
-                        "No se pudo leer el numero del " +
-                        "reporte seleccionado." +
-                        Environment.NewLine +
-                        "Verifique que exista la columna '" +
-                        ColumnaNumeroReporte + "'.");
+                        "No se pudo leer el número del " +
+                        "reporte seleccionado.");
 
                     return;
                 }
 
-                object valorNombre =
+                object ValorNombre =
                     ReporteadorMetObtenerValor(
-                        fila, ColumnaNombreReporte);
+                        Fila,
+                        ColumnaNombreReporte);
 
-                string nombreReporte =
-                    valorNombre == null
-                        ? ""
-                        : valorNombre.ToString();
+                string NombreReporte =
+                    ValorNombre == null
+                    ? string.Empty
+                    : ValorNombre.ToString();
 
-
-
-                // VENTANA DE ADVERTENCIA / CONFIRMACION
-                // -----------------------------------------
-                // SIEMPRE se pregunta antes de deshabilitar.
-
-                string pregunta =
-                    "Esta seguro que desea deshabilitar " +
+                string Pregunta =
+                    "¿Está seguro que desea deshabilitar " +
                     "este reporte?" +
                     Environment.NewLine +
                     Environment.NewLine +
-                    "Numero: " + numeroReporte +
+                    "Número: " +
+                    NumeroReporte +
                     Environment.NewLine +
-                    "Nombre: " + nombreReporte +
+                    "Nombre: " +
+                    NombreReporte +
                     Environment.NewLine +
                     Environment.NewLine +
-                    "El reporte NO se borrara ni se " +
-                    "modificara en la base de datos. " +
-                    "Quedara marcado como inactivo y sus " +
-                    "campos no podran editarse.";
+                    "El reporte no se eliminará de la " +
+                    "base de datos. Quedará marcado " +
+                    "como inactivo y sus campos no " +
+                    "podrán editarse.";
 
                 if (!ReporteadorMetMostrarConfirmacion(
-                        pregunta))
+                    Pregunta))
                 {
-                    // El usuario cancelo. No se hace nada.
                     return;
                 }
 
-                // DESHABILITAR (CONTROLADOR)
-
-
-                string error =
+                string Mensaje =
                     _Controlador
                     .ReporteadorMetDeshabilitar(
-                        numeroReporte);
+                        NumeroReporte);
 
-                if (string.IsNullOrWhiteSpace(error))
+                if (string.IsNullOrWhiteSpace(
+                    Mensaje))
                 {
                     ReporteadorMetMostrarExito(
-                        "El reporte se deshabilito " +
+                        "El reporte se deshabilitó " +
                         "correctamente.");
 
                     ReporteadorMetRecargarTabla();
@@ -337,30 +298,21 @@ namespace CapaVista_BtnEliminar_Reporteador
 
                     ReporteadorMetActualizarBloqueoCampos();
 
-                    OnDeshabilitado();
+                    ReporteadorMetOnDeshabilitado();
 
                     return;
                 }
 
                 ReporteadorMetMostrarError(
-                    "No se pudo deshabilitar el reporte." +
-                    Environment.NewLine +
-                    Environment.NewLine +
-                    error);
+                    Mensaje);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ReporteadorMetMostrarError(
-                    "Ocurrio un error inesperado al " +
-                    "deshabilitar el reporte." +
-                    Environment.NewLine +
-                    Environment.NewLine +
-                    ex.Message);
+                    "Ocurrió un error inesperado al " +
+                    "deshabilitar el reporte.");
             }
         }
-
-
-        // BLOQUEAR CAMPOS Y BOTONES SI LA FILA ACTUAL ESTA DESHABILITADA
 
         private void ReporteadorMetActualizarBloqueoCampos()
         {
@@ -371,107 +323,123 @@ namespace CapaVista_BtnEliminar_Reporteador
                     return;
                 }
 
-                DataGridViewRow fila =
+                DataGridViewRow Fila =
                     GridReportes.CurrentRow;
 
-                bool bloquear = false;
+                bool Bloquear = false;
 
-                if (fila != null && !fila.IsNewRow)
+                if (Fila != null &&
+                    !Fila.IsNewRow)
                 {
-                    object valor =
+                    object Valor =
                         ReporteadorMetObtenerValor(
-                            fila, ColumnaNumeroReporte);
+                            Fila,
+                            ColumnaNumeroReporte);
 
-                    int numero;
+                    int Numero;
 
-                    if (valor != null &&
+                    if (Valor != null &&
                         int.TryParse(
-                            valor.ToString(),
-                            out numero))
+                            Valor.ToString(),
+                            out Numero))
                     {
-                        bloquear =
+                        Bloquear =
                             _Controlador
                             .ReporteadorMetEstaDeshabilitado(
-                                numero);
+                                Numero);
                     }
                 }
 
                 if (TxtNombreReporte != null)
                 {
-                    TxtNombreReporte.Enabled = !bloquear;
+                    TxtNombreReporte.Enabled =
+                        !Bloquear;
                 }
 
                 if (TxtRutaReporte != null)
                 {
-                    TxtRutaReporte.Enabled = !bloquear;
+                    TxtRutaReporte.Enabled =
+                        !Bloquear;
                 }
 
-                // Desactivar botones del formulario excepto Busqueda, Filtro, Aplicar y Refrescar
-                ReporteadorMetActualizarBloqueoBotones(bloquear);
+                ReporteadorMetActualizarBloqueoBotones(
+                    Bloquear);
             }
             catch (Exception)
             {
-                // El bloqueo de campos y botones es un extra:
-                // si falla, no debe frenar el flujo.
             }
         }
 
-
-        // METODO AUXILIAR PARA RECORRER Y BLOQUEAR BOTONES DEL FORMULARIO
-        private void ReporteadorMetActualizarBloqueoBotones(bool bloquear)
+        private void ReporteadorMetActualizarBloqueoBotones(
+            bool Bloquear)
         {
-            Form contenedor = FindForm();
-            if (contenedor == null)
+            Form Contenedor =
+                FindForm();
+
+            if (Contenedor == null)
             {
                 return;
             }
 
-            ReporteadorMetActualizarBotonesRecursivo(contenedor.Controls, bloquear);
+            ReporteadorMetActualizarBotonesRecursivo(
+                Contenedor.Controls,
+                Bloquear);
         }
 
-        private void ReporteadorMetActualizarBotonesRecursivo(Control.ControlCollection controles, bool bloquear)
+        private void ReporteadorMetActualizarBotonesRecursivo(
+            Control.ControlCollection Controles,
+            bool Bloquear)
         {
-            foreach (Control ctrl in controles)
+            foreach (Control ControlActual
+                     in Controles)
             {
-                // Identifica si el control es un boton estandar o un UserControl con funciones de boton
-                bool esBoton = ctrl is Button || (ctrl is UserControl && (ctrl.Name.Contains("Btn") || ctrl.Name.Contains("Reporteador")));
+                bool EsBoton =
+                    ControlActual is Button ||
+                    (
+                        ControlActual is UserControl &&
+                        (
+                            ControlActual.Name.Contains("Btn") ||
+                            ControlActual.Name.Contains(
+                                "Reporteador")
+                        )
+                    );
 
-                if (esBoton && ctrl != this)
+                if (EsBoton &&
+                    ControlActual != this)
                 {
-                    string nombreCtrl = ctrl.Name.ToLower();
+                    string NombreControl =
+                        ControlActual.Name.ToLower();
 
-                    // Lista optimizada con busqueda, filtro, aplicar y refrescar permitidos
-                    bool esPermitido = nombreCtrl.Contains("buscar") ||
-                                       nombreCtrl.Contains("busqueda") ||
-                                       nombreCtrl.Contains("filtro") ||
-                                       nombreCtrl.Contains("aplicar") ||
-                                       nombreCtrl.Contains("filter") ||
-                                       nombreCtrl.Contains("search") ||
-                                       nombreCtrl.Contains("refrescar") ||
-                                       nombreCtrl.Contains("refresh") ||
-                                       nombreCtrl.Contains("actualizar");
+                    bool EsPermitido =
+                        NombreControl.Contains("buscar") ||
+                        NombreControl.Contains("busqueda") ||
+                        NombreControl.Contains("filtro") ||
+                        NombreControl.Contains("aplicar") ||
+                        NombreControl.Contains("filter") ||
+                        NombreControl.Contains("search") ||
+                        NombreControl.Contains("refrescar") ||
+                        NombreControl.Contains("refresh") ||
+                        NombreControl.Contains("actualizar");
 
-                    if (esPermitido)
+                    if (EsPermitido)
                     {
-                        ctrl.Enabled = true; // Estos se quedan siempre habilitados
+                        ControlActual.Enabled = true;
                     }
                     else
                     {
-                        ctrl.Enabled = !bloquear; // Se desactivan si el registro esta deshabilitado
+                        ControlActual.Enabled =
+                            !Bloquear;
                     }
                 }
 
-                // Recursividad por si los botones estan dentro de paneles, groupboxes, etc.
-                if (ctrl.HasChildren)
+                if (ControlActual.HasChildren)
                 {
-                    ReporteadorMetActualizarBotonesRecursivo(ctrl.Controls, bloquear);
+                    ReporteadorMetActualizarBotonesRecursivo(
+                        ControlActual.Controls,
+                        Bloquear);
                 }
             }
         }
-
-
-        // MARCAR VISUALMENTE LAS FILAS DESHABILITADAS
-
 
         private void ReporteadorMetMarcarFilasDeshabilitadas()
         {
@@ -482,107 +450,110 @@ namespace CapaVista_BtnEliminar_Reporteador
                     return;
                 }
 
-                HashSet<int> deshabilitados =
+                HashSet<int> Deshabilitados =
                     new HashSet<int>(
                         _Controlador
                         .ReporteadorMetObtenerNumerosDeshabilitados());
 
-                Font fuenteNormal =
+                Font FuenteNormal =
                     GridReportes.DefaultCellStyle.Font
                     ?? GridReportes.Font;
 
-                Font fuenteCursiva =
+                Font FuenteCursiva =
                     new Font(
-                        fuenteNormal,
+                        FuenteNormal,
                         FontStyle.Italic);
 
-                foreach (DataGridViewRow fila
-                         in GridReportes.Rows)
+                foreach (
+                    DataGridViewRow Fila
+                    in GridReportes.Rows)
                 {
-                    if (fila.IsNewRow)
+                    if (Fila.IsNewRow)
                     {
                         continue;
                     }
 
-                    object valor =
+                    object Valor =
                         ReporteadorMetObtenerValor(
-                            fila, ColumnaNumeroReporte);
+                            Fila,
+                            ColumnaNumeroReporte);
 
-                    int numero;
+                    int Numero;
 
-                    bool estaDeshabilitado =
-                        valor != null &&
+                    bool EstaDeshabilitado =
+                        Valor != null &&
                         int.TryParse(
-                            valor.ToString(),
-                            out numero) &&
-                        deshabilitados.Contains(numero);
+                            Valor.ToString(),
+                            out Numero) &&
+                        Deshabilitados.Contains(Numero);
 
-                    if (estaDeshabilitado)
+                    if (EstaDeshabilitado)
                     {
-                        fila.DefaultCellStyle.BackColor =
+                        Fila.DefaultCellStyle.BackColor =
                             Color.Gainsboro;
 
-                        fila.DefaultCellStyle.ForeColor =
+                        Fila.DefaultCellStyle.ForeColor =
                             Color.DimGray;
 
-                        fila.DefaultCellStyle.Font =
-                            fuenteCursiva;
+                        Fila.DefaultCellStyle.Font =
+                            FuenteCursiva;
                     }
                     else
                     {
-                        fila.DefaultCellStyle.BackColor =
+                        Fila.DefaultCellStyle.BackColor =
                             Color.Empty;
 
-                        fila.DefaultCellStyle.ForeColor =
+                        Fila.DefaultCellStyle.ForeColor =
                             Color.Empty;
 
-                        fila.DefaultCellStyle.Font = null;
+                        Fila.DefaultCellStyle.Font =
+                            null;
                     }
                 }
             }
             catch (Exception)
             {
-                // El marcado visual es un extra:
-                // si falla, no debe frenar el flujo.
             }
         }
-
 
         private object ReporteadorMetObtenerValor(
-            DataGridViewRow fila,
-            string nombreColumna)
+            DataGridViewRow Fila,
+            string NombreColumna)
         {
-            if (string.IsNullOrWhiteSpace(nombreColumna))
+            if (Fila == null ||
+                string.IsNullOrWhiteSpace(
+                    NombreColumna))
             {
                 return null;
             }
 
-            if (!fila.DataGridView
-                 .Columns.Contains(nombreColumna))
+            if (Fila.DataGridView == null ||
+                !Fila.DataGridView.Columns.Contains(
+                    NombreColumna))
             {
                 return null;
             }
 
-            return fila.Cells[nombreColumna].Value;
+            return Fila.Cells[
+                NombreColumna].Value;
         }
-
-        // RECARGAR LA TABLA DEL FORM
 
         private void ReporteadorMetRecargarTabla()
         {
             try
             {
-                Form contenedor = FindForm();
+                Form Contenedor =
+                    FindForm();
 
-                if (contenedor == null ||
+                if (Contenedor == null ||
                     string.IsNullOrWhiteSpace(
                         MetodoRecargar))
                 {
                     return;
                 }
 
-                MethodInfo metodo =
-                    contenedor.GetType().GetMethod(
+                MethodInfo Metodo =
+                    Contenedor.GetType().GetMethod(
                         MetodoRecargar,
                         BindingFlags.Public |
                         BindingFlags.NonPublic |
@@ -591,9 +562,11 @@ namespace CapaVista_BtnEliminar_Reporteador
                         Type.EmptyTypes,
                         null);
 
-                if (metodo != null)
+                if (Metodo != null)
                 {
-                    metodo.Invoke(contenedor, null);
+                    Metodo.Invoke(
+                        Contenedor,
+                        null);
 
                     return;
                 }
@@ -603,54 +576,61 @@ namespace CapaVista_BtnEliminar_Reporteador
                     GridReportes.Refresh();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ReporteadorMetMostrarError(
-                    "El reporte se deshabilito, pero no " +
-                    "se pudo refrescar la tabla." +
-                    Environment.NewLine +
-                    ex.Message);
+                    "El reporte se deshabilitó, pero no " +
+                    "se pudo refrescar la tabla.");
             }
         }
 
-
-        // DIALOGOS
-
         private void ReporteadorMetMostrarExito(
-            string mensaje)
+            string Mensaje)
         {
             MessageBox.Show(
-                mensaje,
-                "Operacion exitosa",
+                Mensaje,
+                "Operación exitosa",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
         }
 
-
         private void ReporteadorMetMostrarError(
-            string mensaje)
+            string Mensaje)
         {
             MessageBox.Show(
-                mensaje,
-                "Ocurrio un error",
+                Mensaje,
+                "Ocurrió un error",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
 
-
-        // Ventana emergente de advertencia con Si/No.
         private bool ReporteadorMetMostrarConfirmacion(
-            string mensaje)
+            string Mensaje)
         {
-            DialogResult resultado =
+            DialogResult Resultado =
                 MessageBox.Show(
-                    mensaje,
-                    "Confirmar deshabilitacion",
+                    Mensaje,
+                    "Confirmar deshabilitación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning,
                     MessageBoxDefaultButton.Button2);
 
-            return resultado == DialogResult.Yes;
+            return Resultado == DialogResult.Yes;
+        }
+
+        private void ReporteadorMetGridDataBindingComplete(
+            object Sender,
+            DataGridViewBindingCompleteEventArgs E)
+        {
+            ReporteadorMetMarcarFilasDeshabilitadas();
+            ReporteadorMetActualizarBloqueoCampos();
+        }
+
+        private void ReporteadorMetGridSelectionChanged(
+            object Sender,
+            EventArgs E)
+        {
+            ReporteadorMetActualizarBloqueoCampos();
         }
     }
 }

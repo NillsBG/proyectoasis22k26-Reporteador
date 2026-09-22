@@ -1,6 +1,6 @@
 ﻿namespace CapaVista_BtnGuardar_Reporteador
 {
-    partial class BtnGuardar_Reporteador
+    partial class ReporteadorUcGuardar
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BtnGuardarReporteador = new System.Windows.Forms.Button();
+            this.ReporteadorBtnGuardar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // BtnGuardarReporteador
+            // ReporteadorBtnGuardar
             // 
-            this.BtnGuardarReporteador.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BtnGuardarReporteador.FlatAppearance.BorderSize = 0;
-            this.BtnGuardarReporteador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnGuardarReporteador.Image = global::CapaVista_BtnGuardar_Reporteador.Properties.Resources.btn_guardar;
-            this.BtnGuardarReporteador.Location = new System.Drawing.Point(0, 0);
-            this.BtnGuardarReporteador.Name = "BtnGuardarReporteador";
-            this.BtnGuardarReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnGuardarReporteador.TabIndex = 0;
-            this.BtnGuardarReporteador.UseVisualStyleBackColor = true;
+            this.ReporteadorBtnGuardar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReporteadorBtnGuardar.FlatAppearance.BorderSize = 0;
+            this.ReporteadorBtnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReporteadorBtnGuardar.Image = global::CapaVista_BtnGuardar_Reporteador.Properties.Resources.btn_guardar;
+            this.ReporteadorBtnGuardar.Location = new System.Drawing.Point(0, 0);
+            this.ReporteadorBtnGuardar.Name = "ReporteadorBtnGuardar";
+            this.ReporteadorBtnGuardar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnGuardar.TabIndex = 0;
+            this.ReporteadorBtnGuardar.UseVisualStyleBackColor = true;
             // 
-            // BtnGuardar_Reporteador
+            // ReporteadorUcGuardar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.BtnGuardarReporteador);
+            this.Controls.Add(this.ReporteadorBtnGuardar);
             this.MaximumSize = new System.Drawing.Size(56, 56);
             this.MinimumSize = new System.Drawing.Size(56, 56);
-            this.Name = "BtnGuardar_Reporteador";
+            this.Name = "ReporteadorUcGuardar";
             this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
 
@@ -59,6 +59,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button BtnGuardarReporteador;
+        private System.Windows.Forms.Button ReporteadorBtnGuardar;
     }
 }

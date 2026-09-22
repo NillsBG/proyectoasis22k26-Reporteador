@@ -4,40 +4,53 @@ namespace CapaControlador_BtnImprimir_Reporteador
 {
     public class ClsModeloBtnImprimir
     {
-        private readonly ClsRepositorioBtnImprimir repositorio;
+        private readonly ClsRepositorioBtnImprimir
+            _Repositorio;
 
         public ClsModeloBtnImprimir()
         {
-            repositorio =
+            _Repositorio =
                 new ClsRepositorioBtnImprimir();
         }
 
-        public bool EjecutarImpresion(
-            string rutaReporte,
-            out string mensaje)
+        public bool ReporteadorMetEjecutarImpresion(
+            string RutaReporte,
+            out string Mensaje)
         {
-            if (string.IsNullOrWhiteSpace(rutaReporte))
+            if (string.IsNullOrWhiteSpace(
+                RutaReporte))
             {
-                mensaje =
-                    "Debe seleccionar un reporte para imprimir.";
+                Mensaje =
+                    "Debe seleccionar un reporte " +
+                    "para imprimir.";
 
                 return false;
             }
 
-            bool resultado =
-                repositorio.ImprimirPdf(
-                    rutaReporte,
-                    out string error);
+            bool Resultado =
+                _Repositorio.ReporteadorMetImprimirPdf(
+                    RutaReporte,
+                    out string MensajeError);
 
-            if (resultado)
+            if (Resultado)
             {
-                mensaje =
+                Mensaje =
                     "El reporte fue enviado a impresión.";
 
                 return true;
             }
 
-            mensaje = error;
+            if (string.IsNullOrWhiteSpace(
+                MensajeError))
+            {
+                Mensaje =
+                    "No se pudo enviar el reporte " +
+                    "a impresión.";
+            }
+            else
+            {
+                Mensaje = MensajeError;
+            }
 
             return false;
         }

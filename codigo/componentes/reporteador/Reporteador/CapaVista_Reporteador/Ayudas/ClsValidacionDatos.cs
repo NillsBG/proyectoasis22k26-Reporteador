@@ -1,54 +1,70 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Windows.Forms;
-
-
 
 namespace CapaVista_Reporteador.Ayudas
 {
+    /// <summary>
+    /// Clase auxiliar para validar entidades utilizando
+    /// DataAnnotations.
+    /// </summary>
     public class ClsValidacionDatos
     {
-        private readonly ValidationContext contexto;
-        private readonly List<ValidationResult> resultados;
-        private readonly bool valido;
+        private readonly ValidationContext
+            _Contexto;
 
-        public ClsValidacionDatos(object instancia)
+        private readonly List<ValidationResult>
+            _Resultados;
+
+        private readonly bool
+            _Valido;
+
+        public ClsValidacionDatos(
+            object Instancia)
         {
-            contexto =
-                new ValidationContext(instancia);
+            _Contexto =
+                new ValidationContext(
+                    Instancia);
 
-            resultados =
+            _Resultados =
                 new List<ValidationResult>();
 
-            valido =
+            _Valido =
                 Validator.TryValidateObject(
-                    instancia,
-                    contexto,
-                    resultados,
+                    Instancia,
+                    _Contexto,
+                    _Resultados,
                     true);
         }
 
-        public bool Validar()
+        /// <summary>
+        /// Muestra los errores encontrados
+        /// durante la validación.
+        /// </summary>
+        public bool ReporteadorMetValidar()
         {
-            if (!valido)
+            if (!_Valido)
             {
-                string mensaje = "";
+                string Mensaje =
+                    string.Empty;
 
-                foreach (ValidationResult item in resultados)
+                foreach (
+                    ValidationResult Resultado
+                    in _Resultados)
                 {
-                    mensaje +=
-                        item.ErrorMessage + "\n";
+                    Mensaje +=
+                        Resultado.ErrorMessage
+                        + "\n";
                 }
 
                 MessageBox.Show(
-                    mensaje,
+                    Mensaje,
                     "Validación",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             }
 
-            return valido;
+            return _Valido;
         }
     }
 }

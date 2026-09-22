@@ -1,20 +1,21 @@
-﻿using System;
-using System.Data.Odbc;
+﻿using System.Data.Odbc;
 
 namespace CapaModelo_BtnGuardar_Reporteador.Repositorios
 {
     public abstract class ClsRepositorioReporteador
     {
-        public readonly string connectionString;
+        protected readonly string _CadenaConexion;
 
-        public ClsRepositorioReporteador()
+        protected ClsRepositorioReporteador()
         {
-            connectionString = "Dsn=dbreporteador";
+            _CadenaConexion =
+                "Dsn=dbreporteador";
         }
 
-        protected OdbcConnection ObtenerConexion()
+        protected OdbcConnection ReporteadorMetObtenerConexion()
         {
-            return new OdbcConnection(connectionString);
+            return new OdbcConnection(
+                _CadenaConexion);
         }
     }
 }

@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CapaVista_BtnEditar_Reporteador
 {
-    public partial class BtnEditarReporteador : UserControl
+    public partial class ReporteadorUcEditar : UserControl
     {
         public TextBox ReporteadorTxtNombreReporte
         {
@@ -25,97 +19,122 @@ namespace CapaVista_BtnEditar_Reporteador
             set;
         }
 
-        // Nombre del método del formulario contenedor que debe ejecutarse
-        // al hacer clic en "Editar" (por defecto "BtnEditar_Click", que ya
-        // existe en FrmReportes: selecciona la fila del grid, llena los
-        // textboxes y pone el formulario en modo edición). Se invoca por
-        // reflexión, sin depender de que el evento Click de este control
-        // esté enlazado en el diseñador del formulario.
         [Category("Reporteador")]
         [DefaultValue("BtnEditar_Click")]
-        public string MetodoEditarFormulario { get; set; } = "BtnEditar_Click";
+        public string MetodoEditarFormulario
+        {
+            get;
+            set;
+        } = "BtnEditar_Click";
 
-        public BtnEditarReporteador()
+        public ReporteadorUcEditar()
         {
             InitializeComponent();
 
-            ReporteadorBtnAccionEditar.Click +=
-                ReporteadorMetAccionEditarClick;
+            ReporteadorBtnEditar.Click +=
+                ReporteadorBtnEditar_Click;
         }
 
-        private void ReporteadorMetAccionEditarClick(
+        private void ReporteadorBtnEditar_Click(
             object Sender,
-            EventArgs Evento)
+            EventArgs E)
         {
             ReporteadorMetInvocarEditarFormulario();
-
-            OnClick(EventArgs.Empty);
         }
 
         private void ReporteadorMetInvocarEditarFormulario()
         {
             try
             {
-                Form contenedor = FindForm();
+                Form Contenedor =
+                    FindForm();
 
-                if (contenedor == null || string.IsNullOrWhiteSpace(MetodoEditarFormulario))
+                if (Contenedor == null)
                 {
+                    ReporteadorMetMostrarError(
+                        "No se encontró el formulario para editar el reporte.");
+
                     return;
                 }
 
-                // El método del formulario (por ejemplo BtnEditar_Click)
-                // tiene la firma estándar de un manejador de evento:
-                // (object sender, EventArgs e)
-                MethodInfo metodo = contenedor.GetType().GetMethod(
-                    MetodoEditarFormulario,
-                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                    null,
-                    new[] { typeof(object), typeof(EventArgs) },
-                    null);
-
-                if (metodo != null)
+                if (string.IsNullOrWhiteSpace(
+                    MetodoEditarFormulario))
                 {
-                    metodo.Invoke(contenedor, new object[] { contenedor, EventArgs.Empty });
+                    ReporteadorMetMostrarError(
+                        "No se configuró el método de edición.");
+
                     return;
                 }
 
-                // Alternativa: si el método existe sin parámetros.
-                metodo = contenedor.GetType().GetMethod(
-                    MetodoEditarFormulario,
-                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                    null,
-                    Type.EmptyTypes,
-                    null);
+                MethodInfo Metodo =
+                    Contenedor.GetType().GetMethod(
+                        MetodoEditarFormulario,
+                        BindingFlags.Public |
+                        BindingFlags.NonPublic |
+                        BindingFlags.Instance,
+                        null,
+                        new[]
+                        {
+                            typeof(object),
+                            typeof(EventArgs)
+                        },
+                        null);
 
-                if (metodo != null)
+                if (Metodo != null)
                 {
-                    metodo.Invoke(contenedor, null);
+                    Metodo.Invoke(
+                        Contenedor,
+                        new object[]
+                        {
+                            Contenedor,
+                            EventArgs.Empty
+                        });
+
+                    return;
                 }
-                else
+
+                Metodo =
+                    Contenedor.GetType().GetMethod(
+                        MetodoEditarFormulario,
+                        BindingFlags.Public |
+                        BindingFlags.NonPublic |
+                        BindingFlags.Instance,
+                        null,
+                        Type.EmptyTypes,
+                        null);
+
+                if (Metodo != null)
                 {
-                    MessageBox.Show(
-                        "No se encontró el método '" + MetodoEditarFormulario + "' en el formulario.",
-                        "Ocurrió un error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    Metodo.Invoke(
+                        Contenedor,
+                        null);
+
+                    return;
                 }
+
+                ReporteadorMetMostrarError(
+                    "No se encontró el método de edición configurado.");
             }
-            catch (TargetInvocationException tie) when (tie.InnerException != null)
+            catch (TargetInvocationException)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al preparar la edición del reporte." + Environment.NewLine + Environment.NewLine + tie.InnerException.Message,
-                    "Ocurrió un error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                ReporteadorMetMostrarError(
+                    "Ocurrió un error al preparar la edición del reporte.");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(
-                    "Ocurrió un error al preparar la edición del reporte." + Environment.NewLine + Environment.NewLine + ex.Message,
-                    "Ocurrió un error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                ReporteadorMetMostrarError(
+                    "Ocurrió un error al preparar la edición del reporte.");
             }
+        }
+
+        private void ReporteadorMetMostrarError(
+            string Mensaje)
+        {
+            MessageBox.Show(
+                Mensaje,
+                "Ocurrió un error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
     }
 }

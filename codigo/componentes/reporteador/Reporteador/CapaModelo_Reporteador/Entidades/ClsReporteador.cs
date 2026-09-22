@@ -2,14 +2,42 @@
 
 namespace CapaModelo_Reporteador.Entidades
 {
+    /// <summary>
+    /// Entidad que representa un reporte dentro
+    /// del componente Reporteador.
+    /// </summary>
     public class ClsReporteador
     {
-        public int NumeroReporte { get; set; }
+        // =========================================================
+        // PROPIEDADES DE LA ENTIDAD
+        // =========================================================
 
-        public string NombreReporte { get; set; }
+        // Número único del reporte.
+        public int NumeroReporte
+        {
+            get;
+            set;
+        }
 
-        public string RutaReporte { get; set; }
+        // Nombre descriptivo del reporte.
+        public string NombreReporte
+        {
+            get;
+            set;
+        }
 
-        public DateTime FechaReporte { get; set; }
+        // Ruta física del archivo PDF.
+        public string RutaReporte
+        {
+            get;
+            set;
+        }
+
+        // Fecha asociada al reporte.
+        public DateTime FechaReporte
+        {
+            get;
+            set;
+        }
     }
 }

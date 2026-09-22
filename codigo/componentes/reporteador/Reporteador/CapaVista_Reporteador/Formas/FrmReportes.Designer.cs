@@ -48,14 +48,14 @@
             this.ReporteadorPbLogo = new System.Windows.Forms.PictureBox();
             this.ReporteadorPbFooter = new System.Windows.Forms.PictureBox();
             this.ReporteadorPbBanner = new System.Windows.Forms.PictureBox();
-            this.BtnActualizarReporteador = new CapaVista_BtnActualizar.BtnActualizarReporteador();
-            this.BtnBusquedaReporteador = new CapaVista_BtnBusqueda_Reporteador.BtnBusquedaReporteador();
-            this.BtnLimpiarReporteador = new CapaVista_BtnLimpiar_Reporteador.BtnLimpiarReporteador();
-            this.BtnEliminarReporteador = new CapaVista_BtnEliminar_Reporteador.BtnEliminar_Reporteador();
-            this.BtnImprimirReporteador = new CapaVista_BtnImprimir_Reporteador.BtnImprimir();
-            this.BtnRutaReporteador = new CapaVista_BtnRuta_Reporteador.BtnRutaReporteador();
-            this.BtnGuardarReporteador = new CapaVista_BtnGuardar_Reporteador.BtnGuardar_Reporteador();
-            this.BtnEditarReporteador = new CapaVista_BtnEditar_Reporteador.BtnEditarReporteador();
+            this.ReporteadorBtnActualizar = new CapaVista_BtnActualizar.ReporteadorUcActualizar();
+            this.ReporteadorBtnBusqueda = new CapaVista_BtnBusqueda.ReporteadorUcBusqueda();
+            this.ReporteadorBtnEditar = new CapaVista_BtnEditar_Reporteador.ReporteadorUcEditar();
+            this.ReporteadorBtnEliminar = new CapaVista_BtnEliminar_Reporteador.ReporteadorUcEliminar();
+            this.ReporteadorBtnLimpiar = new CapaVista_BtnLimpiar_Reporteador.ReporteadorUcLimpiar();
+            this.ReporteadorBtnGuardar = new CapaVista_BtnGuardar_Reporteador.ReporteadorUcGuardar();
+            this.ReporteadorBtnImprimir = new CapaVista_BtnImprimir_Reporteador.ReporteadorUcImprimir();
+            this.ReporteadorBtnRuta = new CapaVista_BtnRuta_Reporteador.ReporteadorUcRutaReporte();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorDgvReportes)).BeginInit();
             this.ReporteadorPnlFiltroBuscarReporte.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbLogo)).BeginInit();
@@ -254,89 +254,82 @@
             this.ReporteadorPbBanner.TabIndex = 0;
             this.ReporteadorPbBanner.TabStop = false;
             // 
-            // BtnActualizarReporteador
+            // ReporteadorBtnActualizar
             // 
-            this.BtnActualizarReporteador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
-            this.BtnActualizarReporteador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnActualizarReporteador.DgvReportes = null;
-            this.BtnActualizarReporteador.Location = new System.Drawing.Point(605, 352);
-            this.BtnActualizarReporteador.Name = "BtnActualizarReporteador";
-            this.BtnActualizarReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnActualizarReporteador.TabIndex = 14;
+            this.ReporteadorBtnActualizar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnActualizar.DgvReportes = null;
+            this.ReporteadorBtnActualizar.Location = new System.Drawing.Point(605, 362);
+            this.ReporteadorBtnActualizar.Name = "ReporteadorBtnActualizar";
+            this.ReporteadorBtnActualizar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnActualizar.TabIndex = 17;
             // 
-            // BtnBusquedaReporteador
+            // ReporteadorBtnBusqueda
             // 
-            this.BtnBusquedaReporteador.BackColor = System.Drawing.Color.Transparent;
-            this.BtnBusquedaReporteador.ChkFechaReporte = null;
-            this.BtnBusquedaReporteador.ChkNombreReporte = null;
-            this.BtnBusquedaReporteador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnBusquedaReporteador.DgvReportes = null;
-            this.BtnBusquedaReporteador.DtpFechaReporte = null;
-            this.BtnBusquedaReporteador.ForeColor = System.Drawing.Color.Transparent;
-            this.BtnBusquedaReporteador.Location = new System.Drawing.Point(517, 352);
-            this.BtnBusquedaReporteador.Margin = new System.Windows.Forms.Padding(0);
-            this.BtnBusquedaReporteador.Name = "BtnBusquedaReporteador";
-            this.BtnBusquedaReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnBusquedaReporteador.TabIndex = 16;
-            this.BtnBusquedaReporteador.TxtNombreReporte = null;
+            this.ReporteadorBtnBusqueda.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnBusqueda.ChkFechaReporte = null;
+            this.ReporteadorBtnBusqueda.ChkNombreReporte = null;
+            this.ReporteadorBtnBusqueda.DgvReportes = null;
+            this.ReporteadorBtnBusqueda.DtpFechaReporte = null;
+            this.ReporteadorBtnBusqueda.Location = new System.Drawing.Point(511, 362);
+            this.ReporteadorBtnBusqueda.Name = "ReporteadorBtnBusqueda";
+            this.ReporteadorBtnBusqueda.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnBusqueda.TabIndex = 18;
+            this.ReporteadorBtnBusqueda.TxtNombreReporte = null;
             // 
-            // BtnLimpiarReporteador
+            // ReporteadorBtnEditar
             // 
-            this.BtnLimpiarReporteador.BackColor = System.Drawing.Color.Transparent;
-            this.BtnLimpiarReporteador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnLimpiarReporteador.Location = new System.Drawing.Point(259, 243);
-            this.BtnLimpiarReporteador.Name = "BtnLimpiarReporteador";
-            this.BtnLimpiarReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnLimpiarReporteador.TabIndex = 17;
+            this.ReporteadorBtnEditar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnEditar.Location = new System.Drawing.Point(113, 235);
+            this.ReporteadorBtnEditar.Name = "ReporteadorBtnEditar";
+            this.ReporteadorBtnEditar.ReporteadorTxtNombreReporte = null;
+            this.ReporteadorBtnEditar.ReporteadorTxtRutaReporte = null;
+            this.ReporteadorBtnEditar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnEditar.TabIndex = 19;
             // 
-            // BtnEliminarReporteador
+            // ReporteadorBtnEliminar
             // 
-            this.BtnEliminarReporteador.BackColor = System.Drawing.Color.Transparent;
-            this.BtnEliminarReporteador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnEliminarReporteador.Location = new System.Drawing.Point(183, 243);
-            this.BtnEliminarReporteador.Margin = new System.Windows.Forms.Padding(0);
-            this.BtnEliminarReporteador.Name = "BtnEliminarReporteador";
-            this.BtnEliminarReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnEliminarReporteador.TabIndex = 18;
+            this.ReporteadorBtnEliminar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnEliminar.Location = new System.Drawing.Point(195, 235);
+            this.ReporteadorBtnEliminar.Margin = new System.Windows.Forms.Padding(0);
+            this.ReporteadorBtnEliminar.Name = "ReporteadorBtnEliminar";
+            this.ReporteadorBtnEliminar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnEliminar.TabIndex = 20;
             // 
-            // BtnImprimirReporteador
+            // ReporteadorBtnLimpiar
             // 
-            this.BtnImprimirReporteador.BackColor = System.Drawing.Color.Transparent;
-            this.BtnImprimirReporteador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnImprimirReporteador.Location = new System.Drawing.Point(348, 243);
-            this.BtnImprimirReporteador.Name = "BtnImprimirReporteador";
-            this.BtnImprimirReporteador.RutaReporte = null;
-            this.BtnImprimirReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnImprimirReporteador.TabIndex = 19;
+            this.ReporteadorBtnLimpiar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnLimpiar.Location = new System.Drawing.Point(276, 235);
+            this.ReporteadorBtnLimpiar.Name = "ReporteadorBtnLimpiar";
+            this.ReporteadorBtnLimpiar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnLimpiar.TabIndex = 21;
             // 
-            // BtnRutaReporteador
+            // ReporteadorBtnGuardar
             // 
-            this.BtnRutaReporteador.BackColor = System.Drawing.Color.Transparent;
-            this.BtnRutaReporteador.CampoTextoRuta = null;
-            this.BtnRutaReporteador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnRutaReporteador.Location = new System.Drawing.Point(705, 100);
-            this.BtnRutaReporteador.Name = "BtnRutaReporteador";
-            this.BtnRutaReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnRutaReporteador.TabIndex = 20;
+            this.ReporteadorBtnGuardar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnGuardar.Location = new System.Drawing.Point(32, 235);
+            this.ReporteadorBtnGuardar.MaximumSize = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnGuardar.MinimumSize = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnGuardar.Name = "ReporteadorBtnGuardar";
+            this.ReporteadorBtnGuardar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnGuardar.TabIndex = 22;
             // 
-            // BtnGuardarReporteador
+            // ReporteadorBtnImprimir
             // 
-            this.BtnGuardarReporteador.BackColor = System.Drawing.Color.Transparent;
-            this.BtnGuardarReporteador.Location = new System.Drawing.Point(32, 243);
-            this.BtnGuardarReporteador.MaximumSize = new System.Drawing.Size(56, 56);
-            this.BtnGuardarReporteador.MinimumSize = new System.Drawing.Size(56, 56);
-            this.BtnGuardarReporteador.Name = "BtnGuardarReporteador";
-            this.BtnGuardarReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnGuardarReporteador.TabIndex = 21;
+            this.ReporteadorBtnImprimir.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnImprimir.Location = new System.Drawing.Point(355, 235);
+            this.ReporteadorBtnImprimir.Name = "ReporteadorBtnImprimir";
+            this.ReporteadorBtnImprimir.RutaReporte = null;
+            this.ReporteadorBtnImprimir.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnImprimir.TabIndex = 23;
             // 
-            // BtnEditarReporteador
+            // ReporteadorBtnRuta
             // 
-            this.BtnEditarReporteador.Location = new System.Drawing.Point(109, 243);
-            this.BtnEditarReporteador.Name = "BtnEditarReporteador";
-            this.BtnEditarReporteador.ReporteadorTxtNombreReporte = null;
-            this.BtnEditarReporteador.ReporteadorTxtRutaReporte = null;
-            this.BtnEditarReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnEditarReporteador.TabIndex = 22;
+            this.ReporteadorBtnRuta.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnRuta.CampoTextoRuta = null;
+            this.ReporteadorBtnRuta.Location = new System.Drawing.Point(705, 90);
+            this.ReporteadorBtnRuta.Name = "ReporteadorBtnRuta";
+            this.ReporteadorBtnRuta.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnRuta.TabIndex = 24;
             // 
             // FrmReportes
             // 
@@ -344,14 +337,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
             this.ClientSize = new System.Drawing.Size(874, 609);
-            this.Controls.Add(this.BtnEditarReporteador);
-            this.Controls.Add(this.BtnGuardarReporteador);
-            this.Controls.Add(this.BtnRutaReporteador);
-            this.Controls.Add(this.BtnImprimirReporteador);
-            this.Controls.Add(this.BtnEliminarReporteador);
-            this.Controls.Add(this.BtnLimpiarReporteador);
-            this.Controls.Add(this.BtnBusquedaReporteador);
-            this.Controls.Add(this.BtnActualizarReporteador);
+            this.Controls.Add(this.ReporteadorBtnRuta);
+            this.Controls.Add(this.ReporteadorBtnImprimir);
+            this.Controls.Add(this.ReporteadorBtnGuardar);
+            this.Controls.Add(this.ReporteadorBtnLimpiar);
+            this.Controls.Add(this.ReporteadorBtnEliminar);
+            this.Controls.Add(this.ReporteadorBtnEditar);
+            this.Controls.Add(this.ReporteadorBtnBusqueda);
+            this.Controls.Add(this.ReporteadorBtnActualizar);
             this.Controls.Add(this.ReporteadorDgvReportes);
             this.Controls.Add(this.ReporteadorTxtNombreReporte);
             this.Controls.Add(this.ReporteadorTxtRutaReporte);
@@ -397,13 +390,13 @@
         private System.Windows.Forms.TextBox ReporteadorTxtNombreReporte2;
         private System.Windows.Forms.DateTimePicker ReporteadorDtpFechaReporte;
         private System.Windows.Forms.Panel ReporteadorPnlFiltroBuscarReporte;
-        private CapaVista_BtnActualizar.BtnActualizarReporteador BtnActualizarReporteador;
-        private CapaVista_BtnBusqueda_Reporteador.BtnBusquedaReporteador BtnBusquedaReporteador;
-        private CapaVista_BtnLimpiar_Reporteador.BtnLimpiarReporteador BtnLimpiarReporteador;
-        private CapaVista_BtnEliminar_Reporteador.BtnEliminar_Reporteador BtnEliminarReporteador;
-        private CapaVista_BtnImprimir_Reporteador.BtnImprimir BtnImprimirReporteador;
-        private CapaVista_BtnRuta_Reporteador.BtnRutaReporteador BtnRutaReporteador;
-        private CapaVista_BtnGuardar_Reporteador.BtnGuardar_Reporteador BtnGuardarReporteador;
-        private CapaVista_BtnEditar_Reporteador.BtnEditarReporteador BtnEditarReporteador;
+        private CapaVista_BtnActualizar.ReporteadorUcActualizar ReporteadorBtnActualizar;
+        private CapaVista_BtnBusqueda.ReporteadorUcBusqueda ReporteadorBtnBusqueda;
+        private CapaVista_BtnEditar_Reporteador.ReporteadorUcEditar ReporteadorBtnEditar;
+        private CapaVista_BtnEliminar_Reporteador.ReporteadorUcEliminar ReporteadorBtnEliminar;
+        private CapaVista_BtnLimpiar_Reporteador.ReporteadorUcLimpiar ReporteadorBtnLimpiar;
+        private CapaVista_BtnGuardar_Reporteador.ReporteadorUcGuardar ReporteadorBtnGuardar;
+        private CapaVista_BtnImprimir_Reporteador.ReporteadorUcImprimir ReporteadorBtnImprimir;
+        private CapaVista_BtnRuta_Reporteador.ReporteadorUcRutaReporte ReporteadorBtnRuta;
     }
 }

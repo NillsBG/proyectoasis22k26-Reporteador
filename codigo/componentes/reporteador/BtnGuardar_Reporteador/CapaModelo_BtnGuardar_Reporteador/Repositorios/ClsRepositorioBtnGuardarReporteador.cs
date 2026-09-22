@@ -4,54 +4,154 @@ using System.Data.Odbc;
 
 namespace CapaModelo_BtnGuardar_Reporteador.Repositorios
 {
-    public class ClsRepositorioBtnGuardarReporteador : ClsRepositorioReporteador
+    public class ClsRepositorioBtnGuardarReporteador
+        : ClsRepositorioReporteador
     {
-        public bool ReporteadorMetGuardarReporte(int numeroReporte, string nombreReporte, string rutaReporte, DateTime fechaReporte, bool esEdicion, out string mensajeError)
+        public bool ReporteadorMetGuardarReporte(
+            int NumeroReporte,
+            string NombreReporte,
+            string RutaReporte,
+            DateTime FechaReporte,
+            bool EsEdicion,
+            out string MensajeError)
         {
-            mensajeError = string.Empty;
+            MensajeError = string.Empty;
 
-            string queryInsert = @"INSERT INTO tblReporte (numeroReporte, nombreReporte, rutaReporte, fechaReporte) 
-                                   VALUES (?, ?, ?, ?)";
+            string ConsultaInsert =
+                @"INSERT INTO tblReporte
+                  (
+                      numeroReporte,
+                      nombreReporte,
+                      rutaReporte,
+                      fechaReporte
+                  )
+                  VALUES (?, ?, ?, ?)";
 
-            string queryUpdate = @"UPDATE tblReporte 
-                                   SET nombreReporte = ?, rutaReporte = ?, fechaReporte = ? 
-                                   WHERE numeroReporte = ?";
+            string ConsultaUpdate =
+                @"UPDATE tblReporte
+                  SET
+                      nombreReporte = ?,
+                      rutaReporte = ?,
+                      fechaReporte = ?
+                  WHERE numeroReporte = ?";
 
             try
             {
-                using (var conexion = ObtenerConexion())
+                using (OdbcConnection Conexion =
+                    ReporteadorMetObtenerConexion())
                 {
-                    conexion.Open();
-                    using (var comando = new OdbcCommand())
-                    {
-                        comando.Connection = conexion;
-                        comando.CommandType = CommandType.Text;
+                    Conexion.Open();
 
-                        if (!esEdicion)
+                    using (OdbcCommand Comando =
+                        new OdbcCommand())
+                    {
+                        Comando.Connection =
+                            Conexion;
+
+                        Comando.CommandType =
+                            CommandType.Text;
+
+                        if (!EsEdicion)
                         {
-                            comando.CommandText = queryInsert;
-                            comando.Parameters.Add(new OdbcParameter("p_numeroReporte", numeroReporte));
-                            comando.Parameters.Add(new OdbcParameter("p_nombreReporte", nombreReporte));
-                            comando.Parameters.Add(new OdbcParameter("p_rutaReporte", rutaReporte));
-                            comando.Parameters.Add(new OdbcParameter("p_fechaReporte", fechaReporte.Date));
+                            Comando.CommandText =
+                                ConsultaInsert;
+
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "NumeroReporte",
+                                    NumeroReporte));
+
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "NombreReporte",
+                                    NombreReporte));
+
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "RutaReporte",
+                                    RutaReporte));
+
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "FechaReporte",
+                                    FechaReporte.Date));
                         }
                         else
                         {
-                            comando.CommandText = queryUpdate;
-                            comando.Parameters.Add(new OdbcParameter("p_nombreReporte", nombreReporte));
-                            comando.Parameters.Add(new OdbcParameter("p_rutaReporte", rutaReporte));
-                            comando.Parameters.Add(new OdbcParameter("p_fechaReporte", fechaReporte.Date));
-                            comando.Parameters.Add(new OdbcParameter("p_numeroReporte", numeroReporte));
+                            Comando.CommandText =
+                                ConsultaUpdate;
+
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "NombreReporte",
+                                    NombreReporte));
+
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "RutaReporte",
+                                    RutaReporte));
+
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "FechaReporte",
+                                    FechaReporte.Date));
+
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "NumeroReporte",
+                                    NumeroReporte));
                         }
 
-                        int filasAfectadas = comando.ExecuteNonQuery();
-                        return filasAfectadas > 0;
+                        int FilasAfectadas =
+                            Comando.ExecuteNonQuery();
+
+                        if (FilasAfectadas > 0)
+                        {
+                            return true;
+                        }
+
+                        if (EsEdicion)
+                        {
+                            MensajeError =
+                                "No se encontró el reporte " +
+                                "seleccionado para actualizar.";
+                        }
+                        else
+                        {
+                            MensajeError =
+                                "No se pudo guardar el reporte.";
+                        }
+
+                        return false;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (OdbcException)
             {
-                mensajeError = ex.Message;
+                if (EsEdicion)
+                {
+                    MensajeError =
+                        "No se pudo actualizar el reporte. " +
+                        "Verifique que el registro exista " +
+                        "y que los datos sean válidos.";
+                }
+                else
+                {
+                    MensajeError =
+                        "No se pudo guardar el reporte. " +
+                        "Es posible que el número de reporte " +
+                        "ya exista.";
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                MensajeError =
+                    "Ocurrió un problema al procesar el " +
+                    "reporte. Verifique los datos e " +
+                    "inténtelo nuevamente.";
+
                 return false;
             }
         }

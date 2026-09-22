@@ -1,20 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 
 namespace CapaModelo_Reporteador.Contratos
 {
-    public interface ClsIRepositorioGenerico<Entity> where Entity : class
+    /// <summary>
+    /// Contrato genérico para las operaciones básicas
+    /// de los repositorios.
+    /// </summary>
+    /// <typeparam name="Entity">
+    /// Tipo de entidad que manejará el repositorio.
+    /// </typeparam>
+    public interface ClsIRepositorioGenerico<Entity>
+        where Entity : class
     {
-        int Agregar(Entity entidad);
+        // Agrega una entidad.
+        int ReporteadorMetAgregar(
+            Entity Entidad);
 
-        int Editar(Entity entidad);
+        // Edita una entidad existente.
+        int ReporteadorMetEditar(
+            Entity Entidad);
 
-        int Remover(Entity entidad);
+        // Elimina una entidad.
+        int ReporteadorMetRemover(
+            Entity Entidad);
 
-        IEnumerable<Entity> GetAll();
+        // Obtiene todas las entidades.
+        IEnumerable<Entity>
+            ReporteadorMetObtenerTodos();
     }
 }

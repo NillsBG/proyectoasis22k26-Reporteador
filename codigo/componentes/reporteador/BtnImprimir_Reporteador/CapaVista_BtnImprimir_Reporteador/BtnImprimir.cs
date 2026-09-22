@@ -1,48 +1,78 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using CapaControlador_BtnImprimir_Reporteador;
 
 namespace CapaVista_BtnImprimir_Reporteador
 {
-    public partial class BtnImprimir : UserControl
+    [ToolboxItem(true)]
+    [Description(
+        "Botón reutilizable para imprimir reportes PDF.")]
+    public partial class ReporteadorUcImprimir
+        : UserControl
     {
-        private readonly ClsModeloBtnImprimir controlador;
+        private readonly ClsModeloBtnImprimir
+            _Controlador;
 
-        public string RutaReporte { get; set; }
+        public string RutaReporte
+        {
+            get;
+            set;
+        }
 
-        public BtnImprimir()
+        public ReporteadorUcImprimir()
         {
             InitializeComponent();
 
-            controlador = new ClsModeloBtnImprimir();
+            _Controlador =
+                new ClsModeloBtnImprimir();
 
-            btnAccionImprimir.Click += BtnAccionImprimir_Click;
+            ReporteadorBtnImprimir.Click +=
+                BtnAccionImprimir_Click;
         }
 
-        private void BtnAccionImprimir_Click(object sender, EventArgs e)
+        private void BtnAccionImprimir_Click(
+            object Sender,
+            EventArgs E)
         {
-            bool resultado = controlador.EjecutarImpresion(
-                RutaReporte,
-                out string mensaje
-            );
+            ReporteadorMetEjecutarImpresion();
+        }
 
-            if (resultado)
+        private void ReporteadorMetEjecutarImpresion()
+        {
+            try
             {
+                bool Resultado =
+                    _Controlador
+                    .ReporteadorMetEjecutarImpresion(
+                        RutaReporte,
+                        out string Mensaje);
+
+                if (Resultado)
+                {
+                    MessageBox.Show(
+                        Mensaje,
+                        "Imprimir reporte",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    return;
+                }
+
                 MessageBox.Show(
-                    mensaje,
+                    Mensaje,
                     "Imprimir reporte",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                    MessageBoxIcon.Warning);
             }
-            else
+            catch (Exception)
             {
                 MessageBox.Show(
-                    mensaje,
+                    "Ocurrió un error al intentar " +
+                    "imprimir el reporte.",
                     "Imprimir reporte",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxIcon.Error);
             }
         }
     }
