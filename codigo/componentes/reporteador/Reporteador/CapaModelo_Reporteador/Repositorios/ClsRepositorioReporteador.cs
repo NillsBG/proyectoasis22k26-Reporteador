@@ -7,398 +7,573 @@ using System.Data.Odbc;
 namespace CapaModelo_Reporteador.Repositorios
 {
     public class ClsRepositorioReporteador
-        : ClsIRepositorioReporteador
+        : ClsRepositorio,
+          ClsIRepositorioReporteador
     {
-        // CONEXIÓN
-
-
-        private readonly string cadenaConexion =
-            "Dsn=dbReporteador";
-
-
-
-        // OBTENER MAXIMO NUMERO
-
-
-        public int ObtenerMaximoNumeroReporte(
-            int codigoModulo)
+        public ClsRepositorioReporteador()
+            : base()
         {
-            int maxId = 0;
+        }
 
-            int limiteInferior =
-                codigoModulo * 100;
+        // ============================================================
+        // OBTENER SIGUIENTE NÚMERO DE REPORTE
+        // ============================================================
 
-            int limiteSuperior =
-                limiteInferior + 99;
+        public int ReporteadorMetObtenerMaximoNumeroReporte(
+            int CodigoModulo)
+        {
+            int MaximoNumero = 0;
 
-            string sql =
-                @"SELECT MAX(numeroReporte)
-                  FROM tblReporte
-                  WHERE numeroReporte BETWEEN ? AND ?";
+            int LimiteInferior =
+                CodigoModulo * 100;
 
-            using (OdbcConnection conn =
-                   new OdbcConnection(cadenaConexion))
+            int LimiteSuperior =
+                LimiteInferior + 99;
+
+            string Consulta = @"
+                SELECT MAX(numeroReporte)
+                FROM tblReporte
+                WHERE numeroReporte BETWEEN ? AND ?";
+
+            using (OdbcConnection Conexion =
+                ReporteadorMetObtenerConexion())
             {
-                conn.Open();
+                Conexion.Open();
 
-                using (OdbcCommand cmd =
-                       new OdbcCommand(sql, conn))
+                using (OdbcCommand Comando =
+                    new OdbcCommand(
+                        Consulta,
+                        Conexion))
                 {
-                    cmd.Parameters.AddWithValue(
-                        "limiteInferior",
-                        limiteInferior
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_limiteInferior",
+                            LimiteInferior));
 
-                    cmd.Parameters.AddWithValue(
-                        "limiteSuperior",
-                        limiteSuperior
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_limiteSuperior",
+                            LimiteSuperior));
 
-                    object resultado =
-                        cmd.ExecuteScalar();
+                    object Resultado =
+                        Comando.ExecuteScalar();
 
-                    if (resultado != null &&
-                        resultado != DBNull.Value)
+                    if (Resultado != null &&
+                        Resultado != DBNull.Value)
                     {
-                        maxId =
-                            Convert.ToInt32(resultado);
+                        MaximoNumero =
+                            Convert.ToInt32(Resultado);
                     }
                 }
             }
 
-            return maxId;
+            return MaximoNumero;
         }
 
+        // ============================================================
+        // VERIFICAR NÚMERO
+        // ============================================================
 
+        public bool ReporteadorMetExisteNumeroReporte(
+            int NumeroReporte,
+            int? NumeroReporteExcluir = null)
+        {
+            try
+            {
+                string Consulta = @"
+                    SELECT COUNT(*)
+                    FROM tblReporte
+                    WHERE numeroReporte = ?";
+
+                if (NumeroReporteExcluir.HasValue)
+                {
+                    Consulta +=
+                        " AND numeroReporte <> ?";
+                }
+
+                using (OdbcConnection Conexion =
+                    ReporteadorMetObtenerConexion())
+                {
+                    Conexion.Open();
+
+                    using (OdbcCommand Comando =
+                        new OdbcCommand(
+                            Consulta,
+                            Conexion))
+                    {
+                        Comando.Parameters.Add(
+                            new OdbcParameter(
+                                "p_numeroReporte",
+                                NumeroReporte));
+
+                        if (NumeroReporteExcluir.HasValue)
+                        {
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "p_numeroReporteExcluir",
+                                    NumeroReporteExcluir.Value));
+                        }
+
+                        int Cantidad =
+                            Convert.ToInt32(
+                                Comando.ExecuteScalar());
+
+                        return Cantidad > 0;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        // ============================================================
+        // VERIFICAR NOMBRE
+        // ============================================================
+
+        public bool ReporteadorMetExisteNombreReporte(
+            string NombreReporte,
+            int? NumeroReporteExcluir = null)
+        {
+            try
+            {
+                string Consulta = @"
+                    SELECT COUNT(*)
+                    FROM tblReporte
+                    WHERE LOWER(TRIM(nombreReporte))
+                        = LOWER(TRIM(?))";
+
+                if (NumeroReporteExcluir.HasValue)
+                {
+                    Consulta +=
+                        " AND numeroReporte <> ?";
+                }
+
+                using (OdbcConnection Conexion =
+                    ReporteadorMetObtenerConexion())
+                {
+                    Conexion.Open();
+
+                    using (OdbcCommand Comando =
+                        new OdbcCommand(
+                            Consulta,
+                            Conexion))
+                    {
+                        Comando.Parameters.Add(
+                            new OdbcParameter(
+                                "p_nombreReporte",
+                                NombreReporte.Trim()));
+
+                        if (NumeroReporteExcluir.HasValue)
+                        {
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "p_numeroReporteExcluir",
+                                    NumeroReporteExcluir.Value));
+                        }
+
+                        int Cantidad =
+                            Convert.ToInt32(
+                                Comando.ExecuteScalar());
+
+                        return Cantidad > 0;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        // ============================================================
+        // VERIFICAR RUTA
+        // ============================================================
+
+        public bool ReporteadorMetExisteRutaReporte(
+            string RutaReporte,
+            int? NumeroReporteExcluir = null)
+        {
+            try
+            {
+                string Consulta = @"
+                    SELECT COUNT(*)
+                    FROM tblReporte
+                    WHERE LOWER(TRIM(rutaReporte))
+                        = LOWER(TRIM(?))";
+
+                if (NumeroReporteExcluir.HasValue)
+                {
+                    Consulta +=
+                        " AND numeroReporte <> ?";
+                }
+
+                using (OdbcConnection Conexion =
+                    ReporteadorMetObtenerConexion())
+                {
+                    Conexion.Open();
+
+                    using (OdbcCommand Comando =
+                        new OdbcCommand(
+                            Consulta,
+                            Conexion))
+                    {
+                        Comando.Parameters.Add(
+                            new OdbcParameter(
+                                "p_rutaReporte",
+                                RutaReporte.Trim()));
+
+                        if (NumeroReporteExcluir.HasValue)
+                        {
+                            Comando.Parameters.Add(
+                                new OdbcParameter(
+                                    "p_numeroReporteExcluir",
+                                    NumeroReporteExcluir.Value));
+                        }
+
+                        int Cantidad =
+                            Convert.ToInt32(
+                                Comando.ExecuteScalar());
+
+                        return Cantidad > 0;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        // ============================================================
         // AGREGAR
+        // ============================================================
 
-        public void Agregar(
-            ClsReporteador reporte)
+        public void ReporteadorMetAgregar(
+            ClsReporteador Reporte)
         {
-            string sql =
-                @"INSERT INTO tblReporte
-                  (
-                      numeroReporte,
-                      nombreReporte,
-                      rutaReporte,
-                      fechaReporte
-                  )
-                  VALUES (?, ?, ?, ?)";
+            string Consulta = @"
+                INSERT INTO tblReporte
+                (
+                    numeroReporte,
+                    nombreReporte,
+                    rutaReporte,
+                    fechaReporte
+                )
+                VALUES
+                (
+                    ?,
+                    ?,
+                    ?,
+                    ?
+                )";
 
-            using (OdbcConnection conn =
-                   new OdbcConnection(cadenaConexion))
+            using (OdbcConnection Conexion =
+                ReporteadorMetObtenerConexion())
             {
-                conn.Open();
+                Conexion.Open();
 
-                using (OdbcCommand cmd =
-                       new OdbcCommand(sql, conn))
+                using (OdbcCommand Comando =
+                    new OdbcCommand(
+                        Consulta,
+                        Conexion))
                 {
-                    cmd.Parameters.AddWithValue(
-                        "numeroReporte",
-                        reporte.NumeroReporte
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_numeroReporte",
+                            Reporte.NumeroReporte));
 
-                    cmd.Parameters.AddWithValue(
-                        "nombreReporte",
-                        reporte.NombreReporte
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_nombreReporte",
+                            Reporte.NombreReporte));
 
-                    cmd.Parameters.AddWithValue(
-                        "rutaReporte",
-                        reporte.RutaReporte
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_rutaReporte",
+                            Reporte.RutaReporte));
 
-                    cmd.Parameters.AddWithValue(
-                        "fechaReporte",
-                        reporte.FechaReporte.Date
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_fechaReporte",
+                            Reporte.FechaReporte.Date));
 
-                    cmd.ExecuteNonQuery();
+                    int FilasAfectadas =
+                        Comando.ExecuteNonQuery();
+
+                    if (FilasAfectadas <= 0)
+                    {
+                        throw new InvalidOperationException(
+                            "No se pudo guardar el reporte.");
+                    }
                 }
             }
         }
 
-
+        // ============================================================
         // EDITAR
+        // ============================================================
 
-        public void Editar(
-            ClsReporteador reporte)
+        public void ReporteadorMetEditar(
+            ClsReporteador Reporte)
         {
-            string sql =
-                @"UPDATE tblReporte
-                  SET
-                      nombreReporte = ?,
-                      rutaReporte = ?,
-                      fechaReporte = ?
-                  WHERE numeroReporte = ?";
+            string Consulta = @"
+                UPDATE tblReporte
+                SET
+                    nombreReporte = ?,
+                    rutaReporte = ?,
+                    fechaReporte = ?
+                WHERE numeroReporte = ?";
 
-            using (OdbcConnection conn =
-                   new OdbcConnection(cadenaConexion))
+            using (OdbcConnection Conexion =
+                ReporteadorMetObtenerConexion())
             {
-                conn.Open();
+                Conexion.Open();
 
-                using (OdbcCommand cmd =
-                       new OdbcCommand(sql, conn))
+                using (OdbcCommand Comando =
+                    new OdbcCommand(
+                        Consulta,
+                        Conexion))
                 {
-                    cmd.Parameters.AddWithValue(
-                        "nombreReporte",
-                        reporte.NombreReporte
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_nombreReporte",
+                            Reporte.NombreReporte));
 
-                    cmd.Parameters.AddWithValue(
-                        "rutaReporte",
-                        reporte.RutaReporte
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_rutaReporte",
+                            Reporte.RutaReporte));
 
-                    cmd.Parameters.AddWithValue(
-                        "fechaReporte",
-                        reporte.FechaReporte.Date
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_fechaReporte",
+                            Reporte.FechaReporte.Date));
 
-                    cmd.Parameters.AddWithValue(
-                        "numeroReporte",
-                        reporte.NumeroReporte
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_numeroReporte",
+                            Reporte.NumeroReporte));
 
-                    cmd.ExecuteNonQuery();
+                    int FilasAfectadas =
+                        Comando.ExecuteNonQuery();
+
+                    if (FilasAfectadas <= 0)
+                    {
+                        throw new InvalidOperationException(
+                            "No se encontró el reporte seleccionado.");
+                    }
                 }
             }
         }
 
-
+        // ============================================================
         // ELIMINAR
+        // ============================================================
 
-        public void Remover(
-            ClsReporteador reporte)
+        public void ReporteadorMetRemover(
+            ClsReporteador Reporte)
         {
-            string sql =
-                @"DELETE FROM tblReporte
-                  WHERE numeroReporte = ?";
+            string Consulta = @"
+                DELETE FROM tblReporte
+                WHERE numeroReporte = ?";
 
-            using (OdbcConnection conn =
-                   new OdbcConnection(cadenaConexion))
+            using (OdbcConnection Conexion =
+                ReporteadorMetObtenerConexion())
             {
-                conn.Open();
+                Conexion.Open();
 
-                using (OdbcCommand cmd =
-                       new OdbcCommand(sql, conn))
+                using (OdbcCommand Comando =
+                    new OdbcCommand(
+                        Consulta,
+                        Conexion))
                 {
-                    cmd.Parameters.AddWithValue(
-                        "numeroReporte",
-                        reporte.NumeroReporte
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_numeroReporte",
+                            Reporte.NumeroReporte));
 
-                    cmd.ExecuteNonQuery();
+                    Comando.ExecuteNonQuery();
                 }
             }
         }
 
+        // ============================================================
         // OBTENER TODOS
-
+        // ============================================================
 
         public IEnumerable<ClsReporteador>
-            GetAll()
+            ReporteadorMetObtenerTodos()
         {
-            List<ClsReporteador> lista =
+            List<ClsReporteador> Lista =
                 new List<ClsReporteador>();
 
-            string sql =
-                @"SELECT
-                      numeroReporte,
-                      nombreReporte,
-                      rutaReporte,
-                      fechaReporte
-                  FROM tblReporte
-                  ORDER BY numeroReporte";
+            string Consulta = @"
+                SELECT
+                    numeroReporte,
+                    nombreReporte,
+                    rutaReporte,
+                    fechaReporte
+                FROM tblReporte
+                ORDER BY numeroReporte";
 
-            using (OdbcConnection conn =
-                   new OdbcConnection(cadenaConexion))
+            using (OdbcConnection Conexion =
+                ReporteadorMetObtenerConexion())
             {
-                conn.Open();
+                Conexion.Open();
 
-                using (OdbcCommand cmd =
-                       new OdbcCommand(sql, conn))
+                using (OdbcCommand Comando =
+                    new OdbcCommand(
+                        Consulta,
+                        Conexion))
                 {
-                    using (OdbcDataReader reader =
-                           cmd.ExecuteReader())
+                    using (OdbcDataReader Lector =
+                        Comando.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (Lector.Read())
                         {
-                            lista.Add(
-                                new ClsReporteador
-                                {
-                                    NumeroReporte =
-                                        Convert.ToInt32(
-                                            reader["numeroReporte"]
-                                        ),
-
-                                    NombreReporte =
-                                        reader[
-                                            "nombreReporte"
-                                        ].ToString(),
-
-                                    RutaReporte =
-                                        reader[
-                                            "rutaReporte"
-                                        ].ToString(),
-
-                                    FechaReporte =
-                                        Convert.ToDateTime(
-                                            reader[
-                                                "fechaReporte"
-                                            ]
-                                        )
-                                }
-                            );
+                            Lista.Add(
+                                ReporteadorMetCrearEntidad(
+                                    Lector));
                         }
                     }
                 }
             }
 
-            return lista;
+            return Lista;
         }
 
-
-
+        // ============================================================
         // BUSCAR POR NOMBRE
+        // ============================================================
 
         public IEnumerable<ClsReporteador>
-            BuscarPorNombre(string filtro)
+            ReporteadorMetBuscarPorNombre(
+                string Filtro)
         {
-            List<ClsReporteador> lista =
+            List<ClsReporteador> Lista =
                 new List<ClsReporteador>();
 
-            string sql =
-                @"SELECT
-                      numeroReporte,
-                      nombreReporte,
-                      rutaReporte,
-                      fechaReporte
-                  FROM tblReporte
-                  WHERE nombreReporte LIKE ?
-                  ORDER BY numeroReporte";
+            string Consulta = @"
+                SELECT
+                    numeroReporte,
+                    nombreReporte,
+                    rutaReporte,
+                    fechaReporte
+                FROM tblReporte
+                WHERE nombreReporte LIKE ?
+                ORDER BY numeroReporte";
 
-            using (OdbcConnection conn =
-                   new OdbcConnection(cadenaConexion))
+            using (OdbcConnection Conexion =
+                ReporteadorMetObtenerConexion())
             {
-                conn.Open();
+                Conexion.Open();
 
-                using (OdbcCommand cmd =
-                       new OdbcCommand(sql, conn))
+                using (OdbcCommand Comando =
+                    new OdbcCommand(
+                        Consulta,
+                        Conexion))
                 {
-                    cmd.Parameters.AddWithValue(
-                        "nombreReporte",
-                        "%" + filtro + "%"
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_nombreReporte",
+                            "%" + Filtro + "%"));
 
-                    using (OdbcDataReader reader =
-                           cmd.ExecuteReader())
+                    using (OdbcDataReader Lector =
+                        Comando.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (Lector.Read())
                         {
-                            lista.Add(
-                                new ClsReporteador
-                                {
-                                    NumeroReporte =
-                                        Convert.ToInt32(
-                                            reader["numeroReporte"]
-                                        ),
-
-                                    NombreReporte =
-                                        reader[
-                                            "nombreReporte"
-                                        ].ToString(),
-
-                                    RutaReporte =
-                                        reader[
-                                            "rutaReporte"
-                                        ].ToString(),
-
-                                    FechaReporte =
-                                        Convert.ToDateTime(
-                                            reader[
-                                                "fechaReporte"
-                                            ]
-                                        )
-                                }
-                            );
+                            Lista.Add(
+                                ReporteadorMetCrearEntidad(
+                                    Lector));
                         }
                     }
                 }
             }
 
-            return lista;
+            return Lista;
         }
 
-
+        // ============================================================
         // BUSCAR POR FECHA
+        // ============================================================
 
         public IEnumerable<ClsReporteador>
-            BuscarPorFecha(DateTime fecha)
+            ReporteadorMetBuscarPorFecha(
+                DateTime Fecha)
         {
-            List<ClsReporteador> lista =
+            List<ClsReporteador> Lista =
                 new List<ClsReporteador>();
 
-            string sql =
-                @"SELECT
-                      numeroReporte,
-                      nombreReporte,
-                      rutaReporte,
-                      fechaReporte
-                  FROM tblReporte
-                  WHERE fechaReporte = ?
-                  ORDER BY numeroReporte";
+            string Consulta = @"
+                SELECT
+                    numeroReporte,
+                    nombreReporte,
+                    rutaReporte,
+                    fechaReporte
+                FROM tblReporte
+                WHERE fechaReporte = ?
+                ORDER BY numeroReporte";
 
-            using (OdbcConnection conn =
-                   new OdbcConnection(cadenaConexion))
+            using (OdbcConnection Conexion =
+                ReporteadorMetObtenerConexion())
             {
-                conn.Open();
+                Conexion.Open();
 
-                using (OdbcCommand cmd =
-                       new OdbcCommand(sql, conn))
+                using (OdbcCommand Comando =
+                    new OdbcCommand(
+                        Consulta,
+                        Conexion))
                 {
-                    cmd.Parameters.AddWithValue(
-                        "fechaReporte",
-                        fecha.Date
-                    );
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_fechaReporte",
+                            Fecha.Date));
 
-                    using (OdbcDataReader reader =
-                           cmd.ExecuteReader())
+                    using (OdbcDataReader Lector =
+                        Comando.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (Lector.Read())
                         {
-                            lista.Add(
-                                new ClsReporteador
-                                {
-                                    NumeroReporte =
-                                        Convert.ToInt32(
-                                            reader["numeroReporte"]
-                                        ),
-
-                                    NombreReporte =
-                                        reader[
-                                            "nombreReporte"
-                                        ].ToString(),
-
-                                    RutaReporte =
-                                        reader[
-                                            "rutaReporte"
-                                        ].ToString(),
-
-                                    FechaReporte =
-                                        Convert.ToDateTime(
-                                            reader[
-                                                "fechaReporte"
-                                            ]
-                                        )
-                                }
-                            );
+                            Lista.Add(
+                                ReporteadorMetCrearEntidad(
+                                    Lector));
                         }
                     }
                 }
             }
 
-            return lista;
+            return Lista;
+        }
+
+        // ============================================================
+        // CREAR ENTIDAD
+        // ============================================================
+
+        private ClsReporteador
+            ReporteadorMetCrearEntidad(
+                OdbcDataReader Lector)
+        {
+            ClsReporteador Reporte =
+                new ClsReporteador();
+
+            Reporte.NumeroReporte =
+                Convert.ToInt32(
+                    Lector["numeroReporte"]);
+
+            Reporte.NombreReporte =
+                Lector["nombreReporte"].ToString();
+
+            Reporte.RutaReporte =
+                Lector["rutaReporte"].ToString();
+
+            Reporte.FechaReporte =
+                Convert.ToDateTime(
+                    Lector["fechaReporte"]);
+
+            return Reporte;
         }
     }
 }

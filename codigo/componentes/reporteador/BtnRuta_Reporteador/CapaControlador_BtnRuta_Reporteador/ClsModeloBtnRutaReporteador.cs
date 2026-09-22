@@ -6,34 +6,56 @@ namespace CapaModelo_BtnRuta_Reporteador
 {
     public class ClsModeloBtnRutaReporteador
     {
-        private readonly ClsRepositorioBtnRutaReporteador _Repositorio;
+        // Referencia al repositorio del componente.
+        private readonly ClsRepositorioBtnRutaReporteador
+            _Repositorio;
 
         public ClsModeloBtnRutaReporteador()
         {
-            _Repositorio = new ClsRepositorioBtnRutaReporteador();
+            _Repositorio =
+                new ClsRepositorioBtnRutaReporteador();
         }
 
-        public bool ReporteadorMetValidarRuta(string RutaReporte, out string Mensaje)
+        // Valida la ruta seleccionada por el usuario.
+        public bool ReporteadorMetValidarRuta(
+            string RutaReporte,
+            out string Mensaje)
         {
-            Mensaje = string.Empty;
+            Mensaje =
+                string.Empty;
 
-            if (string.IsNullOrWhiteSpace(RutaReporte))
+            // Verifica que se haya seleccionado una ruta.
+            if (string.IsNullOrWhiteSpace(
+                RutaReporte))
             {
-                Mensaje = "La ruta del reporte es requerida.";
+                Mensaje =
+                    "La ruta del reporte es requerida.";
+
                 return false;
             }
 
+            // Verifica que el archivo exista.
             if (!File.Exists(RutaReporte))
             {
-                Mensaje = "El archivo seleccionado no existe.";
+                Mensaje =
+                    "El archivo seleccionado no existe.";
+
                 return false;
             }
 
-            string Extension = Path.GetExtension(RutaReporte);
+            // Obtiene la extensión del archivo.
+            string Extension =
+                Path.GetExtension(RutaReporte);
 
-            if (!Extension.Equals(".pdf", StringComparison.OrdinalIgnoreCase))
+            // Solo se permiten archivos PDF.
+            if (!Extension.Equals(
+                ".pdf",
+                StringComparison.OrdinalIgnoreCase))
             {
-                Mensaje = "El archivo seleccionado debe ser un documento PDF.";
+                Mensaje =
+                    "El archivo seleccionado debe ser " +
+                    "un documento PDF.";
+
                 return false;
             }
 

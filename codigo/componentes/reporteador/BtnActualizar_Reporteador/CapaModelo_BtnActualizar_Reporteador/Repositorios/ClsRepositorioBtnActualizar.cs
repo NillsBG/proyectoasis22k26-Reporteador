@@ -4,9 +4,10 @@ using System.Data.Odbc;
 
 namespace CapaModelo_BtnActualizar.Repositorios
 {
-    public class ClsRepositorioBtnActualizar : ClsRepositorio
+    public class ClsRepositorioBtnActualizar
+        : ClsRepositorio
     {
-        private string _ConsultaTodos;
+        private readonly string _ConsultaTodos;
 
         public ClsRepositorioBtnActualizar()
         {
@@ -18,32 +19,38 @@ namespace CapaModelo_BtnActualizar.Repositorios
                 "FROM tblReporte";
         }
 
-        public DataTable BtnActualizarFuncObtenerTodos()
+        public DataTable ReporteadorMetObtenerTodos()
         {
-            return BtnActualizarMetEjecucionConsulta(
+            return ReporteadorMetEjecucionConsulta(
                 _ConsultaTodos,
                 CommandType.Text);
         }
 
-        public DataTable BtnActualizarMetEjecucionConsulta(
+        public DataTable ReporteadorMetEjecucionConsulta(
             string ComandoTexto,
             CommandType ComandoTipo)
         {
-            return BtnActualizarMetEjecucionConsulta(ComandoTexto, null, ComandoTipo);
+            return ReporteadorMetEjecucionConsulta(
+                ComandoTexto,
+                null,
+                ComandoTipo);
         }
 
-        public DataTable BtnActualizarMetEjecucionConsulta(
+        public DataTable ReporteadorMetEjecucionConsulta(
             string ComandoTexto,
             List<OdbcParameter> Parametros,
             CommandType ComandoTipo)
         {
-            DataTable TablaDatos = new DataTable();
+            DataTable TablaDatos =
+                new DataTable();
 
-            using (OdbcConnection Conexion = BtnActualizarMetObtenerConexion())
+            using (OdbcConnection Conexion =
+                ReporteadorMetObtenerConexion())
             {
                 Conexion.Open();
 
-                using (OdbcCommand Comando = new OdbcCommand())
+                using (OdbcCommand Comando =
+                    new OdbcCommand())
                 {
                     Comando.Connection = Conexion;
                     Comando.CommandText = ComandoTexto;
@@ -51,17 +58,19 @@ namespace CapaModelo_BtnActualizar.Repositorios
 
                     if (Parametros != null)
                     {
-                        Comando.Parameters.AddRange(Parametros.ToArray());
+                        Comando.Parameters.AddRange(
+                            Parametros.ToArray());
                     }
 
-                    using (OdbcDataReader Lector = Comando.ExecuteReader())
+                    using (OdbcDataReader Lector =
+                        Comando.ExecuteReader())
                     {
                         TablaDatos.Load(Lector);
                     }
                 }
-
-                return TablaDatos;
             }
+
+            return TablaDatos;
         }
     }
 }

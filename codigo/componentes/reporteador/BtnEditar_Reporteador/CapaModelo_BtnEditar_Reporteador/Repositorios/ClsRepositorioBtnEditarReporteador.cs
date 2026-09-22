@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaModelo_BtnEditar_Reporteador.Repositorios
 {
-    public class ClsRepositorioBtnEditarReporteador : ClsRepositorioReporteador
+    public class ClsRepositorioBtnEditarReporteador
+        : ClsRepositorioReporteador
     {
         public bool ReporteadorMetEditarReporte(
             int NumeroReporte,
@@ -68,14 +65,30 @@ namespace CapaModelo_BtnEditar_Reporteador.Repositorios
                         int FilasAfectadas =
                             Comando.ExecuteNonQuery();
 
-                        return FilasAfectadas > 0;
+                        if (FilasAfectadas > 0)
+                        {
+                            return true;
+                        }
+
+                        MensajeError =
+                            "No se encontró el reporte seleccionado.";
+
+                        return false;
                     }
                 }
             }
-            catch (Exception Excepcion)
+            catch (OdbcException)
             {
                 MensajeError =
-                    Excepcion.Message;
+                    "No se pudo actualizar el reporte. " +
+                    "Verifique la conexión con la base de datos.";
+
+                return false;
+            }
+            catch (Exception)
+            {
+                MensajeError =
+                    "Ocurrió un error al actualizar el reporte.";
 
                 return false;
             }

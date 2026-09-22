@@ -4,76 +4,107 @@ using CapaControlador_BtnRuta_Reporteador;
 
 namespace CapaVista_BtnRuta_Reporteador
 {
-    public partial class BtnRutaReporteador : UserControl
+    public partial class ReporteadorUcRutaReporte
+        : UserControl
     {
-        private readonly ClsControladorBtnRutaReporteador _Controlador;
+        // Controlador encargado de validar la ruta seleccionada.
+        private readonly ClsControladorBtnRutaReporteador
+            _Controlador;
 
-        public TextBox CampoTextoRuta { get; set; }
+        // Campo de texto del formulario donde se colocará
+        // la ruta seleccionada.
+        public TextBox CampoTextoRuta
+        {
+            get;
+            set;
+        }
 
-        public BtnRutaReporteador()
+        public ReporteadorUcRutaReporte()
         {
             InitializeComponent();
 
             _Controlador =
                 new ClsControladorBtnRutaReporteador();
 
-            // Conectar el botón del UserControl
-            // directamente al método de selección
-            this.BtnRutaReportesReporteador.Click +=
+            // Conecta el botón del UserControl
+            // con el método de selección de archivos.
+            ReporteadorBtnRutaReporte.Click +=
                 ReporteadorMetSeleccionarArchivo;
         }
 
+        // Abre el explorador de archivos y permite
+        // seleccionar únicamente archivos PDF.
         private void ReporteadorMetSeleccionarArchivo(
-            object sender,
-            EventArgs e)
+            object Sender,
+            EventArgs E)
         {
-            using (OpenFileDialog ReporteadorOfdSeleccionarArchivo =
-                new OpenFileDialog())
+            using (
+                OpenFileDialog
+                ReporteadorOfdSeleccionarArchivo =
+                    new OpenFileDialog())
             {
+                // Título mostrado en el explorador.
                 ReporteadorOfdSeleccionarArchivo.Title =
                     "Seleccionar reporte en PDF";
 
+                // Filtro para mostrar únicamente archivos PDF.
                 ReporteadorOfdSeleccionarArchivo.Filter =
                     "Archivos PDF (*.pdf)|*.pdf";
 
-                ReporteadorOfdSeleccionarArchivo.CheckFileExists =
-                    true;
+                // Obliga a seleccionar un archivo existente.
+                ReporteadorOfdSeleccionarArchivo
+                    .CheckFileExists = true;
 
-                ReporteadorOfdSeleccionarArchivo.Multiselect =
-                    false;
+                // Solo permite seleccionar un archivo.
+                ReporteadorOfdSeleccionarArchivo
+                    .Multiselect = false;
 
-                if (ReporteadorOfdSeleccionarArchivo.ShowDialog()
+                // Abre el explorador de archivos.
+                if (
+                    ReporteadorOfdSeleccionarArchivo
+                    .ShowDialog()
                     == DialogResult.OK)
                 {
                     string RutaReporte =
-                        ReporteadorOfdSeleccionarArchivo.FileName;
+                        ReporteadorOfdSeleccionarArchivo
+                        .FileName;
 
-                    if (_Controlador.ReporteadorMetValidarRuta(
-                        RutaReporte,
-                        out string Mensaje))
+                    // Valida la ruta mediante el controlador.
+                    bool Resultado =
+                        _Controlador
+                        .ReporteadorMetValidarRuta(
+                            RutaReporte,
+                            out string Mensaje);
+
+                    if (Resultado)
                     {
+                        // Coloca la ruta seleccionada
+                        // en el TextBox del formulario.
                         if (CampoTextoRuta != null)
                         {
                             CampoTextoRuta.Text =
                                 RutaReporte;
+
+                            return;
                         }
-                        else
-                        {
-                            MessageBox.Show(
-                                "No se ha asignado el control de texto para la ruta.",
-                                "Advertencia",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-                        }
-                    }
-                    else
-                    {
+
                         MessageBox.Show(
-                            Mensaje,
-                            "Error",
+                            "No se ha asignado el control " +
+                            "de texto para la ruta.",
+                            "Advertencia",
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                            MessageBoxIcon.Warning);
+
+                        return;
                     }
+
+                    // Muestra el mensaje de validación
+                    // cuando la ruta no es válida.
+                    MessageBox.Show(
+                        Mensaje,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
         }

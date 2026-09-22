@@ -1,6 +1,6 @@
 ﻿namespace CapaVista_BtnLimpiar_Reporteador
 {
-    partial class BtnLimpiarReporteador
+    partial class ReporteadorUcLimpiar
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -16,39 +16,39 @@
 
         private void InitializeComponent()
         {
-            this.ReporteadorBtnAccionLimpiar = new System.Windows.Forms.Button();
+            this.ReporteadorBtnLimpiar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // ReporteadorBtnAccionLimpiar
+            // ReporteadorBtnLimpiar
             // 
-            this.ReporteadorBtnAccionLimpiar.BackColor = System.Drawing.Color.Transparent;
-            this.ReporteadorBtnAccionLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ReporteadorBtnAccionLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ReporteadorBtnAccionLimpiar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ReporteadorBtnAccionLimpiar.FlatAppearance.BorderSize = 0;
-            this.ReporteadorBtnAccionLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ReporteadorBtnAccionLimpiar.Image = global::CapaVista_BtnLimpiar_Reporteador.Properties.Resources.btn_limpiarReporte;
-            this.ReporteadorBtnAccionLimpiar.Location = new System.Drawing.Point(0, 0);
-            this.ReporteadorBtnAccionLimpiar.Name = "ReporteadorBtnAccionLimpiar";
-            this.ReporteadorBtnAccionLimpiar.Size = new System.Drawing.Size(56, 56);
-            this.ReporteadorBtnAccionLimpiar.TabIndex = 0;
-            this.ReporteadorBtnAccionLimpiar.UseVisualStyleBackColor = false;
-            this.ReporteadorBtnAccionLimpiar.Click += new System.EventHandler(this.ReporteadorMetLimpiarClick);
+            this.ReporteadorBtnLimpiar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ReporteadorBtnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ReporteadorBtnLimpiar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReporteadorBtnLimpiar.FlatAppearance.BorderSize = 0;
+            this.ReporteadorBtnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReporteadorBtnLimpiar.Image = global::CapaVista_BtnLimpiar_Reporteador.Properties.Resources.btn_limpiarReporte;
+            this.ReporteadorBtnLimpiar.Location = new System.Drawing.Point(0, 0);
+            this.ReporteadorBtnLimpiar.Name = "ReporteadorBtnLimpiar";
+            this.ReporteadorBtnLimpiar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnLimpiar.TabIndex = 0;
+            this.ReporteadorBtnLimpiar.UseVisualStyleBackColor = false;
+            this.ReporteadorBtnLimpiar.Click += new System.EventHandler(this.ReporteadorMetLimpiarClick);
             // 
-            // BtnLimpiarReporteador
+            // ReporteadorUcLimpiar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.ReporteadorBtnAccionLimpiar);
-            this.Name = "BtnLimpiarReporteador";
+            this.Controls.Add(this.ReporteadorBtnLimpiar);
+            this.Name = "ReporteadorUcLimpiar";
             this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
 
         }
 
 
-        private System.Windows.Forms.Button ReporteadorBtnAccionLimpiar;
+        private System.Windows.Forms.Button ReporteadorBtnLimpiar;
 
         
     }

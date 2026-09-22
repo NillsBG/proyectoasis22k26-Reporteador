@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using CapaModelo_BtnEliminar_Reporteador;
-
 
 namespace CapaControlador_BtnEliminar_Reporteador
 {
     public class ClsModeloBtnEliminarReporteador
     {
- 
-        private readonly
-            ClsRepositorioBtnEliminarReporteador
+        private readonly ClsRepositorioBtnEliminarReporteador
             _RepositorioBtnEliminarReporteador;
-
 
         public ClsModeloBtnEliminarReporteador()
         {
@@ -23,58 +15,61 @@ namespace CapaControlador_BtnEliminar_Reporteador
                 new ClsRepositorioBtnEliminarReporteador();
         }
 
-
         public string ReporteadorMetDeshabilitar(
-            int numeroReporte)
+            int NumeroReporte)
         {
             try
             {
-                if (numeroReporte <= 0)
+                if (NumeroReporte <= 0)
                 {
                     return
-                        "El numero del reporte no es valido.";
+                        "El número del reporte no es válido.";
                 }
 
                 if (_RepositorioBtnEliminarReporteador
                     .ReporteadorMetEstaDeshabilitado(
-                        numeroReporte))
+                        NumeroReporte))
                 {
                     return
                         "El reporte ya se encuentra " +
                         "deshabilitado.";
                 }
 
-                _RepositorioBtnEliminarReporteador
+                bool Exito =
+                    _RepositorioBtnEliminarReporteador
                     .ReporteadorMetDeshabilitar(
-                        numeroReporte);
+                        NumeroReporte);
 
-                return null;
+                if (!Exito)
+                {
+                    return
+                        "No se pudo deshabilitar el reporte.";
+                }
+
+                return string.Empty;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return
-                    "Ocurrio un error al deshabilitar el " +
-                    "reporte." + Environment.NewLine +
-                    ex.Message;
+                    "Ocurrió un error al deshabilitar " +
+                    "el reporte.";
             }
         }
 
-
         public bool ReporteadorMetEstaDeshabilitado(
-            int numeroReporte)
+            int NumeroReporte)
         {
             try
             {
                 return _RepositorioBtnEliminarReporteador
                     .ReporteadorMetEstaDeshabilitado(
-                        numeroReporte);
+                        NumeroReporte);
             }
             catch (Exception)
             {
                 return false;
             }
         }
-
 
         public IEnumerable<int>
             ReporteadorMetObtenerNumerosDeshabilitados()

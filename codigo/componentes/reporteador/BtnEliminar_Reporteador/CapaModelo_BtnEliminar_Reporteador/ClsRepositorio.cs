@@ -1,31 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.IO;
+using System.Linq;
 
 namespace CapaModelo_BtnEliminar_Reporteador
 {
-    // Clase base: sabe DONDE esta guardado el estado
-    // de "deshabilitados" y COMO leerlo/escribirlo.
-    // No toca la base de datos. El estado se guarda en
-    // un archivo de texto plano junto al ejecutable:
-    // un numero de reporte por linea.
-
     public abstract class ClsRepositorio
     {
- 
         protected readonly string _RutaArchivo;
 
-        // Evita choques si dos operaciones intentan
-        // leer/escribir el archivo al mismo tiempo.
         private static readonly object _Candado =
             new object();
 
-
-        public ClsRepositorio()
+        protected ClsRepositorio()
         {
             _RutaArchivo =
                 ReporteadorMetRutaPorDefecto();
@@ -33,14 +20,13 @@ namespace CapaModelo_BtnEliminar_Reporteador
 
         private string ReporteadorMetRutaPorDefecto()
         {
-            string carpeta =
+            string Carpeta =
                 AppDomain.CurrentDomain.BaseDirectory;
 
             return Path.Combine(
-                carpeta,
+                Carpeta,
                 "ReportesDeshabilitados.txt");
         }
-
 
         protected List<int> ReporteadorMetLeerNumeros()
         {
@@ -51,36 +37,46 @@ namespace CapaModelo_BtnEliminar_Reporteador
                     return new List<int>();
                 }
 
-                List<int> lista = new List<int>();
+                List<int> Lista =
+                    new List<int>();
 
-                foreach (string linea
-                         in File.ReadAllLines(
-                             _RutaArchivo))
+                foreach (
+                    string Linea
+                    in File.ReadAllLines(_RutaArchivo))
                 {
-                    int numero;
+                    int Numero;
 
                     if (int.TryParse(
-                            linea.Trim(),
-                            out numero))
+                        Linea.Trim(),
+                        out Numero))
                     {
-                        lista.Add(numero);
+                        if (!Lista.Contains(Numero))
+                        {
+                            Lista.Add(Numero);
+                        }
                     }
                 }
 
-                return lista;
+                return Lista;
             }
         }
 
         protected void ReporteadorMetEscribirNumeros(
-            IEnumerable<int> numeros)
+            IEnumerable<int> Numeros)
         {
             lock (_Candado)
             {
+                IEnumerable<string> Lineas =
+                    Numeros
+                    .Distinct()
+                    .OrderBy(
+                        Numero => Numero)
+                    .Select(
+                        Numero => Numero.ToString());
+
                 File.WriteAllLines(
                     _RutaArchivo,
-                    numeros
-                        .OrderBy(n => n)
-                        .Select(n => n.ToString()));
+                    Lineas);
             }
         }
     }

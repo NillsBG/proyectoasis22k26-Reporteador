@@ -1,6 +1,6 @@
 ﻿namespace CapaVista_BtnImprimir_Reporteador
 {
-    partial class BtnImprimir
+    partial class ReporteadorUcImprimir
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -16,36 +16,36 @@
 
         private void InitializeComponent()
         {
-            this.btnAccionImprimir = new System.Windows.Forms.Button();
+            this.ReporteadorBtnImprimir = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnAccionImprimir
+            // ReporteadorBtnImprimir
             // 
-            this.btnAccionImprimir.BackColor = System.Drawing.Color.Transparent;
-            this.btnAccionImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnAccionImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAccionImprimir.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAccionImprimir.FlatAppearance.BorderSize = 0;
-            this.btnAccionImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAccionImprimir.Image = global::CapaVista_BtnImprimir_Reporteador.Properties.Resources.btn_imprimir;
-            this.btnAccionImprimir.Location = new System.Drawing.Point(0, 0);
-            this.btnAccionImprimir.Name = "btnAccionImprimir";
-            this.btnAccionImprimir.Size = new System.Drawing.Size(56, 56);
-            this.btnAccionImprimir.TabIndex = 0;
-            this.btnAccionImprimir.UseVisualStyleBackColor = false;
+            this.ReporteadorBtnImprimir.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ReporteadorBtnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ReporteadorBtnImprimir.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReporteadorBtnImprimir.FlatAppearance.BorderSize = 0;
+            this.ReporteadorBtnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReporteadorBtnImprimir.Image = global::CapaVista_BtnImprimir_Reporteador.Properties.Resources.btn_imprimir;
+            this.ReporteadorBtnImprimir.Location = new System.Drawing.Point(0, 0);
+            this.ReporteadorBtnImprimir.Name = "ReporteadorBtnImprimir";
+            this.ReporteadorBtnImprimir.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnImprimir.TabIndex = 0;
+            this.ReporteadorBtnImprimir.UseVisualStyleBackColor = false;
             // 
-            // BtnImprimir
+            // ReporteadorUcImprimir
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.btnAccionImprimir);
-            this.Name = "BtnImprimir";
+            this.Controls.Add(this.ReporteadorBtnImprimir);
+            this.Name = "ReporteadorUcImprimir";
             this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
 
         }
 
-        private System.Windows.Forms.Button btnAccionImprimir;
+        private System.Windows.Forms.Button ReporteadorBtnImprimir;
     }
 }

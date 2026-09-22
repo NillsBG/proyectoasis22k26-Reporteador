@@ -1,42 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaModelo_BtnEliminar_Reporteador
 {
     public class ClsRepositorioBtnEliminarReporteador
         : ClsRepositorio
     {
-
         public bool ReporteadorMetEstaDeshabilitado(
-            int numeroReporte)
+            int NumeroReporte)
         {
             return ReporteadorMetLeerNumeros()
-                .Contains(numeroReporte);
+                .Contains(NumeroReporte);
         }
 
-
-        public void ReporteadorMetDeshabilitar(
-            int numeroReporte)
+        public bool ReporteadorMetDeshabilitar(
+            int NumeroReporte)
         {
-            List<int> actuales =
+            List<int> Actuales =
                 ReporteadorMetLeerNumeros();
 
-            if (actuales.Contains(numeroReporte))
+            if (Actuales.Contains(NumeroReporte))
             {
-                // Ya estaba, no se duplica.
-                return;
+                return false;
             }
 
-            actuales.Add(numeroReporte);
+            Actuales.Add(NumeroReporte);
 
-            ReporteadorMetEscribirNumeros(actuales);
+            ReporteadorMetEscribirNumeros(
+                Actuales);
+
+            return true;
         }
 
-
-        public IEnumerable<int> ReporteadorMetObtenerTodos()
+        public IEnumerable<int>
+            ReporteadorMetObtenerTodos()
         {
             return ReporteadorMetLeerNumeros();
         }

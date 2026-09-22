@@ -1,6 +1,6 @@
 ﻿namespace CapaVista_BtnRuta_Reporteador
 {
-    partial class BtnRutaReporteador
+    partial class ReporteadorUcRutaReporte
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BtnRutaReportesReporteador = new System.Windows.Forms.Button();
+            this.ReporteadorBtnRutaReporte = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // BtnRutaReportesReporteador
+            // ReporteadorBtnRutaReporte
             // 
-            this.BtnRutaReportesReporteador.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BtnRutaReportesReporteador.FlatAppearance.BorderSize = 0;
-            this.BtnRutaReportesReporteador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnRutaReportesReporteador.Image = global::CapaVista_BtnRuta_Reporteador.Properties.Resources.btn_rutaReporte;
-            this.BtnRutaReportesReporteador.Location = new System.Drawing.Point(0, 0);
-            this.BtnRutaReportesReporteador.Name = "BtnRutaReportesReporteador";
-            this.BtnRutaReportesReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnRutaReportesReporteador.TabIndex = 0;
-            this.BtnRutaReportesReporteador.UseVisualStyleBackColor = true;
+            this.ReporteadorBtnRutaReporte.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReporteadorBtnRutaReporte.FlatAppearance.BorderSize = 0;
+            this.ReporteadorBtnRutaReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReporteadorBtnRutaReporte.Image = global::CapaVista_BtnRuta_Reporteador.Properties.Resources.btn_rutaReporte;
+            this.ReporteadorBtnRutaReporte.Location = new System.Drawing.Point(0, 0);
+            this.ReporteadorBtnRutaReporte.Name = "ReporteadorBtnRutaReporte";
+            this.ReporteadorBtnRutaReporte.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnRutaReporte.TabIndex = 0;
+            this.ReporteadorBtnRutaReporte.UseVisualStyleBackColor = true;
             // 
-            // BtnRutaReporteador
+            // ReporteadorUcRutaReporte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.BtnRutaReportesReporteador);
-            this.Name = "BtnRutaReporteador";
+            this.Controls.Add(this.ReporteadorBtnRutaReporte);
+            this.Name = "ReporteadorUcRutaReporte";
             this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
 
@@ -57,6 +57,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button BtnRutaReportesReporteador;
+        private System.Windows.Forms.Button ReporteadorBtnRutaReporte;
     }
 }

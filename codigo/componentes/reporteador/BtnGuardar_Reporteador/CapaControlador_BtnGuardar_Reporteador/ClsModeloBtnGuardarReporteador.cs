@@ -5,40 +5,66 @@ namespace CapaControlador_BtnGuardar_Reporteador
 {
     public class ClsModeloBtnGuardarReporteador
     {
-        private readonly ClsRepositorioBtnGuardarReporteador _Repositorio;
+        private readonly ClsRepositorioBtnGuardarReporteador
+            _Repositorio;
 
         public ClsModeloBtnGuardarReporteador()
         {
-            _Repositorio = new ClsRepositorioBtnGuardarReporteador();
+            _Repositorio =
+                new ClsRepositorioBtnGuardarReporteador();
         }
 
-        public string ReporteadorMetGuardar(int numeroReporte, string nombreReporte, string rutaReporte, DateTime fechaReporte, bool esEdicion)
+        public string ReporteadorMetGuardar(
+            int NumeroReporte,
+            string NombreReporte,
+            string RutaReporte,
+            DateTime FechaReporte,
+            bool EsEdicion)
         {
-            if (numeroReporte <= 0)
+            if (NumeroReporte <= 0)
             {
-                return "El número de reporte debe ser mayor a cero.";
+                return
+                    "El número de reporte debe ser mayor a cero.";
             }
 
-            if (string.IsNullOrWhiteSpace(nombreReporte))
+            if (string.IsNullOrWhiteSpace(
+                NombreReporte))
             {
-                return "El nombre del reporte no puede estar vacío.";
+                return
+                    "El nombre del reporte no puede estar vacío.";
             }
 
-            if (string.IsNullOrWhiteSpace(rutaReporte))
+            if (string.IsNullOrWhiteSpace(
+                RutaReporte))
             {
-                return "La ruta del reporte es requerida.";
+                return
+                    "La ruta del reporte es requerida.";
             }
 
-            bool exito = _Repositorio.ReporteadorMetGuardarReporte(numeroReporte, nombreReporte, rutaReporte, fechaReporte, esEdicion, out string errorBD);
+            string MensajeError;
 
-            if (exito)
+            bool Exito =
+                _Repositorio.ReporteadorMetGuardarReporte(
+                    NumeroReporte,
+                    NombreReporte,
+                    RutaReporte,
+                    FechaReporte,
+                    EsEdicion,
+                    out MensajeError);
+
+            if (Exito)
             {
-                return string.Empty; // Vacío indica éxito
+                return string.Empty;
             }
-            else
+
+            if (string.IsNullOrWhiteSpace(
+                MensajeError))
             {
-                return errorBD;
+                return
+                    "No se pudo procesar el reporte.";
             }
+
+            return MensajeError;
         }
     }
 }

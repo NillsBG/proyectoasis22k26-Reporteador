@@ -6,12 +6,12 @@ namespace CapaModelo_BtnActualizar.Repositorios
     {
         private readonly string _CadenaConexion;
 
-        public ClsRepositorio()
+        protected ClsRepositorio()
         {
             _CadenaConexion = "Dsn=dbReporteador";
         }
 
-        protected OdbcConnection BtnActualizarMetObtenerConexion()
+        protected OdbcConnection ReporteadorMetObtenerConexion()
         {
             return new OdbcConnection(_CadenaConexion);
         }

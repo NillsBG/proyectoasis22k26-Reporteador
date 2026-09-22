@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C14DD352-61F6-463A-8F1F-D64E37D0D185}</ProjectGuid>
+    <ProjectGuid>{233586F3-EA8A-47A4-AC33-DC81A83BBEC8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CapaModelo_BtnBusqueda_Reporteador</RootNamespace>
-    <AssemblyName>CapaModelo_BtnBusqueda_Reporteador</AssemblyName>
+    <RootNamespace>CapaModelo_BtnBusqueda</RootNamespace>
+    <AssemblyName>CapaModelo_BtnBusqueda</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,9 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositorios\ClsRepositorioReporteador.cs" />
-    <Compile Include="Repositorios\ClsRepositorioBtnBusquedaReporteador.cs" />
+    <Compile Include="Repositorios\ClsRepositorio.cs" />
+    <Compile Include="Repositorios\ClsRepositorioBtnBusqueda.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

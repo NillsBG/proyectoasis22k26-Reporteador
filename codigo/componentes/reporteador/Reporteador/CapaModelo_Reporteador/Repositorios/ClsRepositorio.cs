@@ -1,26 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Data.Odbc;
-
+﻿using System.Data.Odbc;
 
 namespace CapaModelo_Reporteador.Repositorios
 {
+    /// <summary>
+    /// Repositorio base del componente Reporteador.
+    /// Contiene la configuración general de conexión.
+    /// </summary>
     public abstract class ClsRepositorio
     {
-        public readonly string connectionString;
+        // =========================================================
+        // CADENA DE CONEXIÓN
+        // =========================================================
 
-        public ClsRepositorio()
+        private readonly string
+            _CadenaConexion;
+
+        protected ClsRepositorio()
         {
-            connectionString = "Dsn=dbreporteador";
+            _CadenaConexion =
+                "Dsn=dbreporteador";
         }
 
-        protected OdbcConnection ObtenerConexion()
+        // =========================================================
+        // OBTENER CONEXIÓN
+        // =========================================================
+
+        /// <summary>
+        /// Crea una conexión ODBC utilizando el DSN
+        /// configurado para Reporteador.
+        /// </summary>
+        protected OdbcConnection
+            ReporteadorMetObtenerConexion()
         {
-            return new OdbcConnection(connectionString);
+            return new OdbcConnection(
+                _CadenaConexion);
         }
     }
 }

@@ -7,20 +7,25 @@ using CapaControlador_BtnActualizar;
 namespace CapaVista_BtnActualizar
 {
     [ToolboxItem(true)]
-    [Description("Boton reutilizable para actualizar el listado de reportes.")]
-    public partial class BtnActualizarReporteador : UserControl
+    [Description(
+        "Boton reutilizable para actualizar el listado de reportes.")]
+    public partial class ReporteadorUcActualizar : UserControl
     {
-        private ClsControladorBtnActualizar _Controlador;
+        private readonly ClsControladorBtnActualizar _Controlador;
 
         public DataGridView DgvReportes { get; set; }
 
-        public BtnActualizarReporteador()
+        public ReporteadorUcActualizar()
         {
             InitializeComponent();
-            _Controlador = new ClsControladorBtnActualizar();
+
+            _Controlador =
+                new ClsControladorBtnActualizar();
         }
 
-        private void ReporteadorBtnActualizar_Click(object sender, EventArgs e)
+        private void ReporteadorBtnActualizar_Click(
+            object Sender,
+            EventArgs E)
         {
             if (DgvReportes == null)
             {
@@ -29,59 +34,105 @@ namespace CapaVista_BtnActualizar
                     "Ocurrió un error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+
                 return;
             }
 
-            BtnActualizarProcRefrescarGrid();
+            ReporteadorMetRefrescarGrid();
         }
 
-        private void BtnActualizarProcRefrescarGrid()
+        private void ReporteadorMetRefrescarGrid()
         {
             try
             {
-                DataTable TablaReportes = _Controlador.BtnActualizarFuncObtenerReportes();
+                DataTable TablaReportes =
+                    _Controlador.ReporteadorMetObtenerReportes();
 
                 DgvReportes.DataSource = null;
                 DgvReportes.Columns.Clear();
                 DgvReportes.AutoGenerateColumns = false;
 
-                DataGridViewTextBoxColumn ColumnaNumero = new DataGridViewTextBoxColumn();
-                ColumnaNumero.Name = "NumeroReporte";
-                ColumnaNumero.HeaderText = "NumeroReporte";
-                ColumnaNumero.DataPropertyName = "NumeroReporte";
+                DataGridViewTextBoxColumn ColumnaNumero =
+                    new DataGridViewTextBoxColumn();
+
+                ColumnaNumero.Name =
+                    "NumeroReporte";
+
+                ColumnaNumero.HeaderText =
+                    "NumeroReporte";
+
+                ColumnaNumero.DataPropertyName =
+                    "NumeroReporte";
+
                 ColumnaNumero.Width = 100;
-                DgvReportes.Columns.Add(ColumnaNumero);
 
-                DataGridViewTextBoxColumn ColumnaNombre = new DataGridViewTextBoxColumn();
-                ColumnaNombre.Name = "NombreReporte";
-                ColumnaNombre.HeaderText = "NombreReporte";
-                ColumnaNombre.DataPropertyName = "NombreReporte";
+                DgvReportes.Columns.Add(
+                    ColumnaNumero);
+
+                DataGridViewTextBoxColumn ColumnaNombre =
+                    new DataGridViewTextBoxColumn();
+
+                ColumnaNombre.Name =
+                    "NombreReporte";
+
+                ColumnaNombre.HeaderText =
+                    "NombreReporte";
+
+                ColumnaNombre.DataPropertyName =
+                    "NombreReporte";
+
                 ColumnaNombre.Width = 180;
-                DgvReportes.Columns.Add(ColumnaNombre);
 
-                DataGridViewTextBoxColumn ColumnaRuta = new DataGridViewTextBoxColumn();
-                ColumnaRuta.Name = "RutaReporte";
-                ColumnaRuta.HeaderText = "RutaReporte";
-                ColumnaRuta.DataPropertyName = "RutaReporte";
-                ColumnaRuta.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                DgvReportes.Columns.Add(ColumnaRuta);
+                DgvReportes.Columns.Add(
+                    ColumnaNombre);
 
-                DataGridViewTextBoxColumn ColumnaFecha = new DataGridViewTextBoxColumn();
-                ColumnaFecha.Name = "FechaReporte";
-                ColumnaFecha.HeaderText = "FechaReporte";
-                ColumnaFecha.DataPropertyName = "FechaReporte";
+                DataGridViewTextBoxColumn ColumnaRuta =
+                    new DataGridViewTextBoxColumn();
+
+                ColumnaRuta.Name =
+                    "RutaReporte";
+
+                ColumnaRuta.HeaderText =
+                    "RutaReporte";
+
+                ColumnaRuta.DataPropertyName =
+                    "RutaReporte";
+
+                ColumnaRuta.AutoSizeMode =
+                    DataGridViewAutoSizeColumnMode.Fill;
+
+                DgvReportes.Columns.Add(
+                    ColumnaRuta);
+
+                DataGridViewTextBoxColumn ColumnaFecha =
+                    new DataGridViewTextBoxColumn();
+
+                ColumnaFecha.Name =
+                    "FechaReporte";
+
+                ColumnaFecha.HeaderText =
+                    "FechaReporte";
+
+                ColumnaFecha.DataPropertyName =
+                    "FechaReporte";
+
                 ColumnaFecha.Width = 100;
-                ColumnaFecha.DefaultCellStyle.Format = "dd/MM/yyyy";
-                DgvReportes.Columns.Add(ColumnaFecha);
 
-                DgvReportes.DataSource = TablaReportes;
+                ColumnaFecha.DefaultCellStyle.Format =
+                    "dd/MM/yyyy";
+
+                DgvReportes.Columns.Add(
+                    ColumnaFecha);
+
+                DgvReportes.DataSource =
+                    TablaReportes;
+
                 DgvReportes.Refresh();
             }
-            catch (Exception ExcepcionActualizar)
+            catch (Exception)
             {
                 MessageBox.Show(
-                    "No se pudo actualizar el listado de reportes.\n" +
-                    ExcepcionActualizar.Message,
+                    "No se pudo actualizar el listado de reportes.",
                     "Ocurrió un error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

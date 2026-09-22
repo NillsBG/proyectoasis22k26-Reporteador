@@ -1,18 +1,19 @@
 ﻿using System.Data.Odbc;
 
-namespace CapaModelo_BtnEditar_Reporteador.Repositorios
+namespace CapaModelo_BtnBusqueda.Repositorios
 {
-    public abstract class ClsRepositorioReporteador
+    public abstract class ClsRepositorio
     {
         private readonly string _CadenaConexion;
 
-        protected ClsRepositorioReporteador()
+        protected ClsRepositorio()
         {
             _CadenaConexion =
                 "Dsn=dbreporteador";
         }
 
-        protected OdbcConnection ReporteadorMetObtenerConexion()
+        protected OdbcConnection
+            ReporteadorMetObtenerConexion()
         {
             return new OdbcConnection(
                 _CadenaConexion);

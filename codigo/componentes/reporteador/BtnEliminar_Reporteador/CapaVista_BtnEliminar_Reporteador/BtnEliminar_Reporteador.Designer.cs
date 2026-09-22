@@ -1,6 +1,6 @@
 ﻿namespace CapaVista_BtnEliminar_Reporteador
 {
-    partial class BtnEliminar_Reporteador
+    partial class ReporteadorUcEliminar
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BtnEliminarReporteador = new System.Windows.Forms.Button();
+            this.ReporteadorBtnEliminar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // BtnEliminarReporteador
+            // ReporteadorBtnEliminar
             // 
-            this.BtnEliminarReporteador.BackColor = System.Drawing.Color.Transparent;
-            this.BtnEliminarReporteador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnEliminarReporteador.FlatAppearance.BorderSize = 0;
-            this.BtnEliminarReporteador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnEliminarReporteador.ForeColor = System.Drawing.Color.Transparent;
-            this.BtnEliminarReporteador.Image = global::CapaVista_BtnEliminar_Reporteador.Properties.Resources.btn_eliminar;
-            this.BtnEliminarReporteador.Location = new System.Drawing.Point(0, 0);
-            this.BtnEliminarReporteador.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.BtnEliminarReporteador.Name = "BtnEliminarReporteador";
-            this.BtnEliminarReporteador.Size = new System.Drawing.Size(56, 56);
-            this.BtnEliminarReporteador.TabIndex = 0;
-            this.BtnEliminarReporteador.UseVisualStyleBackColor = false;
+            this.ReporteadorBtnEliminar.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ReporteadorBtnEliminar.FlatAppearance.BorderSize = 0;
+            this.ReporteadorBtnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReporteadorBtnEliminar.ForeColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnEliminar.Image = global::CapaVista_BtnEliminar_Reporteador.Properties.Resources.btn_eliminar;
+            this.ReporteadorBtnEliminar.Location = new System.Drawing.Point(0, 0);
+            this.ReporteadorBtnEliminar.Margin = new System.Windows.Forms.Padding(2);
+            this.ReporteadorBtnEliminar.Name = "ReporteadorBtnEliminar";
+            this.ReporteadorBtnEliminar.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnEliminar.TabIndex = 0;
+            this.ReporteadorBtnEliminar.UseVisualStyleBackColor = false;
             // 
-            // BtnEliminar_Reporteador
+            // ReporteadorUcEliminar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.BtnEliminarReporteador);
+            this.Controls.Add(this.ReporteadorBtnEliminar);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "BtnEliminar_Reporteador";
+            this.Name = "ReporteadorUcEliminar";
             this.Size = new System.Drawing.Size(56, 56);
             this.ResumeLayout(false);
 
@@ -61,6 +61,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button BtnEliminarReporteador;
+        private System.Windows.Forms.Button ReporteadorBtnEliminar;
     }
 }

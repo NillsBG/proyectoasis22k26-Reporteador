@@ -5,16 +5,17 @@ namespace CapaControlador_BtnActualizar
 {
     public class ClsControladorBtnActualizar
     {
-        private ClsRepositorioBtnActualizar _RepositorioBtnActualizar;
+        private readonly ClsRepositorioBtnActualizar _RepositorioBtnActualizar;
 
         public ClsControladorBtnActualizar()
         {
-            _RepositorioBtnActualizar = new ClsRepositorioBtnActualizar();
+            _RepositorioBtnActualizar =
+                new ClsRepositorioBtnActualizar();
         }
 
-        public DataTable BtnActualizarFuncObtenerReportes()
+        public DataTable ReporteadorMetObtenerReportes()
         {
-            return _RepositorioBtnActualizar.BtnActualizarFuncObtenerTodos();
+            return _RepositorioBtnActualizar.ReporteadorMetObtenerTodos();
         }
     }
 }

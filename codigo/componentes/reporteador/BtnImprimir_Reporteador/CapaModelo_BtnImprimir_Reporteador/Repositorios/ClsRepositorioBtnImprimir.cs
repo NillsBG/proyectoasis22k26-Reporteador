@@ -6,55 +6,92 @@ namespace CapaModelo_BtnImprimir_Reporteador.Repositorios
 {
     public class ClsRepositorioBtnImprimir
     {
-        public bool ImprimirPdf(
-            string rutaArchivo,
-            out string mensajeError)
+        public bool ReporteadorMetImprimirPdf(
+            string RutaArchivo,
+            out string MensajeError)
         {
-            mensajeError = string.Empty;
+            MensajeError = string.Empty;
 
             try
             {
-                if (string.IsNullOrWhiteSpace(rutaArchivo))
+                if (string.IsNullOrWhiteSpace(
+                    RutaArchivo))
                 {
-                    mensajeError =
-                        "No se ha seleccionado un reporte.";
+                    MensajeError =
+                        "No se ha seleccionado " +
+                        "un reporte.";
 
                     return false;
                 }
 
-                if (!File.Exists(rutaArchivo))
+                if (!File.Exists(RutaArchivo))
                 {
-                    mensajeError =
-                        "El archivo del reporte no existe.";
+                    MensajeError =
+                        "El archivo del reporte " +
+                        "no existe.";
 
                     return false;
                 }
 
-                if (!rutaArchivo.EndsWith(
+                if (!RutaArchivo.EndsWith(
                     ".pdf",
                     StringComparison.OrdinalIgnoreCase))
                 {
-                    mensajeError =
-                        "El archivo seleccionado no es un PDF.";
+                    MensajeError =
+                        "El archivo seleccionado " +
+                        "no es un PDF.";
 
                     return false;
                 }
 
-                ProcessStartInfo proceso =
+                ProcessStartInfo Proceso =
                     new ProcessStartInfo();
 
-                proceso.FileName = rutaArchivo;
-                proceso.Verb = "print";
-                proceso.UseShellExecute = true;
-                proceso.CreateNoWindow = true;
+                Proceso.FileName =
+                    RutaArchivo;
 
-                Process.Start(proceso);
+                Proceso.Verb =
+                    "print";
+
+                Proceso.UseShellExecute =
+                    true;
+
+                Proceso.CreateNoWindow =
+                    true;
+
+                Process.Start(Proceso);
 
                 return true;
             }
-            catch (Exception ex)
+            catch (FileNotFoundException)
             {
-                mensajeError = ex.Message;
+                MensajeError =
+                    "No se encontró el archivo " +
+                    "del reporte.";
+
+                return false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MensajeError =
+                    "No se tiene permiso para " +
+                    "imprimir el reporte.";
+
+                return false;
+            }
+            catch (InvalidOperationException)
+            {
+                MensajeError =
+                    "No se pudo iniciar la impresión " +
+                    "del reporte.";
+
+                return false;
+            }
+            catch (Exception)
+            {
+                MensajeError =
+                    "Ocurrió un error al intentar " +
+                    "imprimir el reporte.";
 
                 return false;
             }

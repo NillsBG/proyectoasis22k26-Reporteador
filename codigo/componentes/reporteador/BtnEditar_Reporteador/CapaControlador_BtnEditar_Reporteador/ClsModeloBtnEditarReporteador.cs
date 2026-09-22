@@ -1,73 +1,71 @@
 ﻿using CapaModelo_BtnEditar_Reporteador.Repositorios;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaControlador_BtnEditar_Reporteador
 {
     public class ClsModeloBtnEditarReporteador
     {
-        private readonly
-            ClsRepositorioBtnEditarReporteador repositorio;
+        private readonly ClsRepositorioBtnEditarReporteador _Repositorio;
 
         public ClsModeloBtnEditarReporteador()
         {
-            repositorio =
+            _Repositorio =
                 new ClsRepositorioBtnEditarReporteador();
         }
 
-        public bool EjecutarEdicion(
-            int numeroReporte,
-            string nombreReporte,
-            string rutaReporte,
-            DateTime fechaReporte,
-            out string mensaje)
+        public bool ReporteadorMetEjecutarEdicion(
+            int NumeroReporte,
+            string NombreReporte,
+            string RutaReporte,
+            DateTime FechaReporte,
+            out string Mensaje)
         {
-            if (numeroReporte <= 0)
+            if (NumeroReporte <= 0)
             {
-                mensaje =
+                Mensaje =
                     "Debe seleccionar un reporte.";
 
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(
-                nombreReporte))
+                NombreReporte))
             {
-                mensaje =
+                Mensaje =
                     "El nombre del reporte no puede estar vacío.";
 
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(
-                rutaReporte))
+                RutaReporte))
             {
-                mensaje =
+                Mensaje =
                     "La ruta del reporte es requerida.";
 
                 return false;
             }
 
-            bool exito =
-                repositorio.ReporteadorMetEditarReporte(
-                    numeroReporte,
-                    nombreReporte,
-                    rutaReporte,
-                    fechaReporte,
-                    out string errorBD);
+            bool Exito =
+                _Repositorio.ReporteadorMetEditarReporte(
+                    NumeroReporte,
+                    NombreReporte,
+                    RutaReporte,
+                    FechaReporte,
+                    out string MensajeError);
 
-            if (exito) 
+            if (Exito)
             {
-                mensaje =
+                Mensaje =
                     "Actualización exitosa";
 
                 return true;
             }
 
-            mensaje = errorBD;
+            Mensaje =
+                string.IsNullOrWhiteSpace(MensajeError)
+                ? "No se pudo actualizar el reporte."
+                : MensajeError;
 
             return false;
         }
