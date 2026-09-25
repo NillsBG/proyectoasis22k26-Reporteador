@@ -49,12 +49,12 @@ namespace CapaModelo_BtnRuta_Reporteador
 
             // Solo se permiten archivos PDF.
             if (!Extension.Equals(
-                ".pdf",
+                ".rdlc",
                 StringComparison.OrdinalIgnoreCase))
             {
                 Mensaje =
                     "El archivo seleccionado debe ser " +
-                    "un documento PDF.";
+                    "un documento .rdlc";
 
                 return false;
             }

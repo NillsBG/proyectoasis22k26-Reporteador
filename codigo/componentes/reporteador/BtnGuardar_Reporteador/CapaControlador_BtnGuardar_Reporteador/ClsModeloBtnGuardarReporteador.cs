@@ -21,12 +21,7 @@ namespace CapaControlador_BtnGuardar_Reporteador
             DateTime FechaReporte,
             bool EsEdicion)
         {
-            if (NumeroReporte <= 0)
-            {
-                return
-                    "El número de reporte debe ser mayor a cero.";
-            }
-
+       
             if (string.IsNullOrWhiteSpace(
                 NombreReporte))
             {

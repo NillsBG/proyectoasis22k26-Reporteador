@@ -27,7 +27,7 @@ namespace CapaControlador_Reporteador
         }
 
         // ============================================================
-        // OBTENER SIGUIENTE NÚMERO
+        // OBTENER SIGUIENTE NÚMERO DE REPORTE
         // ============================================================
 
         public int ReporteadorMetObtenerSiguienteNumeroReporte(
@@ -38,6 +38,14 @@ namespace CapaControlador_Reporteador
                 .ReporteadorMetObtenerMaximoNumeroReporte(
                     CodigoModulo);
 
+            // Si todavía no existen reportes del módulo 3000,
+            // el primer número será 3001.
+            if (MaximoNumero < CodigoModulo)
+            {
+                return CodigoModulo + 1;
+            }
+
+            // Si ya existen reportes, continúa desde el siguiente.
             return MaximoNumero + 1;
         }
 
