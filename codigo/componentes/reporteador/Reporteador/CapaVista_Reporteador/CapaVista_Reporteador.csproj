@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CapaControlador_BtnImprimir_Reporteador, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="CapaControlador_Reporteador">
       <HintPath>..\CapaControlador_Reporteador\bin\Debug\CapaControlador_Reporteador.dll</HintPath>
     </Reference>
@@ -54,6 +55,9 @@
     </Reference>
     <Reference Include="CapaVista_BtnLimpiar_Reporteador">
       <HintPath>..\..\BtnLimpiar_Reporteador\CapaVista_BtnLimpiar_Reporteador\bin\Debug\CapaVista_BtnLimpiar_Reporteador.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_BtnNuevo_Reporteador">
+      <HintPath>..\..\..\..\..\..\..\Proyecto\proyectoasis22k26-Reporteador\codigo\componentes\reporteador\BtnNuevo_Reporteador\CapaVista_BtnNuevo_Reporteador\bin\Debug\CapaVista_BtnNuevo_Reporteador.dll</HintPath>
     </Reference>
     <Reference Include="CapaVista_BtnRuta_Reporteador">
       <HintPath>..\..\BtnRuta_Reporteador\CapaVista_BtnRuta_Reporteador\bin\Debug\CapaVista_BtnRuta_Reporteador.dll</HintPath>

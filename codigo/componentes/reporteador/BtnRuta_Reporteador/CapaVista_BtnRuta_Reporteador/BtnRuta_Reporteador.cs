@@ -36,8 +36,10 @@ namespace CapaVista_BtnRuta_Reporteador
                 ReporteadorMetSeleccionarArchivo;
         }
 
-        // Abre el explorador de archivos y permite
-        // seleccionar únicamente archivos PDF.
+        // =========================================================
+        // SELECCIONAR ARCHIVO RDLC
+        // =========================================================
+
         private void ReporteadorMetSeleccionarArchivo(
             object Sender,
             EventArgs E)
@@ -47,23 +49,48 @@ namespace CapaVista_BtnRuta_Reporteador
                 ReporteadorOfdSeleccionarArchivo =
                     new OpenFileDialog())
             {
-                // Título mostrado en el explorador.
+                // -------------------------------------------------
+                // Título del explorador.
+                // -------------------------------------------------
+
                 ReporteadorOfdSeleccionarArchivo.Title =
-                    "Seleccionar reporte en PDF";
+                    "Seleccionar reporte RDLC";
 
-                // Filtro para mostrar únicamente archivos PDF.
+                // -------------------------------------------------
+                // SOLO permite archivos RDLC.
+                // -------------------------------------------------
+
                 ReporteadorOfdSeleccionarArchivo.Filter =
-                    "Archivos PDF (*.pdf)|*.pdf";
+                    "Archivo RDLC (*.rdlc)|*.rdlc";
 
-                // Obliga a seleccionar un archivo existente.
+                // -------------------------------------------------
+                // Mostrar únicamente archivos existentes.
+                // -------------------------------------------------
+
                 ReporteadorOfdSeleccionarArchivo
                     .CheckFileExists = true;
 
+                ReporteadorOfdSeleccionarArchivo
+                    .CheckPathExists = true;
+
+                // -------------------------------------------------
                 // Solo permite seleccionar un archivo.
+                // -------------------------------------------------
+
                 ReporteadorOfdSeleccionarArchivo
                     .Multiselect = false;
 
-                // Abre el explorador de archivos.
+                // -------------------------------------------------
+                // Mostrar el filtro RDLC como primera opción.
+                // -------------------------------------------------
+
+                ReporteadorOfdSeleccionarArchivo
+                    .FilterIndex = 1;
+
+                // -------------------------------------------------
+                // Abrir explorador.
+                // -------------------------------------------------
+
                 if (
                     ReporteadorOfdSeleccionarArchivo
                     .ShowDialog()
@@ -73,7 +100,27 @@ namespace CapaVista_BtnRuta_Reporteador
                         ReporteadorOfdSeleccionarArchivo
                         .FileName;
 
-                    // Valida la ruta mediante el controlador.
+                    // -------------------------------------------------
+                    // Validación adicional de extensión.
+                    // -------------------------------------------------
+
+                    if (!RutaReporte.EndsWith(
+                        ".rdlc",
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageBox.Show(
+                            "Solo se permiten archivos de tipo .rdlc.",
+                            "Archivo no válido",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        return;
+                    }
+
+                    // -------------------------------------------------
+                    // Validar la ruta mediante el controlador.
+                    // -------------------------------------------------
+
                     bool Resultado =
                         _Controlador
                         .ReporteadorMetValidarRuta(
@@ -82,8 +129,10 @@ namespace CapaVista_BtnRuta_Reporteador
 
                     if (Resultado)
                     {
-                        // Coloca la ruta seleccionada
-                        // en el TextBox del formulario.
+                        // -------------------------------------------------
+                        // Colocar ruta en el TextBox.
+                        // -------------------------------------------------
+
                         if (CampoTextoRuta != null)
                         {
                             CampoTextoRuta.Text =
@@ -102,8 +151,10 @@ namespace CapaVista_BtnRuta_Reporteador
                         return;
                     }
 
-                    // Muestra el mensaje de validación
-                    // cuando la ruta no es válida.
+                    // -------------------------------------------------
+                    // Mostrar error de validación.
+                    // -------------------------------------------------
+
                     MessageBox.Show(
                         Mensaje,
                         "Error",

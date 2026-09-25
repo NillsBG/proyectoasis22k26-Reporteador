@@ -1,58 +1,78 @@
-﻿using CapaModelo_BtnImprimir_Reporteador.Repositorios;
+﻿using System;
+using System.IO;
 
-namespace CapaControlador_BtnImprimir_Reporteador
+namespace CapaModelo_BtnImprimir_Reporteador
 {
     public class ClsModeloBtnImprimir
     {
-        private readonly ClsRepositorioBtnImprimir
-            _Repositorio;
+        public string RutaReporte
+        {
+            get;
+            set;
+        }
 
         public ClsModeloBtnImprimir()
         {
-            _Repositorio =
-                new ClsRepositorioBtnImprimir();
+            RutaReporte = string.Empty;
         }
 
-        public bool ReporteadorMetEjecutarImpresion(
-            string RutaReporte,
-            out string Mensaje)
+        public bool ReporteadorMetValidarReporte(
+            string Ruta,
+            out string MensajeError)
         {
-            if (string.IsNullOrWhiteSpace(
-                RutaReporte))
+            MensajeError = string.Empty;
+
+            try
             {
-                Mensaje =
-                    "Debe seleccionar un reporte " +
-                    "para imprimir.";
+                if (string.IsNullOrWhiteSpace(Ruta))
+                {
+                    MensajeError =
+                        "No se ha seleccionado un reporte.";
 
-                return false;
-            }
+                    return false;
+                }
 
-            bool Resultado =
-                _Repositorio.ReporteadorMetImprimirPdf(
-                    RutaReporte,
-                    out string MensajeError);
+                Ruta = Ruta.Trim();
 
-            if (Resultado)
-            {
-                Mensaje =
-                    "El reporte fue enviado a impresión.";
+                if (!File.Exists(Ruta))
+                {
+                    MensajeError =
+                        "El archivo del reporte no existe.";
+
+                    return false;
+                }
+
+                if (!Path.GetExtension(Ruta)
+                    .Equals(
+                        ".rdlc",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    MensajeError =
+                        "El archivo seleccionado no es un reporte .rdlc.";
+
+                    return false;
+                }
+
+                RutaReporte = Ruta;
 
                 return true;
             }
-
-            if (string.IsNullOrWhiteSpace(
-                MensajeError))
+            catch (UnauthorizedAccessException)
             {
-                Mensaje =
-                    "No se pudo enviar el reporte " +
-                    "a impresión.";
-            }
-            else
-            {
-                Mensaje = MensajeError;
-            }
+                MensajeError =
+                    "No se tiene permiso para acceder al archivo del reporte.";
 
-            return false;
+                return false;
+            }
+            catch (Exception Ex)
+            {
+                MensajeError =
+                    "No se pudo validar el archivo del reporte."
+                    + Environment.NewLine
+                    + Ex.Message;
+
+                return false;
+            }
         }
     }
 }

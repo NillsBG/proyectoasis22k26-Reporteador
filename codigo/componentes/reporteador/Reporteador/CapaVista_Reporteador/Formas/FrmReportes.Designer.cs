@@ -54,8 +54,8 @@
             this.ReporteadorBtnEliminar = new CapaVista_BtnEliminar_Reporteador.ReporteadorUcEliminar();
             this.ReporteadorBtnLimpiar = new CapaVista_BtnLimpiar_Reporteador.ReporteadorUcLimpiar();
             this.ReporteadorBtnGuardar = new CapaVista_BtnGuardar_Reporteador.ReporteadorUcGuardar();
-            this.ReporteadorBtnImprimir = new CapaVista_BtnImprimir_Reporteador.ReporteadorUcImprimir();
             this.ReporteadorBtnRuta = new CapaVista_BtnRuta_Reporteador.ReporteadorUcRutaReporte();
+            this.ReporteadorBtnImprimir = new CapaVista_BtnImprimir_Reporteador.ReporteadorUsrImprimir();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorDgvReportes)).BeginInit();
             this.ReporteadorPnlFiltroBuscarReporte.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReporteadorPbLogo)).BeginInit();
@@ -316,15 +316,6 @@
             this.ReporteadorBtnGuardar.Size = new System.Drawing.Size(56, 56);
             this.ReporteadorBtnGuardar.TabIndex = 22;
             // 
-            // ReporteadorBtnImprimir
-            // 
-            this.ReporteadorBtnImprimir.BackColor = System.Drawing.Color.Transparent;
-            this.ReporteadorBtnImprimir.Location = new System.Drawing.Point(355, 235);
-            this.ReporteadorBtnImprimir.Name = "ReporteadorBtnImprimir";
-            this.ReporteadorBtnImprimir.RutaReporte = null;
-            this.ReporteadorBtnImprimir.Size = new System.Drawing.Size(56, 56);
-            this.ReporteadorBtnImprimir.TabIndex = 23;
-            // 
             // ReporteadorBtnRuta
             // 
             this.ReporteadorBtnRuta.BackColor = System.Drawing.Color.Transparent;
@@ -334,14 +325,23 @@
             this.ReporteadorBtnRuta.Size = new System.Drawing.Size(56, 56);
             this.ReporteadorBtnRuta.TabIndex = 24;
             // 
+            // ReporteadorBtnImprimir
+            // 
+            this.ReporteadorBtnImprimir.BackColor = System.Drawing.Color.Transparent;
+            this.ReporteadorBtnImprimir.Location = new System.Drawing.Point(353, 235);
+            this.ReporteadorBtnImprimir.Name = "ReporteadorBtnImprimir";
+            this.ReporteadorBtnImprimir.RutaReporte = "";
+            this.ReporteadorBtnImprimir.Size = new System.Drawing.Size(56, 56);
+            this.ReporteadorBtnImprimir.TabIndex = 25;
+            // 
             // FrmReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(230)))), ((int)(((byte)(214)))));
             this.ClientSize = new System.Drawing.Size(874, 609);
-            this.Controls.Add(this.ReporteadorBtnRuta);
             this.Controls.Add(this.ReporteadorBtnImprimir);
+            this.Controls.Add(this.ReporteadorBtnRuta);
             this.Controls.Add(this.ReporteadorBtnGuardar);
             this.Controls.Add(this.ReporteadorBtnLimpiar);
             this.Controls.Add(this.ReporteadorBtnEliminar);
@@ -399,7 +399,7 @@
         private CapaVista_BtnEliminar_Reporteador.ReporteadorUcEliminar ReporteadorBtnEliminar;
         private CapaVista_BtnLimpiar_Reporteador.ReporteadorUcLimpiar ReporteadorBtnLimpiar;
         private CapaVista_BtnGuardar_Reporteador.ReporteadorUcGuardar ReporteadorBtnGuardar;
-        private CapaVista_BtnImprimir_Reporteador.ReporteadorUcImprimir ReporteadorBtnImprimir;
         private CapaVista_BtnRuta_Reporteador.ReporteadorUcRutaReporte ReporteadorBtnRuta;
+        private CapaVista_BtnImprimir_Reporteador.ReporteadorUsrImprimir ReporteadorBtnImprimir;
     }
 }
