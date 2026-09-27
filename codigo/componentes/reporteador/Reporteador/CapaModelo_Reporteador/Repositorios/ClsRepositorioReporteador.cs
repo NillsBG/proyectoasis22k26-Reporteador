@@ -251,9 +251,10 @@ namespace CapaModelo_Reporteador.Repositorios
         // ============================================================
 
         public void ReporteadorMetAgregar(
-            ClsReporteador Reporte)
+            ClsReporteador Reporte,
+            int IdAplicacion)
         {
-            string Consulta = @"
+            string ConsultaReporte = @"
                 INSERT INTO tblReporte
                 (
                     numeroReporte,
@@ -269,44 +270,89 @@ namespace CapaModelo_Reporteador.Repositorios
                     ?
                 )";
 
+            string ConsultaAplicacionReporte = @"
+                INSERT INTO tblAplicacionReporte
+                (
+                    idAplicacion,
+                    numeroReporte
+                )
+                VALUES
+                (
+                    ?,
+                    ?
+                )";
+
             using (OdbcConnection Conexion =
                 ReporteadorMetObtenerConexion())
             {
                 Conexion.Open();
 
-                using (OdbcCommand Comando =
-                    new OdbcCommand(
-                        Consulta,
-                        Conexion))
+                using (OdbcTransaction Transaccion =
+                    Conexion.BeginTransaction())
                 {
-                    Comando.Parameters.Add(
-                        new OdbcParameter(
-                            "p_numeroReporte",
-                            Reporte.NumeroReporte));
-
-                    Comando.Parameters.Add(
-                        new OdbcParameter(
-                            "p_nombreReporte",
-                            Reporte.NombreReporte));
-
-                    Comando.Parameters.Add(
-                        new OdbcParameter(
-                            "p_rutaReporte",
-                            Reporte.RutaReporte));
-
-                    Comando.Parameters.Add(
-                        new OdbcParameter(
-                            "p_fechaReporte",
-                            Reporte.FechaReporte.Date));
-
-                    int FilasAfectadas =
-                        Comando.ExecuteNonQuery();
-
-                    if (FilasAfectadas <= 0)
+                    using (OdbcCommand ComandoReporte =
+                        new OdbcCommand(
+                            ConsultaReporte,
+                            Conexion,
+                            Transaccion))
                     {
-                        throw new InvalidOperationException(
-                            "No se pudo guardar el reporte.");
+                        ComandoReporte.Parameters.Add(
+                            new OdbcParameter(
+                                "p_numeroReporte",
+                                Reporte.NumeroReporte));
+
+                        ComandoReporte.Parameters.Add(
+                            new OdbcParameter(
+                                "p_nombreReporte",
+                                Reporte.NombreReporte));
+
+                        ComandoReporte.Parameters.Add(
+                            new OdbcParameter(
+                                "p_rutaReporte",
+                                Reporte.RutaReporte));
+
+                        ComandoReporte.Parameters.Add(
+                            new OdbcParameter(
+                                "p_fechaReporte",
+                                Reporte.FechaReporte.Date));
+
+                        int FilasReporte =
+                            ComandoReporte.ExecuteNonQuery();
+
+                        if (FilasReporte <= 0)
+                        {
+                            throw new InvalidOperationException(
+                                "No se pudo guardar el reporte.");
+                        }
                     }
+
+                    using (OdbcCommand ComandoAplicacionReporte =
+                        new OdbcCommand(
+                            ConsultaAplicacionReporte,
+                            Conexion,
+                            Transaccion))
+                    {
+                        ComandoAplicacionReporte.Parameters.Add(
+                            new OdbcParameter(
+                                "p_idAplicacion",
+                                IdAplicacion));
+
+                        ComandoAplicacionReporte.Parameters.Add(
+                            new OdbcParameter(
+                                "p_numeroReporte",
+                                Reporte.NumeroReporte));
+
+                        int FilasRelacion =
+                            ComandoAplicacionReporte.ExecuteNonQuery();
+
+                        if (FilasRelacion <= 0)
+                        {
+                            throw new InvalidOperationException(
+                                "No se pudo asociar el reporte con la aplicación.");
+                        }
+                    }
+
+                    Transaccion.Commit();
                 }
             }
         }
@@ -404,19 +450,22 @@ namespace CapaModelo_Reporteador.Repositorios
         // ============================================================
 
         public IEnumerable<ClsReporteador>
-            ReporteadorMetObtenerTodos()
+            ReporteadorMetObtenerTodos(int IdAplicacion)
         {
             List<ClsReporteador> Lista =
                 new List<ClsReporteador>();
 
             string Consulta = @"
                 SELECT
-                    numeroReporte,
-                    nombreReporte,
-                    rutaReporte,
-                    fechaReporte
-                FROM tblReporte
-                ORDER BY numeroReporte";
+                      r.numeroReporte,
+                      r.nombreReporte,
+                      r.rutaReporte,
+                      r.fechaReporte
+                  FROM tblReporte r
+                  INNER JOIN tblAplicacionReporte ar
+                      ON ar.numeroReporte = r.numeroReporte
+                  WHERE ar.idAplicacion = ?
+                  ORDER BY r.numeroReporte";
 
             using (OdbcConnection Conexion =
                 ReporteadorMetObtenerConexion())
@@ -428,6 +477,11 @@ namespace CapaModelo_Reporteador.Repositorios
                         Consulta,
                         Conexion))
                 {
+                    Comando.Parameters.Add(
+                        new OdbcParameter(
+                            "p_idAplicacion",
+                            IdAplicacion));
+
                     using (OdbcDataReader Lector =
                         Comando.ExecuteReader())
                     {

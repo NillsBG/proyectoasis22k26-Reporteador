@@ -7,7 +7,8 @@ namespace CapaModelo_Reporteador.Contratos
     public interface ClsIRepositorioReporteador
     {
         void ReporteadorMetAgregar(
-            ClsReporteador Reporte);
+            ClsReporteador Reporte,
+            int IdAplicacion);
 
         void ReporteadorMetEditar(
             ClsReporteador Reporte);
@@ -16,7 +17,7 @@ namespace CapaModelo_Reporteador.Contratos
             ClsReporteador Reporte);
 
         IEnumerable<ClsReporteador>
-            ReporteadorMetObtenerTodos();
+            ReporteadorMetObtenerTodos(int IdAplicacion);
 
         IEnumerable<ClsReporteador>
             ReporteadorMetBuscarPorNombre(
