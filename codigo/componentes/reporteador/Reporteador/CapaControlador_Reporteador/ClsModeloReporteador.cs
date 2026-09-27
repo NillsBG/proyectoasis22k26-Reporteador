@@ -10,6 +10,8 @@ namespace CapaControlador_Reporteador
     {
         public int NumeroReporte { get; set; }
 
+        public int IdAplicacion { get; set; }
+
         public string NombreReporte { get; set; }
 
         public string RutaReporte { get; set; }
@@ -57,6 +59,12 @@ namespace CapaControlador_Reporteador
         {
             try
             {
+                if (IdAplicacion <= 0)
+                {
+                    return
+                        "Debe seleccionar una aplicación antes de guardar el reporte.";
+                }
+
                 if (NumeroReporte <= 0)
                 {
                     return
@@ -169,7 +177,8 @@ namespace CapaControlador_Reporteador
                 {
                     _Repositorio
                         .ReporteadorMetAgregar(
-                            Reporte);
+                            Reporte,
+                            IdAplicacion);
 
                     return "Grabación exitosa";
                 }
@@ -181,8 +190,8 @@ namespace CapaControlador_Reporteador
             {
                 return
                     "No se pudo guardar el reporte. "
-                    + "Verifique que el número, nombre y ruta "
-                    + "no estén registrados.";
+                    + "Verifique el ID de aplicación y que "
+                    + "el número, nombre y ruta sean válidos.";
             }
             catch (Exception)
             {
@@ -197,11 +206,12 @@ namespace CapaControlador_Reporteador
         // ============================================================
 
         public IEnumerable<ClsReporteador>
-            ReporteadorMetObtenerTodos()
+            ReporteadorMetObtenerTodos(int IdAplicacion)
         {
             return
                 _Repositorio
-                .ReporteadorMetObtenerTodos();
+                .ReporteadorMetObtenerTodos(
+                    IdAplicacion);
         }
 
         // ============================================================

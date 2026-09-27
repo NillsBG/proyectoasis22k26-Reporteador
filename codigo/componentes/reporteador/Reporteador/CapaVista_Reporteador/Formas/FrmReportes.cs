@@ -4,7 +4,9 @@
 
 using CapaControlador_Reporteador;
 using CapaModelo_Reporteador.Entidades;
+using CapaVista_BtnVerReporte_Reporteador;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -19,6 +21,10 @@ namespace CapaVista_Reporteador
         private bool _ModoEdicion = false;
 
         private int _NumeroReporteEdicion = 0;
+
+        private int _IdAplicacionSeleccionada = 0;
+
+        private Dictionary<string, object> _FuentesDeDatosReporteador;
 
         public FrmReportes()
         {
@@ -50,16 +56,6 @@ namespace CapaVista_Reporteador
             {
                 ReporteadorBtnRuta.CampoTextoRuta =
                     ReporteadorTxtRutaReporte;
-            }
-
-            // ============================================================
-            // DATAGRIDVIEW
-            // ============================================================
-
-            if (ReporteadorDgvReportes != null)
-            {
-                ReporteadorDgvReportes.SelectionChanged +=
-                    ReporteadorDgvReportes_SelectionChanged;
             }
 
             // ============================================================
@@ -119,23 +115,6 @@ namespace CapaVista_Reporteador
             }
 
             // ============================================================
-            // BOTÓN IMPRIMIR
-            // ============================================================
-            //
-            // El botón ahora solamente necesita recibir la ruta
-            // del archivo .rdlc seleccionado.
-            //
-            // Ya NO se utiliza NombreDataSource porque el Reporteador
-            // debe trabajar con cualquier archivo .rdlc registrado.
-            //
-            // ============================================================
-
-            if (ReporteadorBtnImprimir != null)
-            {
-                ReporteadorBtnImprimir.RutaReporte = null;
-            }
-
-            // ============================================================
             // LOAD
             // ============================================================
 
@@ -177,6 +156,14 @@ namespace CapaVista_Reporteador
         {
             try
             {
+                if (_IdAplicacionSeleccionada <= 0)
+                {
+                    ReporteadorMetMostrarError(
+                        "Debe seleccionar una aplicación antes de guardar el reporte.");
+
+                    return;
+                }
+
                 string NombreReporte =
                     ReporteadorTxtNombreReporte.Text.Trim();
 
@@ -249,7 +236,7 @@ namespace CapaVista_Reporteador
                 // --------------------------------------------------------
 
                 var ReportesExistentes =
-                    _ModeloReporteador.ReporteadorMetObtenerTodos();
+                    _ModeloReporteador.ReporteadorMetObtenerTodos(_IdAplicacionSeleccionada);
 
                 // --------------------------------------------------------
                 // VALIDAR NOMBRE DUPLICADO
@@ -368,6 +355,9 @@ namespace CapaVista_Reporteador
                 _ModeloReporteador.FechaReporte =
                     ReporteadorDtpFechaReporte.Value.Date;
 
+                _ModeloReporteador.IdAplicacion =
+                    _IdAplicacionSeleccionada;
+
                 _ModeloReporteador.Estado =
                     _ModoEdicion
                         ? ClsEstadoEntidad.Modified
@@ -435,6 +425,37 @@ namespace CapaVista_Reporteador
         }
 
         // ================================================================
+        // VER REPORTE
+        // ================================================================
+        private void ReporteadorBtnVerReporte_Click(object sender, EventArgs ArgumentosEvento)
+        {
+            try
+            {
+                if (ReporteadorDgvReportes.CurrentRow == null)
+                {
+                    ReporteadorMetMostrarError("Debe seleccionar un reporte para verlo.");
+                    return;
+                }
+
+                object NumeroReporte = ReporteadorDgvReportes.CurrentRow.Cells["NumeroReporte"].Value;
+
+                if (NumeroReporte == null || NumeroReporte == DBNull.Value)
+                {
+                    ReporteadorMetMostrarError("No se pudo obtener el número del reporte.");
+                    return;
+                }
+
+                ReporteadorBtnVerReporte.ReporteadorMetMostrarReporte(Convert.ToInt32(NumeroReporte), _FuentesDeDatosReporteador);
+            }
+            catch (Exception ex)
+            {
+                ReporteadorMetMostrarError("No se pudo abrir el reporte.\n\n" + ex.Message);
+            }
+        }
+
+
+
+        // ================================================================
         // CARGAR TABLA
         // ================================================================
 
@@ -455,7 +476,7 @@ namespace CapaVista_Reporteador
 
                 ReporteadorDgvReportes.DataSource =
                     _ModeloReporteador
-                        .ReporteadorMetObtenerTodos();
+                        .ReporteadorMetObtenerTodos(_IdAplicacionSeleccionada);
 
                 ReporteadorDgvReportes.Refresh();
             }
@@ -587,16 +608,6 @@ namespace CapaVista_Reporteador
                     false;
             }
 
-            // ============================================================
-            // LIMPIAR RUTA DEL BOTÓN IMPRIMIR
-            // ============================================================
-
-            if (ReporteadorBtnImprimir != null)
-            {
-                ReporteadorBtnImprimir.RutaReporte =
-                    null;
-            }
-
             ReporteadorTxtNombreReporte.Focus();
         }
 
@@ -624,77 +635,6 @@ namespace CapaVista_Reporteador
         }
 
         // ================================================================
-        // SELECCIÓN DEL DATAGRIDVIEW
-        // ================================================================
-
-        private void ReporteadorDgvReportes_SelectionChanged(
-     object Sender,
-     EventArgs E)
-        {
-            try
-            {
-                if (ReporteadorBtnImprimir == null)
-                    return;
-
-                if (ReporteadorDgvReportes.CurrentRow == null)
-                {
-                    ReporteadorBtnImprimir.RutaReporte =
-                        null;
-
-                    return;
-                }
-
-                if (!ReporteadorDgvReportes.Columns.Contains(
-                    "RutaReporte"))
-                {
-                    ReporteadorBtnImprimir.RutaReporte =
-                        null;
-
-                    return;
-                }
-
-                object Ruta =
-                    ReporteadorDgvReportes
-                        .CurrentRow
-                        .Cells["RutaReporte"]
-                        .Value;
-
-                if (Ruta == null ||
-                    Ruta == DBNull.Value)
-                {
-                    ReporteadorBtnImprimir.RutaReporte =
-                        null;
-
-                    return;
-                }
-
-                string RutaReporte =
-                    Ruta.ToString().Trim();
-
-                if (!RutaReporte.EndsWith(
-                    ".rdlc",
-                    StringComparison.OrdinalIgnoreCase))
-                {
-                    ReporteadorBtnImprimir.RutaReporte =
-                        null;
-
-                    return;
-                }
-
-                ReporteadorBtnImprimir.RutaReporte =
-                    RutaReporte;
-            }
-            catch (Exception)
-            {
-                if (ReporteadorBtnImprimir != null)
-                {
-                    ReporteadorBtnImprimir.RutaReporte =
-                        null;
-                }
-            }
-        }
-
-        // ================================================================
         // OBTENER SIGUIENTE NÚMERO
         // ================================================================
 
@@ -710,7 +650,7 @@ namespace CapaVista_Reporteador
 
                 var ReportesExistentes =
                     _ModeloReporteador
-                        .ReporteadorMetObtenerTodos();
+                        .ReporteadorMetObtenerTodos(_IdAplicacionSeleccionada);
 
                 int MayorNumeroReporte = 3000;
 
@@ -944,7 +884,17 @@ namespace CapaVista_Reporteador
 
         private void ReporteadorBtnAyuda_Click(object sender, EventArgs e)
         {
-            Help.ShowHelp(this, "C:/Reporteador/proyectoasis22k26-Reporteador/ayuda/componentes/reporteador/AyudaReporteador.chm", "Ayuda_General_Reporteador.htm");
+            Help.ShowHelp(this, "C:/proyectoasis22k26-Reporteador/ayuda/componentes/reporteador/AyudaReporteador.chm", "Ayuda_General_Reporteador.html");
+        }
+
+        // ================================================================
+        // CARGAR REPORTES ASOCIADOS A IDAPLICACIÓN
+        // ================================================================
+        public void ReporteadorMetCargarReportes(int IdAplicacion, Dictionary<string, object> FuentesDeDatos)
+        {
+            _IdAplicacionSeleccionada = IdAplicacion;
+            _FuentesDeDatosReporteador = FuentesDeDatos;
+            CargarTabla();
         }
     }
 }
