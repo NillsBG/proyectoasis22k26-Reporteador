@@ -107,6 +107,9 @@
     <EmbeddedResource Include="BtnVerReporte_Reporteador.resx">
       <DependentUpon>BtnVerReporte_Reporteador.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formas\FrmVistaPrevia.resx">
+      <DependentUpon>FrmVistaPrevia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

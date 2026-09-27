@@ -24,6 +24,10 @@
 		</OBJECT>
 	<UL>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Ver Reporte">
+			<param name="Local" value="AyudaBtn_VerReporte\VerReporte.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Ruta">
 			<param name="Local" value="AyudaBtn_Ruta\AyudaBtn_Ruta.html">
 			</OBJECT>

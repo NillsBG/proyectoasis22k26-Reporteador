@@ -17,8 +17,7 @@ namespace CapaModelo_Reporteador.Repositorios
 
         protected ClsRepositorio()
         {
-            _CadenaConexion =
-                "Dsn=dbreporteador";
+            _CadenaConexion = "Dsn=EmbutidosS.A";
         }
 
         // =========================================================
