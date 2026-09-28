@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using CapaControlador_Seguridad.Objetos_de_valor;
-using CapaVista_Seguridad.Ayudas;
-
+// ===================== INICIO CAMBIO COMPONENTE NAVEGADOR =====================
+// Se ELIMINO de aqui: using CapaVista_Seguridad.Ayudas;
+// Motivo: CapaVista_Navegador ya no referencia a CapaVista_Seguridad (Seguridad referencia al
+// Navegador; mantener ambas referencias creaba una dependencia circular que impedia compilar).
+// ====================== FIN CAMBIO COMPONENTE NAVEGADOR =======================
 
 //-----------------------------------------------------
 // - Hecho por: Natali Sofía Montenegro Portillo 
@@ -14,7 +17,7 @@ namespace CapaVista_Navegador
     // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
     // Antes esta clase tenía una validación propia que siempre decía que sí había acceso.
     // Ahora ya no valida nada por su cuenta: solo le pasa el Módulo y la Aplicación de este
-    // formulario a ClsSeguridadFormHelper (que es del componente Seguridad) y deja que él
+    // formulario a ClsNavegadorPermisos (que consulta los permisos vía CapaControlador_Seguridad) y deja que él
     // decida qué botones habilitar o deshabilitar.
     public class ClsCrudSeguridad
     {
@@ -38,9 +41,23 @@ namespace CapaVista_Navegador
         // en vez de dejar que la excepción se propague y la aplicación reviente.
         public void NavegadorMetAplicarPermisos(Form Formulario, Dictionary<Control, TipoPermiso> MapaBotones)
         {
+            // Sin sesión de Seguridad no hay usuario ni roles: los botones quedan deshabilitados.
+            if (!ClsNavegadorSesion.NavegadorFuncHaySesion())
+            {
+                MessageBox.Show(
+                    "No hay una sesión activa. Inicie sesión desde el Login de Seguridad para habilitar el Navegador.",
+                    "Sesión requerida",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+
             try
             {
-                ClsSeguridadFormHelper.SeguridadMetInicializarSeguridad(Formulario, _IdModulo, _IdAplicacion, MapaBotones);
+                // ===================== INICIO CAMBIO COMPONENTE NAVEGADOR =====================
+                // ANTES: ClsSeguridadFormHelper.SeguridadMetInicializarSeguridad(Formulario, _IdModulo, _IdAplicacion, MapaBotones);
+                // AHORA: ClsNavegadorPermisos (propia del Navegador, usa solo CapaControlador_Seguridad).
+                ClsNavegadorPermisos.NavegadorMetInicializarPermisos(_IdModulo, _IdAplicacion, MapaBotones);
+                // ====================== FIN CAMBIO COMPONENTE NAVEGADOR =======================
             }
             catch (Exception Excepcion)
             {
@@ -60,4 +77,4 @@ namespace CapaVista_Navegador
 // - Final: Natali Sofía Montenegro Portillo 
 // - Carne: 0901-23-10017 
 // Clase que permite aplicar los permisos de Seguridad (Insertar/Editar/Eliminar/Imprimir)
-// sobre los botones de un formulario CRUD de Navegador, delegando en ClsSeguridadFormHelper.
+// sobre los botones de un formulario CRUD de Navegador, delegando en ClsNavegadorPermisos.

@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Inicio - Sofía de la Rosa 0901-16-9036.
+using System;
 using System.Collections.Generic;
 using CapaModelo_Navegador;
 
@@ -34,3 +35,4 @@ namespace CapaControlador_Navegador
         }
     }
 }
+// Fin - Sofía de la Rosa 0901-16-9036.

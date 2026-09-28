@@ -4,6 +4,22 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
+/*
+ * ============================================================
+ * Área         : Seguridad
+ * Autor        : Guillermo Daniel Morales Mendizabal
+ * Carné        : 0901-23-3329
+ * Fecha        : 24/09/2026
+ * ============================================================
+ * Propósito    :
+ *   Repositorio de acceso a datos para la asignación de
+ *   aplicaciones a usuarios por módulo. Implementa las
+ *   operaciones de inserción, edición y eliminación sobre
+ *   la tabla tblUsuarioModuloAplicacion, así como consultas
+ *   para obtener el listado completo de asignaciones,
+ *   usuarios, módulos y aplicaciones disponibles.
+ * ============================================================
+ */
 
 namespace CapaModelo_Seguridad.Repositorios
 {

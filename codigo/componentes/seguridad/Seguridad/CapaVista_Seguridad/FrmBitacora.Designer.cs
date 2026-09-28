@@ -1,4 +1,4 @@
-﻿namespace CapaVista_Seguridad
+namespace CapaVista_Seguridad
 {
     partial class FrmBitacora
     {
@@ -38,9 +38,11 @@
             this.SeguridadDgvBitacora = new System.Windows.Forms.DataGridView();
             this.SeguridadPnl4Bitacora = new System.Windows.Forms.Panel();
             this.SeguridadBtnReporte = new System.Windows.Forms.Button();
+            this.SeguridadBtnAyuda = new System.Windows.Forms.Button();
             this.SeguridadBtnSalir = new System.Windows.Forms.Button();
-            this.SeguridadBtnImprimir = new System.Windows.Forms.Button();
-            this.SeguridadBtnVerBitacora = new System.Windows.Forms.Button();
+            this.SeguridadLblBuscar = new System.Windows.Forms.Label();
+            this.SeguridadTxtBuscar = new System.Windows.Forms.TextBox();
+            this.SeguridadBtnBuscar = new System.Windows.Forms.Button();
             this.SeguridadPnl1Bitacora.SuspendLayout();
             this.SeguridadPnl2Bitacora.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SeguridadPbBitacora)).BeginInit();
@@ -109,36 +111,70 @@
             // SeguridadPnl3Bitacora
             // 
             this.SeguridadPnl3Bitacora.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(247)))), ((int)(((byte)(242)))));
+            this.SeguridadPnl3Bitacora.Controls.Add(this.SeguridadLblBuscar);
+            this.SeguridadPnl3Bitacora.Controls.Add(this.SeguridadTxtBuscar);
+            this.SeguridadPnl3Bitacora.Controls.Add(this.SeguridadBtnBuscar);
             this.SeguridadPnl3Bitacora.Controls.Add(this.SeguridadDgvBitacora);
             this.SeguridadPnl3Bitacora.Controls.Add(this.SeguridadPnl4Bitacora);
-            this.SeguridadPnl3Bitacora.Controls.Add(this.SeguridadBtnVerBitacora);
             this.SeguridadPnl3Bitacora.Location = new System.Drawing.Point(19, 208);
             this.SeguridadPnl3Bitacora.Margin = new System.Windows.Forms.Padding(2);
             this.SeguridadPnl3Bitacora.Name = "SeguridadPnl3Bitacora";
             this.SeguridadPnl3Bitacora.Size = new System.Drawing.Size(1114, 457);
             this.SeguridadPnl3Bitacora.TabIndex = 0;
             // 
+            // SeguridadLblBuscar
+            // 
+            this.SeguridadLblBuscar.AutoSize = true;
+            this.SeguridadLblBuscar.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SeguridadLblBuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(119)))));
+            this.SeguridadLblBuscar.Location = new System.Drawing.Point(23, 20);
+            this.SeguridadLblBuscar.Name = "SeguridadLblBuscar";
+            this.SeguridadLblBuscar.Size = new System.Drawing.Size(135, 17);
+            this.SeguridadLblBuscar.TabIndex = 7;
+            this.SeguridadLblBuscar.Text = "Consulta General:";
+            // 
+            // SeguridadTxtBuscar
+            // 
+            this.SeguridadTxtBuscar.Font = new System.Drawing.Font("Tahoma", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SeguridadTxtBuscar.Location = new System.Drawing.Point(23, 44);
+            this.SeguridadTxtBuscar.Name = "SeguridadTxtBuscar";
+            this.SeguridadTxtBuscar.Size = new System.Drawing.Size(600, 25);
+            this.SeguridadTxtBuscar.TabIndex = 8;
+            // 
+            // SeguridadBtnBuscar
+            // 
+            this.SeguridadBtnBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(119)))));
+            this.SeguridadBtnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SeguridadBtnBuscar.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SeguridadBtnBuscar.ForeColor = System.Drawing.Color.White;
+            this.SeguridadBtnBuscar.Location = new System.Drawing.Point(640, 40);
+            this.SeguridadBtnBuscar.Name = "SeguridadBtnBuscar";
+            this.SeguridadBtnBuscar.Size = new System.Drawing.Size(146, 32);
+            this.SeguridadBtnBuscar.TabIndex = 9;
+            this.SeguridadBtnBuscar.Text = "Buscar";
+            this.SeguridadBtnBuscar.UseVisualStyleBackColor = false;
+            // 
             // SeguridadDgvBitacora
             // 
             this.SeguridadDgvBitacora.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.SeguridadDgvBitacora.Location = new System.Drawing.Point(23, 122);
+            this.SeguridadDgvBitacora.Location = new System.Drawing.Point(23, 88);
             this.SeguridadDgvBitacora.Margin = new System.Windows.Forms.Padding(2);
             this.SeguridadDgvBitacora.Name = "SeguridadDgvBitacora";
             this.SeguridadDgvBitacora.RowHeadersWidth = 51;
             this.SeguridadDgvBitacora.RowTemplate.Height = 24;
-            this.SeguridadDgvBitacora.Size = new System.Drawing.Size(763, 296);
+            this.SeguridadDgvBitacora.Size = new System.Drawing.Size(763, 347);
             this.SeguridadDgvBitacora.TabIndex = 6;
             // 
             // SeguridadPnl4Bitacora
             // 
             this.SeguridadPnl4Bitacora.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(230)))), ((int)(((byte)(210)))));
             this.SeguridadPnl4Bitacora.Controls.Add(this.SeguridadBtnReporte);
+            this.SeguridadPnl4Bitacora.Controls.Add(this.SeguridadBtnAyuda);
             this.SeguridadPnl4Bitacora.Controls.Add(this.SeguridadBtnSalir);
-            this.SeguridadPnl4Bitacora.Controls.Add(this.SeguridadBtnImprimir);
-            this.SeguridadPnl4Bitacora.Location = new System.Drawing.Point(801, 180);
+            this.SeguridadPnl4Bitacora.Location = new System.Drawing.Point(795, 180);
             this.SeguridadPnl4Bitacora.Margin = new System.Windows.Forms.Padding(2);
             this.SeguridadPnl4Bitacora.Name = "SeguridadPnl4Bitacora";
-            this.SeguridadPnl4Bitacora.Size = new System.Drawing.Size(292, 172);
+            this.SeguridadPnl4Bitacora.Size = new System.Drawing.Size(300, 172);
             this.SeguridadPnl4Bitacora.TabIndex = 5;
             // 
             // SeguridadBtnReporte
@@ -149,13 +185,30 @@
             this.SeguridadBtnReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SeguridadBtnReporte.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SeguridadBtnReporte.ForeColor = System.Drawing.Color.White;
-            this.SeguridadBtnReporte.Location = new System.Drawing.Point(103, 42);
+            this.SeguridadBtnReporte.Location = new System.Drawing.Point(12, 43);
             this.SeguridadBtnReporte.Margin = new System.Windows.Forms.Padding(2);
             this.SeguridadBtnReporte.Name = "SeguridadBtnReporte";
             this.SeguridadBtnReporte.Size = new System.Drawing.Size(85, 85);
             this.SeguridadBtnReporte.TabIndex = 8;
             this.SeguridadBtnReporte.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SeguridadBtnReporte.UseVisualStyleBackColor = false;
+            // 
+            // SeguridadBtnAyuda
+            // 
+            this.SeguridadBtnAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(119)))));
+            this.SeguridadBtnAyuda.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_ayudaN;
+            this.SeguridadBtnAyuda.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SeguridadBtnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SeguridadBtnAyuda.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SeguridadBtnAyuda.ForeColor = System.Drawing.Color.White;
+            this.SeguridadBtnAyuda.Location = new System.Drawing.Point(108, 43);
+            this.SeguridadBtnAyuda.Margin = new System.Windows.Forms.Padding(2);
+            this.SeguridadBtnAyuda.Name = "SeguridadBtnAyuda";
+            this.SeguridadBtnAyuda.Size = new System.Drawing.Size(85, 85);
+            this.SeguridadBtnAyuda.TabIndex = 9;
+            this.SeguridadBtnAyuda.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.SeguridadBtnAyuda.UseVisualStyleBackColor = false;
+            this.SeguridadBtnAyuda.Click += new System.EventHandler(this.SeguridadBtnAyuda_Click);
             // 
             // SeguridadBtnSalir
             // 
@@ -165,7 +218,7 @@
             this.SeguridadBtnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SeguridadBtnSalir.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SeguridadBtnSalir.ForeColor = System.Drawing.Color.White;
-            this.SeguridadBtnSalir.Location = new System.Drawing.Point(194, 43);
+            this.SeguridadBtnSalir.Location = new System.Drawing.Point(204, 43);
             this.SeguridadBtnSalir.Margin = new System.Windows.Forms.Padding(2);
             this.SeguridadBtnSalir.Name = "SeguridadBtnSalir";
             this.SeguridadBtnSalir.Size = new System.Drawing.Size(85, 85);
@@ -173,37 +226,6 @@
             this.SeguridadBtnSalir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SeguridadBtnSalir.UseVisualStyleBackColor = false;
             this.SeguridadBtnSalir.Click += new System.EventHandler(this.SeguridadBtnSalir_Click);
-            // 
-            // SeguridadBtnImprimir
-            // 
-            this.SeguridadBtnImprimir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(119)))));
-            this.SeguridadBtnImprimir.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_imprimirN;
-            this.SeguridadBtnImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SeguridadBtnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SeguridadBtnImprimir.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SeguridadBtnImprimir.ForeColor = System.Drawing.Color.White;
-            this.SeguridadBtnImprimir.Location = new System.Drawing.Point(13, 42);
-            this.SeguridadBtnImprimir.Margin = new System.Windows.Forms.Padding(2);
-            this.SeguridadBtnImprimir.Name = "SeguridadBtnImprimir";
-            this.SeguridadBtnImprimir.Size = new System.Drawing.Size(85, 85);
-            this.SeguridadBtnImprimir.TabIndex = 6;
-            this.SeguridadBtnImprimir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SeguridadBtnImprimir.UseVisualStyleBackColor = false;
-            // 
-            // SeguridadBtnVerBitacora
-            // 
-            this.SeguridadBtnVerBitacora.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(119)))));
-            this.SeguridadBtnVerBitacora.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SeguridadBtnVerBitacora.Font = new System.Drawing.Font("Tahoma", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SeguridadBtnVerBitacora.ForeColor = System.Drawing.Color.White;
-            this.SeguridadBtnVerBitacora.Location = new System.Drawing.Point(23, 37);
-            this.SeguridadBtnVerBitacora.Margin = new System.Windows.Forms.Padding(2);
-            this.SeguridadBtnVerBitacora.Name = "SeguridadBtnVerBitacora";
-            this.SeguridadBtnVerBitacora.Size = new System.Drawing.Size(203, 57);
-            this.SeguridadBtnVerBitacora.TabIndex = 0;
-            this.SeguridadBtnVerBitacora.Text = "Ver toda la Bitácora";
-            this.SeguridadBtnVerBitacora.UseVisualStyleBackColor = false;
-            this.SeguridadBtnVerBitacora.Click += new System.EventHandler(this.SeguridadBtnVerBitacora_Click);
             // 
             // FrmBitacora
             // 
@@ -236,11 +258,13 @@
         private System.Windows.Forms.DataGridView SeguridadDgvBitacora;
         private System.Windows.Forms.Panel SeguridadPnl4Bitacora;
         private System.Windows.Forms.Button SeguridadBtnReporte;
+        private System.Windows.Forms.Button SeguridadBtnAyuda;
         private System.Windows.Forms.Button SeguridadBtnSalir;
-        private System.Windows.Forms.Button SeguridadBtnImprimir;
         private System.Windows.Forms.Label SeguridadLbl1Bitacora;
         private System.Windows.Forms.Label SeguridadLbl2Bitacora;
         private System.Windows.Forms.PictureBox SeguridadPbBitacora;
-        internal System.Windows.Forms.Button SeguridadBtnVerBitacora;
+        private System.Windows.Forms.Label SeguridadLblBuscar;
+        private System.Windows.Forms.TextBox SeguridadTxtBuscar;
+        private System.Windows.Forms.Button SeguridadBtnBuscar;
     }
 }

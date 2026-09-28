@@ -8,6 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * ==================================================================
+ * Área: Seguridad
+ * Autores: Lourdes Isabel Melendez Pineda
+ * Fecha o ultima edicion: 23/09/2026
+ * ==================================================================
+ * Propósito : Repositorio donde aquí están las consultas SQL para
+ * agregar, editar, eliminar y listar los permisos de cada
+ * Rol Módulo Aplicación, además de traer los catálogos de
+ * Roles, Módulos y Aplicaciones para llenar los combos.
+ * ===================================================================
+ */
+
 namespace CapaModelo_Seguridad.Repositorios
 {
     public class ClsRepositorioAsigAppPerf : ClsSentencias, IRepositorioAsigAppPerf

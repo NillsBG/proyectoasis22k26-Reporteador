@@ -8,6 +8,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : Andy Alfonso Garcia Lopez
+ * Carné : 9959-23-1494
+ * Fecha : 22/09/2026
+ * ==================================================================
+ * Propósito :
+ *  La clase Repositorio de Mantenimiento de Aplicación se encarga de 
+ *  implementar las operaciones CRUD sobre la tabla tblAplicacion 
+ *  mediante ODBC, ejecutando las sentencias SQL de inserción, 
+ *  actualización, eliminación y consulta heredando de la clase 
+ *  ClsSentencias para la ejecución de comandos e implementa la  
+ *  interfaz IRepositorioMantenimientoApp como contrato de la capa 
+ *  modelo.
+ * ===================================================================
+*/
+
 namespace CapaModelo_Seguridad.Repositorios
 {
     public class ClsRepositorioMantenimientoApp : ClsSentencias, IRepositorioMantenimientoApp
@@ -19,7 +37,10 @@ namespace CapaModelo_Seguridad.Repositorios
 
         public ClsRepositorioMantenimientoApp()
         {
-            _SelectAll = "SELECT * FROM tblAplicacion";
+            _SelectAll = "SELECT tblAplicacion.idAplicacion, tblAplicacion.idModulo, tblModulo.nombreModulo, tblAplicacion.nombreAplicacion, " +
+                                      "tblAplicacion.descripcionAplicacion, tblAplicacion.is_active, tblAplicacion.created_at, tblAplicacion.updated_at " +
+                                      "FROM tblAplicacion " +
+                                      "INNER JOIN tblModulo ON tblAplicacion.idModulo = tblModulo.idModulo";
             _Insert = "INSERT INTO tblAplicacion VALUES (DEFAULT,?, ?, ?, ?, DEFAULT, DEFAULT)";
             _Update = "UPDATE tblAplicacion SET idModulo=?, nombreAplicacion=?, descripcionAplicacion=?, is_active=? WHERE idAplicacion=?";
             _Delete = "DELETE FROM tblAplicacion WHERE idAplicacion=?";
@@ -62,11 +83,12 @@ namespace CapaModelo_Seguridad.Repositorios
                 var Aplicacion = new ClsMantenimientoAplicacion();
                 Aplicacion.IdAplicacion = Convert.ToInt32(Row[0]);
                 Aplicacion.IdModulo = Convert.ToInt32(Row[1]);
-                Aplicacion.NombreAplicacion = Convert.ToString(Row[2]);
-                Aplicacion.DescripcionAplicacion = Convert.ToString(Row[3]);
-                Aplicacion.IsActive = Convert.ToBoolean(Row[4]);
-                Aplicacion.CreatedAt = Convert.ToDateTime(Row[5]);
-                Aplicacion.UpdatedAt = Convert.ToDateTime(Row[6]);
+                Aplicacion.NombreModulo = Convert.ToString(Row[2]);
+                Aplicacion.NombreAplicacion = Convert.ToString(Row[3]);
+                Aplicacion.DescripcionAplicacion = Convert.ToString(Row[4]);
+                Aplicacion.IsActive = Convert.ToBoolean(Row[5]);
+                Aplicacion.CreatedAt = Convert.ToDateTime(Row[6]);
+                Aplicacion.UpdatedAt = Convert.ToDateTime(Row[7]);
                 ListaAplicaciones.Add(Aplicacion);
             }
             TablaDatos.Clear();

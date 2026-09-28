@@ -82,7 +82,6 @@
     <Compile Include="Modelos de controladores\ClsModeloAsigAppPerf.cs" />
     <Compile Include="Modelos de controladores\ClsModeloAsigAppUsuario.cs" />
     <Compile Include="Modelos de controladores\ClsModeloAsignacionPerfiles.cs" />
-    <Compile Include="Modelos de controladores\ClsModeloAsigUsuPerf.cs" />
     <Compile Include="Modelos de controladores\ClsModeloBitacora.cs" />
     <Compile Include="Modelos de controladores\ClsModeloCambiarContrasena.cs" />
     <Compile Include="Modelos de controladores\ClsModeloDashboard.cs" />

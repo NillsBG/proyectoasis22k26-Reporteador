@@ -1,6 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+/*
+ * ==================================================================
+ * Área: Seguridad
+ * Autores: Lourdes Isabel Melendez Pineda
+ * Fecha o ultima edicion: 23/09/2026
+ * ==================================================================
+ * Propósito : Clase estática que guarda los datos del usuario que
+ * inició sesión como: usuario, empleado y sus roles mientras
+ * el sistema está abierto. Desde aquí se consulta si hay
+ * sesión activa, se verifica si el usuario tiene cierto
+ * rol y se maneja el inicio y cierre de sesión.
+ * ===================================================================
+ */
 
 namespace CapaControlador_Seguridad.Objetos_de_valor
 {

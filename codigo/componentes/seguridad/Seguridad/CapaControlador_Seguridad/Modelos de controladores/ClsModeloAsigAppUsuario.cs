@@ -5,6 +5,26 @@ using System.Data;
 using CapaModelo_Seguridad.Entidades;
 using CapaModelo_Seguridad.Repositorios;
 
+/*
+ * ============================================================
+ * Área         : Seguridad
+ * Autor        : Evelyn Sofía Andrade Luna
+ * Carné        : 9959-23-1224
+ * Autor        : Guillermo Daniel Morales Mendizabal
+ * Carné        : 0901-23-3329
+ * Fecha        : 24/09/2026
+ * ============================================================
+ * Propósito    :
+ *   Clase modelo del módulo de Asignación de Aplicación a Usuario.
+ *   Gestiona la asignación de aplicaciones a usuarios por módulo,
+ *   administrando los permisos de inserción, edición, eliminación
+ *   e impresión. Permite registrar, actualizar y eliminar
+ *   asignaciones, registrando cada acción en la bitácora del
+ *   sistema. Provee métodos de consulta para obtener usuarios,
+ *   módulos y aplicaciones disponibles.
+ * ============================================================
+ */
+
 namespace CapaControlador_Seguridad
 {
     public class ClsModeloAsigAppUsuario

@@ -1,5 +1,18 @@
 using CapaModelo_Seguridad.Repositorios;
-
+/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : André De Jesús Gonzalez Camey
+ * Fecha : 23/09/2026
+ * ==================================================================
+ * Propósito :
+ * Modelo de controlador que actúa como intermediario entre la capa
+ * de vista y el repositorio ClsRepositorioDashboard. Expone seis
+ * métodos que delegan la consulta de conteos al repositorio,
+ * permitiendo que el formulario MDI obtenga los datos de los KPIs
+ * sin acoplarse directamente a la capa de acceso a datos.
+ * ===================================================================
+*/
 namespace CapaControlador_Seguridad
 {
     public class ClsModeloDashboard

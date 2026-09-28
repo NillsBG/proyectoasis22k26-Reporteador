@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consultas\ClsSentenciasTablas.cs" />
-    <Compile Include="Conexion\ClsConexion.cs" />
+    <Compile Include="Repositorios\ClsSentenciasFiltroSimple.cs" />
+    <Compile Include="Repositorios\ClsSentenciasTablas.cs" />
+    <Compile Include="Repositorios\ClsConexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

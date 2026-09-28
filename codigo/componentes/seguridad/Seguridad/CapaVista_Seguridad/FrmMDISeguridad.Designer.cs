@@ -44,6 +44,7 @@
             this.SeguridadBtnUsuarios = new System.Windows.Forms.Button();
             this.SeguridadBtnEmpleados = new System.Windows.Forms.Button();
             this.SeguridadPbLogo = new System.Windows.Forms.PictureBox();
+            this.SeguridadBtnCerrarSesion = new System.Windows.Forms.Button();
             this.SeguridadPnlDashboard = new System.Windows.Forms.Panel();
             this.SeguridadBtnAyudas = new System.Windows.Forms.Button();
             this.SeguridadPnlKPI6 = new System.Windows.Forms.Panel();
@@ -145,6 +146,7 @@
             this.SeguridadPnlNavegador.Controls.Add(this.SeguridadBtnUsuarios);
             this.SeguridadPnlNavegador.Controls.Add(this.SeguridadBtnEmpleados);
             this.SeguridadPnlNavegador.Controls.Add(this.SeguridadPbLogo);
+            this.SeguridadPnlNavegador.Controls.Add(this.SeguridadBtnCerrarSesion);
             this.SeguridadPnlNavegador.Location = new System.Drawing.Point(21, 14);
             this.SeguridadPnlNavegador.Name = "SeguridadPnlNavegador";
             this.SeguridadPnlNavegador.Size = new System.Drawing.Size(270, 745);
@@ -280,6 +282,19 @@
             this.SeguridadPbLogo.TabIndex = 0;
             this.SeguridadPbLogo.TabStop = false;
             // 
+            // SeguridadBtnCerrarSesion
+            // 
+            this.SeguridadBtnCerrarSesion.BackColor = System.Drawing.Color.Transparent;
+            this.SeguridadBtnCerrarSesion.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.botonmdi10;
+            this.SeguridadBtnCerrarSesion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SeguridadBtnCerrarSesion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.SeguridadBtnCerrarSesion.Location = new System.Drawing.Point(3, 608);
+            this.SeguridadBtnCerrarSesion.Name = "SeguridadBtnCerrarSesion";
+            this.SeguridadBtnCerrarSesion.Size = new System.Drawing.Size(264, 50);
+            this.SeguridadBtnCerrarSesion.TabIndex = 10;
+            this.SeguridadBtnCerrarSesion.UseVisualStyleBackColor = false;
+            this.SeguridadBtnCerrarSesion.Click += new System.EventHandler(this.SeguridadBtnCerrarSesion_Click);
+            // 
             // SeguridadPnlDashboard
             // 
             this.SeguridadPnlDashboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(238)))), ((int)(((byte)(225)))));
@@ -311,6 +326,7 @@
             this.SeguridadBtnAyudas.Size = new System.Drawing.Size(84, 79);
             this.SeguridadBtnAyudas.TabIndex = 12;
             this.SeguridadBtnAyudas.UseVisualStyleBackColor = false;
+            this.SeguridadBtnAyudas.Click += new System.EventHandler(this.SeguridadBtnAyudas_Click);
             // 
             // SeguridadPnlKPI6
             // 
@@ -580,7 +596,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 609);
+            this.ClientSize = new System.Drawing.Size(1028, 806);
             this.Controls.Add(this.SeguridadPnlFondo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMDISeguridad";
@@ -649,5 +665,6 @@
         private System.Windows.Forms.Label SeguridadLblKPIResp2;
         private System.Windows.Forms.Label SeguridadLblUsuarioRol;
         private System.Windows.Forms.Label SeguridadLblUsuario;
+        private System.Windows.Forms.Button SeguridadBtnCerrarSesion;
     }
 }

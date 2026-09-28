@@ -1,4 +1,21 @@
-﻿using CapaModelo_Seguridad.Contratos;
+﻿/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : Cristian David Sipac Ispache
+ * Carné : 9959-23-1567
+ * Fecha : 22/09/2026
+ * ==================================================================
+ * Propósito :
+ *  El ClsRepositorioRoles se encarga de la comunicación directa
+ *  con la tabla tblRol en la base de datos: agrega, edita, elimina
+ *  y consulta los perfiles, además de verificar si un rol tiene
+ *  asignaciones en tblUsuarioRol o si su nombre ya está en uso,
+ *  para apoyar las validaciones del controlador.
+ * ===================================================================
+*/
+
+
+using CapaModelo_Seguridad.Contratos;
 using CapaModelo_Seguridad.Entidades;
 using System;
 using System.Collections.Generic;
@@ -69,6 +86,20 @@ namespace CapaModelo_Seguridad.Repositorios
             TablaDatos.Clear();
             TablaDatos = null;
             return ListaRoles;
+        }
+
+        public int SeguridadMetContarAsignaciones(int IdRol)
+        {
+            string sql = "SELECT COUNT(*) FROM tblUsuarioRol WHERE idRol = " + IdRol;
+            var Tabla = SeguridadMetEjecucionConsulta(sql, CommandType.Text);
+            return Convert.ToInt32(Tabla.Rows[0][0]);
+        }
+
+        public int SeguridadMetContarPorNombre(string NombreRol, int IdRolExcluir)
+        {
+            string sql = "SELECT COUNT(*) FROM tblRol WHERE nombreRol = '" + NombreRol + "' AND idRol <> " + IdRolExcluir;
+            var Tabla = SeguridadMetEjecucionConsulta(sql, CommandType.Text);
+            return Convert.ToInt32(Tabla.Rows[0][0]);
         }
     }
 }

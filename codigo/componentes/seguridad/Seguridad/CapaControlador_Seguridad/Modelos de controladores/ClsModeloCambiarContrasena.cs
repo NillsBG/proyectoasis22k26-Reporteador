@@ -1,3 +1,18 @@
+/*
+ * ==============================
+ * Área : Seguridad
+ * Autor : Byron Alexander Chiquito Paredes
+ * Carné : 0901-23-3747
+ * Fecha : 24/09/2026
+ * ==============================
+ * Propósito :
+ * Controlador que valida el código de verificación
+ * ingresado y la nueva contraseña, actualiza la contraseña
+ * del usuario de forma cifrada y registra la acción en la
+ * bitácora del sistema
+ * ==============================
+ */
+
 using CapaModelo_Seguridad.Contratos;
 using CapaModelo_Seguridad.Repositorios;
 using System;

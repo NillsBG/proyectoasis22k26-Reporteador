@@ -1,9 +1,26 @@
-using CapaControlador_Seguridad.Objetos_de_valor;
-using CapaVista_Seguridad.Ayudas;
-using System.Collections.Generic;
+/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : Cristian David Sipac Ispache
+ * Carné : 9959-23-1567
+ * Fecha : 22/09/2026
+ * ==================================================================
+ * Propósito :
+ *  El FrmMantenimientoPerfiles es el formulario donde el usuario
+ *  gestiona los perfiles del sistema: puede agregar, modificar,
+ *  eliminar, consultar por nombre y navegar entre los registros
+ *  listados en el grid, controlando el acceso según los permisos
+ *  asignados al usuario.
+ * ===================================================================
+*/
+
 using CapaControlador_Seguridad;
 using CapaControlador_Seguridad.Modelos_de_controladores;
+using CapaControlador_Seguridad.Objetos_de_valor;
+using CapaVista_Seguridad.Ayudas;
+using CapaVista_Seguridad.frmReportes;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace CapaVista_Seguridad
@@ -19,7 +36,7 @@ namespace CapaVista_Seguridad
         public FrmMantenimientoPerfiles()
         {
             InitializeComponent();
-            SeguridadPnlFiltros.Enabled = false;
+            
             SeguridadBtnGuardar.Enabled = false;
         }
 
@@ -48,11 +65,52 @@ namespace CapaVista_Seguridad
             try
             {
                 SeguridadDgvListaRoles.DataSource = _SeguridadRoles.SeguridadMetObtenerTodos();
+                SeguridadMetActualizarContador();
+                SeguridadMetConfigurarEncabezadosGrid();
+                
             }
             catch (Exception Ex)
             {
                 MessageBox.Show(Ex.ToString());
             }
+        }
+
+        private void SeguridadMetConfigurarEncabezadosGrid()
+        {
+            if (SeguridadDgvListaRoles.Columns["IdRol"] != null)
+                SeguridadDgvListaRoles.Columns["IdRol"].HeaderText = "Código Perfil";
+
+            if (SeguridadDgvListaRoles.Columns["NombreRol"] != null)
+                SeguridadDgvListaRoles.Columns["NombreRol"].HeaderText = "Nombre del Perfil";
+
+            if (SeguridadDgvListaRoles.Columns["DescripcionRol"] != null)
+                SeguridadDgvListaRoles.Columns["DescripcionRol"].HeaderText = "Descripción";
+
+            if (SeguridadDgvListaRoles.Columns["IsActive"] != null)
+                SeguridadDgvListaRoles.Columns["IsActive"].HeaderText = "Estado";
+
+            if (SeguridadDgvListaRoles.Columns["CreatedAt"] != null)
+                SeguridadDgvListaRoles.Columns["CreatedAt"].HeaderText = "Fecha Creación";
+
+            if (SeguridadDgvListaRoles.Columns["UpdatedAt"] != null)
+                SeguridadDgvListaRoles.Columns["UpdatedAt"].HeaderText = "Última Actualización";
+        }
+
+        private void SeguridadMetActualizarContador()
+        {
+            int Total = SeguridadDgvListaRoles.Rows.Count;
+
+            if (Total == 0)
+            {
+                LblSeguridadContador.Text = "Mostrando 0 de 0 registros";
+                return;
+            }
+
+            int FilaActual = (SeguridadDgvListaRoles.CurrentCell != null)
+                ? SeguridadDgvListaRoles.CurrentCell.RowIndex + 1
+                : 1;
+
+            LblSeguridadContador.Text = $"Mostrando {FilaActual} de {Total} registros";
         }
 
         private void SeguridadMetReinicio()
@@ -81,19 +139,37 @@ namespace CapaVista_Seguridad
                     MessageBox.Show(Resultado);
                     SeguridadMetListarRoles();
                     SeguridadMetReinicio();
-                    SeguridadPnlFiltros.Enabled = false;
+                    
                 }
             }
             catch (Exception Ex)
             {
                 MessageBox.Show(Ex.ToString());
             }
+            SeguridadBtnGuardar.Enabled = false;
         }
 
         private void SeguridadBtnModificar_Click(object sender, EventArgs e)
         {
-            SeguridadPnlFiltros.Enabled = true;
-            _SeguridadRoles.Estado = EstadoEntidad.Added;
+            if (SeguridadDgvListaRoles.SelectedRows.Count > 0)
+            {
+                _SeguridadRoles.Estado = EstadoEntidad.Modified;
+                _SeguridadRoles.IdRol = Convert.ToInt32(SeguridadDgvListaRoles.CurrentRow.Cells[0].Value);
+                _SeguridadRoles.NombreRol = SeguridadTxtNombreRol.Text;
+                _SeguridadRoles.DescripcionRol = SeguridadTxtDescripcionRol.Text;
+                _SeguridadRoles.IsActive = SeguridadChkActivo.Checked;
+
+                bool Valido = new Ayudas.ClsValidacionDatos(_SeguridadRoles).SeguridadMetValidar();
+                if (Valido == true)
+                {
+                    string Resultado = _SeguridadRoles.SeguridadMetGrabarCambios();
+                    MessageBox.Show(Resultado);
+                    SeguridadMetListarRoles();
+                    SeguridadMetReinicio();
+                    
+                }
+            }
+            else MessageBox.Show("Seleccione una fila");
         }
 
         private void SeguridadBtnEliminar_Click(object sender, EventArgs e)
@@ -120,6 +196,7 @@ namespace CapaVista_Seguridad
         {
             SeguridadPnlFiltros.Enabled = true;
             SeguridadBtnGuardar.Enabled = true;
+            SeguridadTxtCodigoRol.Enabled = false;
             _SeguridadRoles.Estado = EstadoEntidad.Added;
             SeguridadMetReinicio();
             
@@ -127,31 +204,13 @@ namespace CapaVista_Seguridad
 
         private void SeguridadBtnRefrescar_Click(object sender, EventArgs e)
         {
-            
-            if (SeguridadDgvListaRoles.SelectedRows.Count > 0)
-            {
-                _SeguridadRoles.Estado = EstadoEntidad.Modified;
-                _SeguridadRoles.IdRol = Convert.ToInt32(SeguridadDgvListaRoles.CurrentRow.Cells[0].Value);
-                _SeguridadRoles.NombreRol = SeguridadTxtNombreRol.Text;
-                _SeguridadRoles.DescripcionRol = SeguridadTxtDescripcionRol.Text;
-                _SeguridadRoles.IsActive = SeguridadChkActivo.Checked;
 
-                bool Valido = new Ayudas.ClsValidacionDatos(_SeguridadRoles).SeguridadMetValidar();
-                if (Valido == true)
-                {
-                    string Resultado = _SeguridadRoles.SeguridadMetGrabarCambios();
-                    MessageBox.Show(Resultado);
-                    SeguridadMetListarRoles();
-                    SeguridadMetReinicio();
-                    SeguridadPnlFiltros.Enabled = false;
-                }
-            }
-            else MessageBox.Show("Seleccione una fila");
+            SeguridadMetListarRoles();
         }
 
         private void SeguridadBtnAyuda_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Complete los datos del perfil y presione Guardar.");
+            Help.ShowHelp(this, "C:/SeguridadAyudas/SeguridadAyudas.chm", "Perfiles_Seguridad.html");
         }
 
         private void SeguridadBtnSiguiente_Click(object sender, EventArgs e)
@@ -166,7 +225,9 @@ namespace CapaVista_Seguridad
                     SeguridadDgvListaRoles.CurrentCell = SeguridadDgvListaRoles.Rows[FilaActual + 1].Cells[0];
                 }
             }
-            SeguridadPnlFiltros.Enabled = false;
+            SeguridadBtnGuardar.Enabled = false;
+            SeguridadMetActualizarContador();
+
         }
 
         private void SeguridadBtnAnterior_Click(object sender, EventArgs e)
@@ -181,7 +242,8 @@ namespace CapaVista_Seguridad
                     SeguridadDgvListaRoles.CurrentCell = SeguridadDgvListaRoles.Rows[FilaActual - 1].Cells[0];
                 }
             }
-            SeguridadPnlFiltros.Enabled = false;
+            SeguridadBtnGuardar.Enabled = false;
+            SeguridadMetActualizarContador();
         }
 
         private void SeguridadBtnFin_Click(object sender, EventArgs e)
@@ -193,7 +255,9 @@ namespace CapaVista_Seguridad
                 SeguridadDgvListaRoles.Rows[UltimaFila].Selected = true;
                 SeguridadDgvListaRoles.CurrentCell = SeguridadDgvListaRoles.Rows[UltimaFila].Cells[0];
             }
-            SeguridadPnlFiltros.Enabled = false;
+            SeguridadBtnGuardar.Enabled = false;
+            SeguridadMetActualizarContador();
+
         }
 
         private void SeguridadBtnInicio_Click(object sender, EventArgs e)
@@ -204,6 +268,8 @@ namespace CapaVista_Seguridad
                 SeguridadDgvListaRoles.Rows[0].Selected = true;
                 SeguridadDgvListaRoles.CurrentCell = SeguridadDgvListaRoles.Rows[0].Cells[0];
             }
+            SeguridadBtnGuardar.Enabled = false;
+            SeguridadMetActualizarContador();
         }
 
         private void SeguridadDgvListaRoles_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -216,7 +282,9 @@ namespace CapaVista_Seguridad
                 SeguridadTxtDescripcionRol.Text = SeguridadDgvListaRoles.CurrentRow.Cells[2].Value.ToString();
                 SeguridadChkActivo.Checked = Convert.ToBoolean(SeguridadDgvListaRoles.CurrentRow.Cells[3].Value);
             }
-            SeguridadPnlFiltros.Enabled = false;
+            SeguridadBtnGuardar.Enabled = false;
+            SeguridadMetActualizarContador();
+
         }
 
         private void SeguridadDgvListaRoles_SelectionChanged(object sender, EventArgs e)
@@ -232,8 +300,38 @@ namespace CapaVista_Seguridad
                     SeguridadChkActivo.Checked = Convert.ToBoolean(SeguridadDgvListaRoles.CurrentRow.Cells[3].Value);
                 });
             }
-            SeguridadPnlFiltros.Enabled = false;
+            SeguridadBtnGuardar.Enabled = false;
+            SeguridadMetActualizarContador();
 
+        }
+
+        private void SeguridadBtnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void SeguridadBtnConsultar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(SeguridadTxtNombreRol.Text))
+                {
+                    MessageBox.Show("Ingrese un Nombre de Rol para filtrar");
+                    return;
+                }
+
+                SeguridadDgvListaRoles.DataSource = _SeguridadRoles.SeguridadMetBuscarPorNombre(SeguridadTxtNombreRol.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void SeguridadBtnImprimir_Click(object sender, EventArgs e)
+        {
+            FrmReporteMantenimientoPerfiles reporte = new FrmReporteMantenimientoPerfiles();
+            reporte.Show();
         }
     }
 }

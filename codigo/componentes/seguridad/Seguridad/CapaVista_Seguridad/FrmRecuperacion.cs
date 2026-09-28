@@ -1,6 +1,24 @@
+﻿/*
+ * ==============================
+ * Área : Seguridad
+ * Autor : Byron Alexander Chiquito Paredes
+ * Carné : 0901-23-3747
+ * Fecha : 24/09/2026
+ * ==============================
+ * Propósito :
+ * Formulario que permite al usuario recuperar el acceso
+ * a su cuenta cuando olvida su contraseña, solicitando un
+ * código de verificación por correo electrónico y
+ * permitiendo definir una nueva contraseña en dos pasos
+ * dentro de la misma ventana
+ * ==============================
+ */
+
 using CapaControlador_Seguridad;
 using CapaVista_Seguridad.Ayudas;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace CapaVista_Seguridad
@@ -14,6 +32,7 @@ namespace CapaVista_Seguridad
 
             SeguridadBtnEnviarCodigo.Click += SeguridadBtnEnviarCodigo_Click;
             SeguridadBtnCambiarContrasena.Click += SeguridadBtnCambiarContrasena_Click;
+            SeguridadChkVerContrasena.CheckedChanged += SeguridadChkVerContrasena_CheckedChanged;  
         }
 
         private void SeguridadMetIrAPasoUno()
@@ -81,9 +100,23 @@ namespace CapaVista_Seguridad
             }
         }
 
+
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.Close();
+        }
+
+        private void SeguridadChkVerContrasena_CheckedChanged(object sender, EventArgs e)
+        {
+            char Caracter = SeguridadChkVerContrasena.Checked ? '\0' : '●';
+            SeguridadTxtNuevaContrasena.PasswordChar = Caracter;
+            SeguridadTxtConfirmarContrasena.PasswordChar = Caracter;
+
+        }
+
+        private void SeguridadLnkAyuda_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Help.ShowHelp(this, "C:/SeguridadAyudas/SeguridadAyudas.chm", "Recuperacion_Seguridad.html");
         }
     }
 }

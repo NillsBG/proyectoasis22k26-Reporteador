@@ -1,4 +1,19 @@
-﻿namespace CapaVista_Seguridad
+﻿/*
+ * ==============================
+ * Área : Seguridad
+ * Autor : Byron Alexander Chiquito Paredes
+ * Carné : 0901-23-3747
+ * Fecha : 24/09/2026
+ * ==============================
+ * Propósito :
+ * Diseño de controles del formulario de recuperación de
+ * contraseña: campos de usuario y correo, campo de código
+ * de verificación, nueva contraseña, confirmación y la
+ * casilla para mostrar u ocultar la contraseña
+ * ==============================
+ */
+
+namespace CapaVista_Seguridad
 {
     partial class FrmRecuperacion
     {
@@ -39,6 +54,7 @@
             this.SeguridadPnlAcentoTitulo = new System.Windows.Forms.Panel();
             this.SeguridadLblTituloFormulario = new System.Windows.Forms.Label();
             this.SeguridadPnlVerificarCambiar = new System.Windows.Forms.Panel();
+            this.SeguridadChkVerContrasena = new System.Windows.Forms.CheckBox();
             this.SeguridadLblConfirmarContrasena = new System.Windows.Forms.Label();
             this.SeguridadTxtConfirmarContrasena = new System.Windows.Forms.TextBox();
             this.SeguridadBtnCambiarContrasena = new System.Windows.Forms.Button();
@@ -77,6 +93,7 @@
             this.SeguridadPbLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.SeguridadPnlContenedorPrincipal = new System.Windows.Forms.Panel();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.SeguridadLnkAyuda = new System.Windows.Forms.LinkLabel();
             this.SeguridadPnlContenidoFormulario.SuspendLayout();
             this.SeguridadPnlAvisoImportante.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SeguridadPbIconoVigenciaCodigo)).BeginInit();
@@ -97,6 +114,7 @@
             // SeguridadPnlContenidoFormulario
             // 
             this.SeguridadPnlContenidoFormulario.BackColor = System.Drawing.Color.White;
+            this.SeguridadPnlContenidoFormulario.Controls.Add(this.SeguridadLnkAyuda);
             this.SeguridadPnlContenidoFormulario.Controls.Add(this.SeguridadPnlAvisoImportante);
             this.SeguridadPnlContenidoFormulario.Controls.Add(this.SeguridadLnkRegresarInicioSesion);
             this.SeguridadPnlContenidoFormulario.Controls.Add(this.SeguridadPnlAcentoTitulo);
@@ -145,10 +163,10 @@
             this.SeguridadLblAvisoCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
             this.SeguridadLblAvisoCodigo.Location = new System.Drawing.Point(48, 31);
             this.SeguridadLblAvisoCodigo.Name = "SeguridadLblAvisoCodigo";
-            this.SeguridadLblAvisoCodigo.Size = new System.Drawing.Size(372, 30);
+            this.SeguridadLblAvisoCodigo.Size = new System.Drawing.Size(563, 50);
             this.SeguridadLblAvisoCodigo.TabIndex = 8;
-            this.SeguridadLblAvisoCodigo.Text = "El código tiene una vigencia de 10 minutos.\nSi no lo recibes, revisa tu carpeta d" +
-    "e spam o solicita un nuevo código.";
+            this.SeguridadLblAvisoCodigo.Text = "El código tiene una vigencia de 5 minutos.\nSi no lo recibes, revisa tu carpeta de" +
+    " spam o solicita un nuevo código.";
             // 
             // SeguridadLblImportante
             // 
@@ -157,7 +175,7 @@
             this.SeguridadLblImportante.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblImportante.Location = new System.Drawing.Point(47, 0);
             this.SeguridadLblImportante.Name = "SeguridadLblImportante";
-            this.SeguridadLblImportante.Size = new System.Drawing.Size(93, 21);
+            this.SeguridadLblImportante.Size = new System.Drawing.Size(138, 32);
             this.SeguridadLblImportante.TabIndex = 8;
             this.SeguridadLblImportante.Text = "Importante";
             this.SeguridadLblImportante.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -181,7 +199,7 @@
             this.SeguridadLnkRegresarInicioSesion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(95)))), ((int)(((byte)(102)))));
             this.SeguridadLnkRegresarInicioSesion.Location = new System.Drawing.Point(18, 545);
             this.SeguridadLnkRegresarInicioSesion.Name = "SeguridadLnkRegresarInicioSesion";
-            this.SeguridadLnkRegresarInicioSesion.Size = new System.Drawing.Size(164, 15);
+            this.SeguridadLnkRegresarInicioSesion.Size = new System.Drawing.Size(264, 25);
             this.SeguridadLnkRegresarInicioSesion.TabIndex = 10;
             this.SeguridadLnkRegresarInicioSesion.TabStop = true;
             this.SeguridadLnkRegresarInicioSesion.Text = "←  Regresar al inicio de sesión";
@@ -203,7 +221,7 @@
             this.SeguridadLblTituloFormulario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblTituloFormulario.Location = new System.Drawing.Point(252, 19);
             this.SeguridadLblTituloFormulario.Name = "SeguridadLblTituloFormulario";
-            this.SeguridadLblTituloFormulario.Size = new System.Drawing.Size(164, 17);
+            this.SeguridadLblTituloFormulario.Size = new System.Drawing.Size(233, 23);
             this.SeguridadLblTituloFormulario.TabIndex = 9;
             this.SeguridadLblTituloFormulario.Text = "Recuperar contraseña";
             this.SeguridadLblTituloFormulario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -211,6 +229,7 @@
             // SeguridadPnlVerificarCambiar
             // 
             this.SeguridadPnlVerificarCambiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SeguridadPnlVerificarCambiar.Controls.Add(this.SeguridadChkVerContrasena);
             this.SeguridadPnlVerificarCambiar.Controls.Add(this.SeguridadLblConfirmarContrasena);
             this.SeguridadPnlVerificarCambiar.Controls.Add(this.SeguridadTxtConfirmarContrasena);
             this.SeguridadPnlVerificarCambiar.Controls.Add(this.SeguridadBtnCambiarContrasena);
@@ -221,11 +240,24 @@
             this.SeguridadPnlVerificarCambiar.Controls.Add(this.SeguridadLblDescripcionVerificarCambiar);
             this.SeguridadPnlVerificarCambiar.Controls.Add(this.SeguridadLblTituloVerificarCambiar);
             this.SeguridadPnlVerificarCambiar.Controls.Add(this.SeguridadPbIconoVerificar);
-            this.SeguridadPnlVerificarCambiar.Location = new System.Drawing.Point(358, 168);
+            this.SeguridadPnlVerificarCambiar.Location = new System.Drawing.Point(331, 168);
             this.SeguridadPnlVerificarCambiar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SeguridadPnlVerificarCambiar.Name = "SeguridadPnlVerificarCambiar";
-            this.SeguridadPnlVerificarCambiar.Size = new System.Drawing.Size(284, 373);
+            this.SeguridadPnlVerificarCambiar.Size = new System.Drawing.Size(308, 373);
             this.SeguridadPnlVerificarCambiar.TabIndex = 8;
+            // 
+            // SeguridadChkVerContrasena
+            // 
+            this.SeguridadChkVerContrasena.AutoSize = true;
+            this.SeguridadChkVerContrasena.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SeguridadChkVerContrasena.ForeColor = System.Drawing.Color.DarkCyan;
+            this.SeguridadChkVerContrasena.Location = new System.Drawing.Point(249, 267);
+            this.SeguridadChkVerContrasena.Name = "SeguridadChkVerContrasena";
+            this.SeguridadChkVerContrasena.Size = new System.Drawing.Size(59, 29);
+            this.SeguridadChkVerContrasena.TabIndex = 10;
+            this.SeguridadChkVerContrasena.Text = "👁";
+            this.SeguridadChkVerContrasena.UseVisualStyleBackColor = true;
+            this.SeguridadChkVerContrasena.CheckedChanged += new System.EventHandler(this.SeguridadChkVerContrasena_CheckedChanged);
             // 
             // SeguridadLblConfirmarContrasena
             // 
@@ -233,7 +265,7 @@
             this.SeguridadLblConfirmarContrasena.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SeguridadLblConfirmarContrasena.Location = new System.Drawing.Point(8, 270);
             this.SeguridadLblConfirmarContrasena.Name = "SeguridadLblConfirmarContrasena";
-            this.SeguridadLblConfirmarContrasena.Size = new System.Drawing.Size(142, 14);
+            this.SeguridadLblConfirmarContrasena.Size = new System.Drawing.Size(212, 22);
             this.SeguridadLblConfirmarContrasena.TabIndex = 9;
             this.SeguridadLblConfirmarContrasena.Text = "🔒  Confirmar contraseña";
             // 
@@ -246,7 +278,7 @@
             this.SeguridadTxtConfirmarContrasena.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SeguridadTxtConfirmarContrasena.Name = "SeguridadTxtConfirmarContrasena";
             this.SeguridadTxtConfirmarContrasena.PasswordChar = '●';
-            this.SeguridadTxtConfirmarContrasena.Size = new System.Drawing.Size(240, 23);
+            this.SeguridadTxtConfirmarContrasena.Size = new System.Drawing.Size(240, 31);
             this.SeguridadTxtConfirmarContrasena.TabIndex = 8;
             // 
             // SeguridadBtnCambiarContrasena
@@ -267,7 +299,7 @@
             this.SeguridadLblNuevaContrasena.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SeguridadLblNuevaContrasena.Location = new System.Drawing.Point(8, 205);
             this.SeguridadLblNuevaContrasena.Name = "SeguridadLblNuevaContrasena";
-            this.SeguridadLblNuevaContrasena.Size = new System.Drawing.Size(125, 14);
+            this.SeguridadLblNuevaContrasena.Size = new System.Drawing.Size(184, 22);
             this.SeguridadLblNuevaContrasena.TabIndex = 6;
             this.SeguridadLblNuevaContrasena.Text = "🔒  Nueva contraseña";
             // 
@@ -280,7 +312,7 @@
             this.SeguridadTxtNuevaContrasena.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SeguridadTxtNuevaContrasena.Name = "SeguridadTxtNuevaContrasena";
             this.SeguridadTxtNuevaContrasena.PasswordChar = '●';
-            this.SeguridadTxtNuevaContrasena.Size = new System.Drawing.Size(240, 23);
+            this.SeguridadTxtNuevaContrasena.Size = new System.Drawing.Size(240, 31);
             this.SeguridadTxtNuevaContrasena.TabIndex = 5;
             // 
             // SeguridadLblCodigoVerificacion
@@ -289,7 +321,7 @@
             this.SeguridadLblCodigoVerificacion.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SeguridadLblCodigoVerificacion.Location = new System.Drawing.Point(8, 144);
             this.SeguridadLblCodigoVerificacion.Name = "SeguridadLblCodigoVerificacion";
-            this.SeguridadLblCodigoVerificacion.Size = new System.Drawing.Size(144, 14);
+            this.SeguridadLblCodigoVerificacion.Size = new System.Drawing.Size(217, 22);
             this.SeguridadLblCodigoVerificacion.TabIndex = 4;
             this.SeguridadLblCodigoVerificacion.Text = "🛡  Código de verificación";
             // 
@@ -301,7 +333,7 @@
             this.SeguridadTxtCodigoVerificacion.Location = new System.Drawing.Point(12, 174);
             this.SeguridadTxtCodigoVerificacion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SeguridadTxtCodigoVerificacion.Name = "SeguridadTxtCodigoVerificacion";
-            this.SeguridadTxtCodigoVerificacion.Size = new System.Drawing.Size(240, 23);
+            this.SeguridadTxtCodigoVerificacion.Size = new System.Drawing.Size(240, 31);
             this.SeguridadTxtCodigoVerificacion.TabIndex = 3;
             // 
             // SeguridadLblDescripcionVerificarCambiar
@@ -311,7 +343,7 @@
             this.SeguridadLblDescripcionVerificarCambiar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblDescripcionVerificarCambiar.Location = new System.Drawing.Point(18, 97);
             this.SeguridadLblDescripcionVerificarCambiar.Name = "SeguridadLblDescripcionVerificarCambiar";
-            this.SeguridadLblDescripcionVerificarCambiar.Size = new System.Drawing.Size(193, 30);
+            this.SeguridadLblDescripcionVerificarCambiar.Size = new System.Drawing.Size(294, 50);
             this.SeguridadLblDescripcionVerificarCambiar.TabIndex = 2;
             this.SeguridadLblDescripcionVerificarCambiar.Text = "Ingresa el código que recibiste y tu \r\nnueva contraseña.";
             this.SeguridadLblDescripcionVerificarCambiar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -323,7 +355,7 @@
             this.SeguridadLblTituloVerificarCambiar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblTituloVerificarCambiar.Location = new System.Drawing.Point(56, 69);
             this.SeguridadLblTituloVerificarCambiar.Name = "SeguridadLblTituloVerificarCambiar";
-            this.SeguridadLblTituloVerificarCambiar.Size = new System.Drawing.Size(105, 15);
+            this.SeguridadLblTituloVerificarCambiar.Size = new System.Drawing.Size(164, 25);
             this.SeguridadLblTituloVerificarCambiar.TabIndex = 1;
             this.SeguridadLblTituloVerificarCambiar.Text = "Verificar y cambiar";
             this.SeguridadLblTituloVerificarCambiar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -345,9 +377,9 @@
             // 
             this.SeguridadLblSeparadorPasos.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.SeguridadLblSeparadorPasos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(95)))), ((int)(((byte)(102)))));
-            this.SeguridadLblSeparadorPasos.Location = new System.Drawing.Point(297, 312);
+            this.SeguridadLblSeparadorPasos.Location = new System.Drawing.Point(310, 322);
             this.SeguridadLblSeparadorPasos.Name = "SeguridadLblSeparadorPasos";
-            this.SeguridadLblSeparadorPasos.Size = new System.Drawing.Size(63, 37);
+            this.SeguridadLblSeparadorPasos.Size = new System.Drawing.Size(26, 51);
             this.SeguridadLblSeparadorPasos.TabIndex = 7;
             this.SeguridadLblSeparadorPasos.Text = "›";
             this.SeguridadLblSeparadorPasos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -366,7 +398,7 @@
             this.SeguridadPnlEnviarCodigo.Location = new System.Drawing.Point(15, 164);
             this.SeguridadPnlEnviarCodigo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SeguridadPnlEnviarCodigo.Name = "SeguridadPnlEnviarCodigo";
-            this.SeguridadPnlEnviarCodigo.Size = new System.Drawing.Size(284, 377);
+            this.SeguridadPnlEnviarCodigo.Size = new System.Drawing.Size(289, 377);
             this.SeguridadPnlEnviarCodigo.TabIndex = 0;
             // 
             // SeguridadTxtUsuario
@@ -377,7 +409,7 @@
             this.SeguridadTxtUsuario.Location = new System.Drawing.Point(12, 217);
             this.SeguridadTxtUsuario.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SeguridadTxtUsuario.Name = "SeguridadTxtUsuario";
-            this.SeguridadTxtUsuario.Size = new System.Drawing.Size(240, 23);
+            this.SeguridadTxtUsuario.Size = new System.Drawing.Size(240, 31);
             this.SeguridadTxtUsuario.TabIndex = 8;
             // 
             // SeguridadBtnEnviarCodigo
@@ -398,7 +430,7 @@
             this.SeguridadLblCorreoElectronico.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SeguridadLblCorreoElectronico.Location = new System.Drawing.Point(8, 246);
             this.SeguridadLblCorreoElectronico.Name = "SeguridadLblCorreoElectronico";
-            this.SeguridadLblCorreoElectronico.Size = new System.Drawing.Size(129, 14);
+            this.SeguridadLblCorreoElectronico.Size = new System.Drawing.Size(186, 22);
             this.SeguridadLblCorreoElectronico.TabIndex = 6;
             this.SeguridadLblCorreoElectronico.Text = "✉  Correo electrónico";
             // 
@@ -410,7 +442,7 @@
             this.SeguridadTxtCorreo.Location = new System.Drawing.Point(12, 275);
             this.SeguridadTxtCorreo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SeguridadTxtCorreo.Name = "SeguridadTxtCorreo";
-            this.SeguridadTxtCorreo.Size = new System.Drawing.Size(240, 23);
+            this.SeguridadTxtCorreo.Size = new System.Drawing.Size(240, 31);
             this.SeguridadTxtCorreo.TabIndex = 5;
             // 
             // SeguridadLblUsuario
@@ -419,7 +451,7 @@
             this.SeguridadLblUsuario.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SeguridadLblUsuario.Location = new System.Drawing.Point(8, 191);
             this.SeguridadLblUsuario.Name = "SeguridadLblUsuario";
-            this.SeguridadLblUsuario.Size = new System.Drawing.Size(66, 14);
+            this.SeguridadLblUsuario.Size = new System.Drawing.Size(103, 22);
             this.SeguridadLblUsuario.TabIndex = 4;
             this.SeguridadLblUsuario.Text = "👤  Usuario";
             // 
@@ -430,7 +462,7 @@
             this.SeguridadLblDescripcionEnviarCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblDescripcionEnviarCodigo.Location = new System.Drawing.Point(3, 124);
             this.SeguridadLblDescripcionEnviarCodigo.Name = "SeguridadLblDescripcionEnviarCodigo";
-            this.SeguridadLblDescripcionEnviarCodigo.Size = new System.Drawing.Size(222, 30);
+            this.SeguridadLblDescripcionEnviarCodigo.Size = new System.Drawing.Size(332, 50);
             this.SeguridadLblDescripcionEnviarCodigo.TabIndex = 2;
             this.SeguridadLblDescripcionEnviarCodigo.Text = "Ingresa tu usuario y correo electrónico. \r\nTe enviaremos un código de verificació" +
     "n.";
@@ -443,7 +475,7 @@
             this.SeguridadLblTituloEnviarCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblTituloEnviarCodigo.Location = new System.Drawing.Point(81, 84);
             this.SeguridadLblTituloEnviarCodigo.Name = "SeguridadLblTituloEnviarCodigo";
-            this.SeguridadLblTituloEnviarCodigo.Size = new System.Drawing.Size(79, 15);
+            this.SeguridadLblTituloEnviarCodigo.Size = new System.Drawing.Size(124, 25);
             this.SeguridadLblTituloEnviarCodigo.TabIndex = 1;
             this.SeguridadLblTituloEnviarCodigo.Text = "Enviar código";
             this.SeguridadLblTituloEnviarCodigo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -490,7 +522,7 @@
             this.SeguridadLblPasoVerificarCambiar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
             this.SeguridadLblPasoVerificarCambiar.Location = new System.Drawing.Point(416, 103);
             this.SeguridadLblPasoVerificarCambiar.Name = "SeguridadLblPasoVerificarCambiar";
-            this.SeguridadLblPasoVerificarCambiar.Size = new System.Drawing.Size(149, 17);
+            this.SeguridadLblPasoVerificarCambiar.Size = new System.Drawing.Size(213, 23);
             this.SeguridadLblPasoVerificarCambiar.TabIndex = 4;
             this.SeguridadLblPasoVerificarCambiar.Text = "Verificar y Cambiar";
             // 
@@ -523,7 +555,7 @@
             this.SeguridadLblPasoEnviarCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblPasoEnviarCodigo.Location = new System.Drawing.Point(145, 103);
             this.SeguridadLblPasoEnviarCodigo.Name = "SeguridadLblPasoEnviarCodigo";
-            this.SeguridadLblPasoEnviarCodigo.Size = new System.Drawing.Size(104, 17);
+            this.SeguridadLblPasoEnviarCodigo.Size = new System.Drawing.Size(146, 23);
             this.SeguridadLblPasoEnviarCodigo.TabIndex = 1;
             this.SeguridadLblPasoEnviarCodigo.Text = "Enviar código";
             // 
@@ -574,7 +606,7 @@
             this.SeguridadLblDescripcionProteccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblDescripcionProteccion.Location = new System.Drawing.Point(25, 78);
             this.SeguridadLblDescripcionProteccion.Name = "SeguridadLblDescripcionProteccion";
-            this.SeguridadLblDescripcionProteccion.Size = new System.Drawing.Size(137, 45);
+            this.SeguridadLblDescripcionProteccion.Size = new System.Drawing.Size(211, 75);
             this.SeguridadLblDescripcionProteccion.TabIndex = 2;
             this.SeguridadLblDescripcionProteccion.Text = "Usamos los más altos \r\nestándares de seguridad \r\npara proteger tus datos.";
             // 
@@ -585,7 +617,7 @@
             this.SeguridadLblInformacionProtegida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(50)))), ((int)(((byte)(62)))));
             this.SeguridadLblInformacionProtegida.Location = new System.Drawing.Point(74, 8);
             this.SeguridadLblInformacionProtegida.Name = "SeguridadLblInformacionProtegida";
-            this.SeguridadLblInformacionProtegida.Size = new System.Drawing.Size(91, 30);
+            this.SeguridadLblInformacionProtegida.Size = new System.Drawing.Size(136, 50);
             this.SeguridadLblInformacionProtegida.TabIndex = 1;
             this.SeguridadLblInformacionProtegida.Text = "Tu información \r\nestá protegida";
             // 
@@ -608,7 +640,7 @@
             this.SeguridadLblDescripcionRecuperacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
             this.SeguridadLblDescripcionRecuperacion.Location = new System.Drawing.Point(10, 436);
             this.SeguridadLblDescripcionRecuperacion.Name = "SeguridadLblDescripcionRecuperacion";
-            this.SeguridadLblDescripcionRecuperacion.Size = new System.Drawing.Size(176, 30);
+            this.SeguridadLblDescripcionRecuperacion.Size = new System.Drawing.Size(271, 50);
             this.SeguridadLblDescripcionRecuperacion.TabIndex = 2;
             this.SeguridadLblDescripcionRecuperacion.Text = "Sigue los pasos para restablecer \r\ntu contraseña de forma segura.";
             // 
@@ -620,7 +652,7 @@
             this.SeguridadLblRecuperaTuCuenta.ForeColor = System.Drawing.Color.White;
             this.SeguridadLblRecuperaTuCuenta.Location = new System.Drawing.Point(8, 398);
             this.SeguridadLblRecuperaTuCuenta.Name = "SeguridadLblRecuperaTuCuenta";
-            this.SeguridadLblRecuperaTuCuenta.Size = new System.Drawing.Size(187, 28);
+            this.SeguridadLblRecuperaTuCuenta.Size = new System.Drawing.Size(283, 41);
             this.SeguridadLblRecuperaTuCuenta.TabIndex = 4;
             this.SeguridadLblRecuperaTuCuenta.Text = "Recupera tu cuenta";
             // 
@@ -668,9 +700,22 @@
             this.pictureBox5.TabIndex = 0;
             this.pictureBox5.TabStop = false;
             // 
+            // SeguridadLnkAyuda
+            // 
+            this.SeguridadLnkAyuda.AutoSize = true;
+            this.SeguridadLnkAyuda.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SeguridadLnkAyuda.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(95)))), ((int)(((byte)(102)))));
+            this.SeguridadLnkAyuda.Location = new System.Drawing.Point(575, 550);
+            this.SeguridadLnkAyuda.Name = "SeguridadLnkAyuda";
+            this.SeguridadLnkAyuda.Size = new System.Drawing.Size(64, 25);
+            this.SeguridadLnkAyuda.TabIndex = 12;
+            this.SeguridadLnkAyuda.TabStop = true;
+            this.SeguridadLnkAyuda.Text = "Ayuda";
+            this.SeguridadLnkAyuda.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SeguridadLnkAyuda_LinkClicked);
+            // 
             // FrmRecuperacion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(928, 681);
             this.Controls.Add(this.SeguridadPbMascota);
@@ -759,6 +804,8 @@
         private System.Windows.Forms.PictureBox SeguridadPbIconoVigenciaCodigo;
         private System.Windows.Forms.Label SeguridadLblAvisoCodigo;
         private System.Windows.Forms.TextBox SeguridadTxtUsuario;
+        private System.Windows.Forms.CheckBox SeguridadChkVerContrasena;
+        private System.Windows.Forms.LinkLabel SeguridadLnkAyuda;
     }
 }
 

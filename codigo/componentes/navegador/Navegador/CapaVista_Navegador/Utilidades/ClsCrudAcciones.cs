@@ -1,4 +1,4 @@
-﻿// ============================================================================
+// ============================================================================
 // Desarrollador: Oskar Saul Cermeño Jimenez
 // Carnet:        0901-23-15379
 // Fecha:         16/09/2026
@@ -95,22 +95,24 @@ namespace CapaVista_Navegador
 
                 string Valor = DatosFormulario[Columna.Nombre];
 
-                if (string.IsNullOrWhiteSpace(Valor))
-                {
-                    if (!Columna.Nullable)
-                    {
-                        Mensaje = "El campo '" + Columna.Nombre + "' es obligatorio.";
-                        return false;
-                    }
-
-                    continue;
-                }
-
+                // Inicio - Roger Yankhel de Jesús Herrera Alcántara 0901-23-2429.
                 Datos[Columna.Nombre] = Valor;
+                // Fin - Roger Yankhel de Jesús Herrera Alcántara 0901-23-2429.
             }
 
-            List<string> Errores = _CtrlRegistro.NavegadorFuncValidarRegistro(Datos, Tabla);
+            // Inicio - Roger Yankhel de Jesús Herrera Alcántara 0901-23-2429.
+            var Modelo = new ClsModeloRegistro(Datos, Esquema);
+            if (!new Ayudas.ClsValidacionDatos(Modelo).NavegadorFuncValidar())
+                return false;
 
+            // Recupera el comportamiento previo: omitir opcionales vacíos al persistir.
+            foreach (var Columna in Esquema)
+                if (Columna.Nullable && Datos.ContainsKey(Columna.Nombre) &&
+                    string.IsNullOrWhiteSpace(Datos[Columna.Nombre]))
+                    Datos.Remove(Columna.Nombre);
+
+            List<string> Errores = new List<string>();
+            // Fin - Roger Yankhel de Jesús Herrera Alcántara 0901-23-2429.
             Errores.AddRange(NavegadorFuncValidarLlavesForaneas(Tabla, Esquema, Datos));
 
             if (Errores.Count > 0)
@@ -247,20 +249,30 @@ namespace CapaVista_Navegador
             // Primero se inserta el registro tal como ya funcionaba. Si se insertó bien, se calcula
             // qué id usar para la bitácora (el de la llave primaria si ya se conoce, si no 0 porque
             // es autoincremento) y se registra la acción "INSERT" con los datos que se guardaron.
-            bool Insertado = _CtrlRegistro.NavegadorFuncInsertarRegistro(Tabla, Datos);
-
-            if (Insertado)
+            // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+            // Transacción: el INSERT y su bitácora (por Seguridad) van en la misma transacción de base
+            // de datos. Si el INSERT no afecta filas o algo lanza una excepción (incluida la bitácora),
+            // al salir del using se hace Rollback y no queda ninguno de los dos; solo con
+            // NavegadorMetConfirmar se guardan ambos. Las excepciones las traduce el coordinador.
+            using (ClsTransaccion TransaccionBD = new ClsTransaccion())
             {
+                if (!_CtrlRegistro.NavegadorFuncInsertarRegistro(Tabla, Datos, TransaccionBD.Conexion, TransaccionBD.Transaccion))
+                    return false;
+
+                // El id de la bitácora es el de la llave primaria si ya se conoce; si no, 0 (autoincremento).
                 int IdRegistro = 0;
                 if (ValoresPK.Count > 0)
                     int.TryParse(ValoresPK[0], out IdRegistro);
 
                 _Bitacora.NavegadorMetRegistrarBitacora(
                     "INSERT", Tabla, IdRegistro,
-                    "Se insertó un registro en " + Tabla + ": " + NavegadorFuncResumenDatos(Datos));
-            }
+                    "Se insertó un registro en " + Tabla + ": " + NavegadorFuncResumenDatos(Datos),
+                    TransaccionBD.Conexion, TransaccionBD.Transaccion);
 
-            return Insertado;
+                TransaccionBD.NavegadorMetConfirmar();
+                return true;
+            }
+            // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
             // Fin cambio - Mario Alberto Taracena Pérez - 0901-23-9335
         }
 
@@ -301,19 +313,26 @@ namespace CapaVista_Navegador
             // Inicio cambio - Mario Alberto Taracena Pérez - 0901-23-9335
             // Igual que en Insertar: primero se actualiza el registro, y si salió bien, se registra
             // la acción "UPDATE" en la bitácora. Aquí sí se conoce el id real porque ya existía.
-            bool Actualizado = _CtrlRegistro.NavegadorFuncActualizarRegistro(Tabla, Datos, ClavesPrimarias);
-
-            if (Actualizado)
+            // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+            // Transacción: UPDATE + bitácora "UPDATE" (por Seguridad) en una sola unidad; ver NavegadorFuncInsertar.
+            using (ClsTransaccion TransaccionBD = new ClsTransaccion())
             {
+                if (!_CtrlRegistro.NavegadorFuncActualizarRegistro(Tabla, Datos, ClavesPrimarias, TransaccionBD.Conexion, TransaccionBD.Transaccion))
+                    return false;
+
+                // Aquí sí se conoce el id real porque el registro ya existía.
                 int IdRegistro = 0;
                 foreach (string ValorPk in ClavesPrimarias.Values) { int.TryParse(ValorPk, out IdRegistro); break; }
 
                 _Bitacora.NavegadorMetRegistrarBitacora(
                     "UPDATE", Tabla, IdRegistro,
-                    "Se actualizó un registro en " + Tabla + ": " + NavegadorFuncResumenDatos(Datos));
-            }
+                    "Se actualizó un registro en " + Tabla + ": " + NavegadorFuncResumenDatos(Datos),
+                    TransaccionBD.Conexion, TransaccionBD.Transaccion);
 
-            return Actualizado;
+                TransaccionBD.NavegadorMetConfirmar();
+                return true;
+            }
+            // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
             // Fin cambio - Mario Alberto Taracena Pérez - 0901-23-9335
         }
 
@@ -354,19 +373,25 @@ namespace CapaVista_Navegador
             // Inicio cambio - Mario Alberto Taracena Pérez - 0901-23-9335
             // Igual que arriba: se elimina el registro y, si se pudo eliminar, se registra la
             // acción "DELETE" en la bitácora con el id del registro que se borró.
-            bool Eliminado = _CtrlRegistro.NavegadorFuncEliminarRegistro(Tabla, ClavesPrimarias);
-
-            if (Eliminado)
+            // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+            // Transacción: DELETE + bitácora "DELETE" (por Seguridad) en una sola unidad; ver NavegadorFuncInsertar.
+            using (ClsTransaccion TransaccionBD = new ClsTransaccion())
             {
+                if (!_CtrlRegistro.NavegadorFuncEliminarRegistro(Tabla, ClavesPrimarias, TransaccionBD.Conexion, TransaccionBD.Transaccion))
+                    return false;
+
                 int IdRegistro = 0;
                 foreach (string ValorPk in ClavesPrimarias.Values) { int.TryParse(ValorPk, out IdRegistro); break; }
 
                 _Bitacora.NavegadorMetRegistrarBitacora(
                     "DELETE", Tabla, IdRegistro,
-                    "Se eliminó un registro de " + Tabla + ".");
-            }
+                    "Se eliminó un registro de " + Tabla + ".",
+                    TransaccionBD.Conexion, TransaccionBD.Transaccion);
 
-            return Eliminado;
+                TransaccionBD.NavegadorMetConfirmar();
+                return true;
+            }
+            // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
             // Fin cambio - Mario Alberto Taracena Pérez - 0901-23-9335
         }
 

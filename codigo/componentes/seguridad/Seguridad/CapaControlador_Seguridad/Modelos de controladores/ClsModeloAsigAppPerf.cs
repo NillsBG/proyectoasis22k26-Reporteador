@@ -8,7 +8,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.Odbc;
 using System.Linq;
-
+/*
+ * ==================================================================
+ * Área: Seguridad
+ * Autores: Lourdes Isabel Melendez Pineda
+ * Fecha o ultima edicion: 23/09/2026
+ * ==================================================================
+ * Propósito : Clase del controlador que guarda, edita y elimina las
+ * asignaciones de aplicación a un perfil, dejando registro
+ * en bitácora, y calcula los permisos del usuario en sesión
+ * para cada módulo y aplicación.
+ * ===================================================================
+ */
 namespace CapaControlador_Seguridad
 {
     public class ClsModeloAsigAppPerf
@@ -156,6 +167,12 @@ namespace CapaControlador_Seguridad
         public IEnumerable<ClsModeloAsigAppPerf> SeguridadMetBuscarPorRol(int IdRol)
         {
             return _ListaAsigAppPerf.FindAll(e => e._IdRol == IdRol);
+        }
+
+        public IEnumerable<ClsModeloAsigAppPerf> SeguridadMetBuscarPorNombreRol(string NombreRol)
+        {
+            return _ListaAsigAppPerf.FindAll(e =>
+                e._NombreRol.IndexOf(NombreRol, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         // Permisos para UN rol específico en un módulo y aplicación dados

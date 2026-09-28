@@ -17,6 +17,12 @@ namespace CapaVista_Navegador
         private readonly Control _Formulario;
         private readonly ClsCtrlTabla _CtrlTabla = new ClsCtrlTabla();
         private Panel NavegadorPnlRegistro;
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+        // Panel del registro (campos) que se coloca arriba de la tabla,
+        // dentro del área desplegable del Navegador.
+        private Panel _Contenedor;
+        private ClsCrudGrid _Grid;
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
         private Dictionary<string, Control> _Controles;
         private List<ClsColumnaInfo> _Esquema;
         private string _Tabla;
@@ -32,19 +38,20 @@ namespace CapaVista_Navegador
                 string.IsNullOrWhiteSpace(Descripcion) ? Valor : Valor + " - " + Descripcion;
         }
 
-        // Indica si el panel del registro esta visible
-        public bool Visible => NavegadorPnlRegistro?.Visible ?? false;
+        // Indica si el panel del registro esta abierto y visible
+        public bool Visible => _Contenedor != null && _Contenedor.Visible;
         // Indica si el formulario esta en modo modificar
         public bool ModoModificar => _ModoModificar;
-        // Obtiene la posicion inferior del panel del registro
-        public int Bottom => NavegadorPnlRegistro?.Bottom ?? 0;
 
         // Inicializa el formulario CRUD con el formulario principal
         public ClsCrudFormulario(Control Formulario) => _Formulario = Formulario;
 
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
         // Abre el formulario dinamico para insertar o modificar un registro
+        // (cambio: ahora se muestra en el area desplegable del Navegador, arriba del DataGridView; se
+        // guarda o se cancela con los botones Guardar y Cancelar del propio Navegador).
         public void NavegadorMetAbrir(string Tabla, List<ClsColumnaInfo> Esquema,
-            bool Modificar, DataGridViewRow Fila, ClsCrudGrid Grid, int PosicionY)
+            bool Modificar, DataGridViewRow Fila, ClsCrudGrid Grid)
         {
 
             //Cierra el panel si ya estaba abierto
@@ -59,16 +66,13 @@ namespace CapaVista_Navegador
             NavegadorPnlRegistro = new Panel
             {
                 Name = "NavegadorPnlRegistro",
-                Location = new Point(10, PosicionY),
-                Width = _Formulario.ClientSize.Width - 20,
-                Height = Math.Max(150, Math.Min(400, 50 + Esquema.Count * 42)),
+                Dock = DockStyle.Fill,
                 BackColor = Color.FromArgb(242, 233, 217),
-                BorderStyle = BorderStyle.FixedSingle,
                 AutoScroll = true
             };
 
-            //Agrega el panel al formulario principal
-            _Formulario.Controls.Add(NavegadorPnlRegistro);
+            _Grid = Grid;
+
             _Controles = new Dictionary<string, Control>();
 
             //Crea el titulo del formulario dinamico
@@ -113,10 +117,27 @@ namespace CapaVista_Navegador
                 PosicionVertical += 42;
             }
 
-            //Muestra el panel de registro al frente del formulario
-            NavegadorPnlRegistro.Visible = true;
-            NavegadorPnlRegistro.BringToFront();
+            //Coloca el panel arriba de la tabla, en la misma ventana emergente
+            _Contenedor = NavegadorFuncCrearContenedor(Esquema.Count);
+            Grid.NavegadorMetAgregarSuperior(_Contenedor);
         }
+
+        // Crea el contenedor que aloja el panel del registro.
+        private Panel NavegadorFuncCrearContenedor(int Columnas)
+        {
+            Panel Contenedor = new Panel
+            {
+                Name = "NavegadorPnlContenedor",
+                Height = Math.Max(190, Math.Min(330, 60 + Columnas * 42)),
+                BackColor = Color.FromArgb(242, 233, 217),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            Contenedor.Controls.Add(NavegadorPnlRegistro);
+
+            return Contenedor;
+        }
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
 
         // Determina y crea el control adecuado para cada columna
         private Control NavegadorMetCrearControl(ClsColumnaInfo Columna,
@@ -462,15 +483,19 @@ namespace CapaVista_Navegador
         }
 
         //Cierra y elimina el panel de registro del formulario para seguir con la navegacion normal del formulario
+        //(cambio: lo quita del area desplegable del Navegador)
         public void NavegadorMetCerrar()
         {
-            //Elimina el panel y libera sus recursos
-            if (NavegadorPnlRegistro != null)
+            if (_Contenedor != null)
             {
-                _Formulario.Controls.Remove(NavegadorPnlRegistro);
-                NavegadorPnlRegistro.Dispose();
-                NavegadorPnlRegistro = null;
+                if (_Grid != null)
+                    _Grid.NavegadorMetQuitarSuperior(_Contenedor);
+
+                _Contenedor.Dispose();
+                _Contenedor = null;
             }
+
+            NavegadorPnlRegistro = null;
 
             //Limpia la referencia de los controles del formulario
             _Controles = null;

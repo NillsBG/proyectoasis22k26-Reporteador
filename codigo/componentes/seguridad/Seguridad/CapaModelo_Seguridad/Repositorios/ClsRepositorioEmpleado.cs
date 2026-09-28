@@ -8,6 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : Carlos David Calderón Ramirez
+ * Carné : 9959-23-848
+ * Fecha : 22/09/2026
+ * ==================================================================
+ * Propósito :
+ * Aqui es esta clase se encuentran los querys utilizados para
+ * realizar las diferentes acciones como insertar, seleccionar,
+ * modificar y eliminar junto con el metodo para cada accion.
+ * ===================================================================
+*/
+
 namespace CapaModelo_Seguridad.Repositorios
 {
     public class ClsRepositorioEmpleado : ClsSentencias, IRepositorioEmpleado

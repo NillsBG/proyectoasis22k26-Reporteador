@@ -1,3 +1,18 @@
+/*
+ * ==============================
+ * Área : Seguridad
+ * Autor : Byron Alexander Chiquito Paredes
+ * Carné : 0901-23-3747
+ * Fecha : 24/09/2026
+ * ==============================
+ * Propósito :
+ * Clase encargada de construir y enviar el correo
+ * electrónico de recuperación de contraseña, incluyendo el
+ * diseño institucional con encabezado, pie de página y el
+ * código de verificación
+ * ==============================
+ */
+
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;

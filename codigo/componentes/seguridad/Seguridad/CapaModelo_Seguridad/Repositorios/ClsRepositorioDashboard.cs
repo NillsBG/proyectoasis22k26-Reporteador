@@ -1,5 +1,20 @@
 using System.Data;
-
+/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : André De Jesús Gonzalez Camey
+ * Fecha : 23/09/2026
+ * ==================================================================
+ * Propósito :
+ * Repositorio de datos encargado de ejecutar las consultas SQL
+ * necesarias para obtener el conteo de registros de las tablas
+ * principales del módulo de Seguridad: tblUsuario (usuarios
+ * activos), tblRol (perfiles activos), tblModulo, tblAplicacion,
+ * tblBitacora y tblUsuarioRol (asignaciones). Cada método retorna
+ * un entero con el total obtenido directamente desde la base de
+ * datos, siguiendo el patrón de herencia de ClsSentencias.
+ * ===================================================================
+*/
 namespace CapaModelo_Seguridad.Repositorios
 {
     public class ClsRepositorioDashboard : ClsSentencias

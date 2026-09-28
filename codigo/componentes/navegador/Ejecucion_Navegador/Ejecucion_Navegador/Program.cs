@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-// Inicio cambio - Mario Alberto Taracena Pérez - 0901-23-9335
-using CapaControlador_Navegador;
-// Fin cambio - Mario Alberto Taracena Pérez - 0901-23-9335
 using CapaVista_Navegador;
 namespace Ejecucion_Navegador
 {
@@ -19,15 +13,12 @@ namespace Ejecucion_Navegador
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // Inicio cambio - Mario Alberto Taracena Pérez - 0901-23-9335
-            // Sin login real todavía: inicializa la sesión de Seguridad con un usuario de prueba
-            // sembrado (ver ClsSesionPrueba para alternar entre Administrador/Supervisor/Operativo).
-            // Esto tiene que hacerse ANTES de abrir el formulario, porque el formulario ya revisa
-            // los permisos del usuario en sesión apenas se crea.
-            ClsSesionPrueba.NavegadorMetIniciarSesionPrueba();
-            // Fin cambio - Mario Alberto Taracena Pérez - 0901-23-9335
+            // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+            // Ya no hay sesión de prueba: el usuario y sus roles salen de la sesión que crea el Login de
+            // Seguridad (ClsSesionSeguridad); el Navegador la consulta con ClsNavegadorSesion.
+            // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
 
-            Application.Run(new Form1());
+            Application.Run(new FrmPrincipal());
         }
     }
 }

@@ -1,4 +1,20 @@
-﻿//using CapaControlador_Seguridad.Objetos_de_valor.EstadoEntidad;
+﻿/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : Cristian David Sipac Ispache
+ * Carné : 9959-23-1567
+ * Fecha : 22/09/2026
+ * ==================================================================
+ * Propósito :
+ *  El ClsModeloRoles es el controlador que valida y prepara los
+ *  datos de un perfil antes de enviarlos al repositorio, aplica
+ *  reglas especificas: no permitir nombres duplicados, no
+ *  permitir eliminar un rol si está asignado a algún usuario, y
+ *  registrar cada operación (Agregar, Editar, Eliminar) en la
+ *  bitácora del sistema.
+ * ===================================================================
+*/
+
 
 using CapaModelo_Seguridad.Contratos;
 using CapaModelo_Seguridad.Entidades;
@@ -10,7 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CapaControlador_Seguridad.Modelos_de_controladores
+namespace CapaControlador_Seguridad
 {
     public class ClsModeloRoles
     {
@@ -59,6 +75,19 @@ namespace CapaControlador_Seguridad.Modelos_de_controladores
                 {
                     if (_IdRol <= 0)
                         return "Debe indicar un Rol válido para esta operación";
+                }
+                if (Estado == EstadoEntidad.Deleted)
+                {
+                    int Asignaciones = _RepositorioRoles.SeguridadMetContarAsignaciones(_IdRol);
+                    if (Asignaciones > 0)
+                        return "No se puede eliminar el perfil: está asignado a " + Asignaciones + " usuario(s).";
+                }
+                if (Estado == EstadoEntidad.Added || Estado == EstadoEntidad.Modified)
+                {
+                    int IdParaExcluir = (Estado == EstadoEntidad.Added) ? 0 : _IdRol;
+                    int Coincidencias = _RepositorioRoles.SeguridadMetContarPorNombre(_NombreRol, IdParaExcluir);
+                    if (Coincidencias > 0)
+                        return "Ya existe un perfil con el nombre: " + _NombreRol;
                 }
 
                 var ModeloDatosRoles = new ClsRoles();
@@ -112,9 +141,22 @@ namespace CapaControlador_Seguridad.Modelos_de_controladores
             return _ListaRoles;
         }
 
-        public IEnumerable<ClsModeloRoles> SeguridadMetBuscarPorId(int IdRol)
+        
+
+        public IEnumerable<ClsModeloRoles> SeguridadMetBuscarPorNombre(string NombreRol)
         {
-            return _ListaRoles.FindAll(e => e._IdRol == IdRol);
+            if (_ListaRoles == null)
+                SeguridadMetObtenerTodos();
+
+            return _ListaRoles.FindAll(e =>
+                e._NombreRol.ToUpper().Contains(NombreRol.ToUpper()));
         }
+
+
+
+
+
+
+
     }
 }

@@ -1,9 +1,11 @@
 ﻿using CapaControlador_Navegador;
 using CapaModelo_Navegador;
+using CapaVista_Consultas;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
+
 
 namespace CapaVista_Navegador
 {
@@ -12,7 +14,7 @@ namespace CapaVista_Navegador
         // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
         // Antes el tipo era FrmCrud. Ahora es Form para que el formulario pueda vivir fuera de este
         // proyecto (en la solución que consume el navegador), y el nombre de la tabla lo da quien lo usa.
-        private readonly Control _Vista;
+        private readonly Navegador _Vista;
 
         private string _NombreTabla;
 
@@ -28,19 +30,14 @@ namespace CapaVista_Navegador
         private readonly ClsCrudFormulario _Formulario;
         private readonly ClsCrudAcciones _Acciones;
         private readonly ClsSelectorLlave _SelectorLlave;
-        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
-        // Se quitó el campo _Seguridad: ya no se valida el acceso aquí en cada acción.
-        // Los botones sin permiso quedan deshabilitados desde FrmCrud (ver ClsCrudSeguridad).
-        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
+
 
         private List<ClsColumnaInfo> _EsquemaActual;
         private Dictionary<string, string> _PkModificar;
 
-        public ClsCrudCoordinador(
-            Control Vista,
-            string Tabla,
-            string UsuarioActual,
-            string CodigoModulo)
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+        // Se quitaron UsuarioActual y CodigoModulo: no se usaban.
+        public ClsCrudCoordinador(Navegador Vista, string Tabla)
         {
             _Vista = Vista;
 
@@ -56,6 +53,7 @@ namespace CapaVista_Navegador
 
             _Acciones = new ClsCrudAcciones();
         }
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
 
         // CONSULTAR TABLA
         private bool NavegadorFuncConsultarTabla()
@@ -70,19 +68,11 @@ namespace CapaVista_Navegador
                     _SelectorLlave.NavegadorFuncObtenerEsquemaConLlaves(
                         NombreTabla);
 
-                _Grid.NavegadorMetMostrar(Datos);
-
-                NavegadorMetPosicionar();
-
                 // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
-                // Ahora _Vista es un control que puede estar dentro de cualquier formulario:
-                // el título se le pone al formulario que lo contiene (si ya tiene uno).
-                Form Padre = _Vista.FindForm();
-
-                if (Padre != null)
-                {
-                    Padre.Text = "1001 – Crud " + NombreTabla;
-                }
+                // El título es el de la ventana emergente de la tabla; no se le cambia el título al
+                // formulario o MDI que contiene al Navegador.
+                _Grid.Titulo = "1001 – Crud " + NombreTabla;
+                _Grid.NavegadorMetMostrar(Datos);
                 // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
 
                 return true;
@@ -106,39 +96,6 @@ namespace CapaVista_Navegador
             }
         }
 
-        // POSICIONAR CONTROLES
-        public void NavegadorMetPosicionar()
-        {
-            int Inicio =
-                NavegadorFuncObtenerInicioContenido();
-
-            int PosicionY =
-                _Formulario.Visible
-                ? _Formulario.Bottom + 10
-                : Inicio;
-
-            _Grid.NavegadorMetPosicionar(PosicionY);
-        }
-
-        // OBTENER INICIO DEL CONTENIDO
-        private int NavegadorFuncObtenerInicioContenido()
-        {
-            int MaxBottom = 0;
-
-            foreach (Control ControlActual in _Vista.Controls)
-            {
-                if (ControlActual.Visible &&
-                    (ControlActual is Button ||
-                     ControlActual is UserControl) &&
-                    ControlActual.Bottom > MaxBottom)
-                {
-                    MaxBottom = ControlActual.Bottom;
-                }
-            }
-
-            return MaxBottom + 15;
-        }
-
         // INGRESAR
         public void NavegadorMetIngresar()
         {
@@ -159,23 +116,80 @@ namespace CapaVista_Navegador
                 return;
             }
 
+            // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+            // El registro se captura en un panel dentro del área desplegable del Navegador y se guarda o
+            // cancela con los botones Guardar y Cancelar del propio Navegador.
             _Formulario.NavegadorMetAbrir(
                 NombreTabla,
                 _EsquemaActual,
                 false,
                 null,
-                _Grid,
-                NavegadorFuncObtenerInicioContenido());
-
-            NavegadorMetPosicionar();
+                _Grid);
+            // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
         }
 
         // CONSULTAR
+        //Cambios Por Mario Alberto Taracena Pérez 0901-23-9355 y Dylan Rene Hernandez Recinos 0901-23-519
+        // Antes este método solo recargaba la tabla completa. Ahora abre el formulario
+        // de Consultas Simples del componente Consultas, recibe la llave primaria del
+        // registro que el usuario seleccione y filtra el grid del Navegador para mostrar
+        // únicamente ese registro. Desde ahí se puede Modificar o Eliminar.
         public void NavegadorMetConsultar()
         {
             _Formulario.NavegadorMetCerrar();
 
-            NavegadorFuncConsultarTabla();
+            // 1. Cargar la tabla completa primero: necesitamos el esquema para saber cuál
+            //    es el campo PK, y de paso el grid queda con datos si el usuario cancela.
+            if (!NavegadorFuncConsultarTabla())
+                return;
+
+            // 2. Detectar el campo PK del esquema actual
+            ClsColumnaInfo ColumnaPK = null;
+
+            if (_EsquemaActual != null)
+            {
+                ColumnaPK = _EsquemaActual.Find(Columna => Columna.EsPK);
+            }
+
+            if (ColumnaPK == null)
+            {
+                MessageBox.Show(
+                    "La tabla '" + NombreTabla + "' no tiene una llave primaria detectable. " +
+                    "No se puede abrir el selector de Consultas.",
+                    "Consultar",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            // 3. Abrir el formulario de Consultas Simples del componente Consultas
+            try
+            {
+                using (FrmConsultasSimples FormularioConsultas =
+                    new FrmConsultasSimples(NombreTabla, ColumnaPK.Nombre))
+                {
+                    // Se pasa el formulario padre como owner para que el diálogo
+                    // aparezca al frente y no detrás de la ventana principal.
+                    Form Padre = _Vista.FindForm();
+
+                    if (FormularioConsultas.ShowDialog(Padre) == DialogResult.OK &&
+                        FormularioConsultas.SeleccionRealizada)
+                    {
+                        _Grid.NavegadorMetFiltrarPorLlave(
+                            ColumnaPK.Nombre,
+                            FormularioConsultas.IdSeleccionado);
+                    }
+                }
+            }
+            catch (Exception Excepcion)
+            {
+                MessageBox.Show(
+                    "No se pudo abrir el selector de Consultas.\n\n" + Excepcion.Message,
+                    "Consultar",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         // REFRESCAR
@@ -225,15 +239,14 @@ namespace CapaVista_Navegador
                 return;
             }
 
+            // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
             _Formulario.NavegadorMetAbrir(
                 NombreTabla,
                 _EsquemaActual,
                 true,
                 Fila,
-                _Grid,
-                NavegadorFuncObtenerInicioContenido());
-
-            NavegadorMetPosicionar();
+                _Grid);
+            // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
         }
 
         // ELIMINAR
@@ -311,6 +324,17 @@ namespace CapaVista_Navegador
                 return;
             }
 
+            if (NavegadorFuncGuardar())
+            {
+                _Formulario.NavegadorMetCerrar();
+            }
+        }
+
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+        // Guarda el registro del panel. Devuelve true si se guardó (el panel se cierra) y false si hubo
+        // una validación o un error (el panel queda abierto para corregir).
+        private bool NavegadorFuncGuardar()
+        {
             Dictionary<string, string> Datos =
                 _Formulario.NavegadorFuncObtenerDatos();
 
@@ -332,11 +356,11 @@ namespace CapaVista_Navegador
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
 
-                    _Formulario.NavegadorMetCerrar();
-
                     _PkModificar = null;
 
                     NavegadorFuncConsultarTabla();
+
+                    return true;
                 }
                 else if (!string.IsNullOrEmpty(Mensaje))
                 {
@@ -356,7 +380,10 @@ namespace CapaVista_Navegador
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+
+            return false;
         }
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
 
         // CANCELAR
         public void NavegadorMetCancelar()
@@ -364,8 +391,6 @@ namespace CapaVista_Navegador
             _Formulario.NavegadorMetCerrar();
 
             _PkModificar = null;
-
-            NavegadorMetPosicionar();
         }
 
         // OCULTAR GRID
@@ -373,6 +398,19 @@ namespace CapaVista_Navegador
         {
             _Grid.NavegadorMetOcultar();
         }
+
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+        // SALIR: minimiza el CRUD. Cierra el panel del registro (si estaba abierto) y contrae el Navegador
+        // a solo la barra de botones; el formulario que lo contiene sigue abierto.
+        public void NavegadorMetMinimizar()
+        {
+            _Formulario.NavegadorMetCerrar();
+
+            _PkModificar = null;
+
+            _Grid.NavegadorMetOcultar();
+        }
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
 
         // INICIO
         public void NavegadorMetInicio()

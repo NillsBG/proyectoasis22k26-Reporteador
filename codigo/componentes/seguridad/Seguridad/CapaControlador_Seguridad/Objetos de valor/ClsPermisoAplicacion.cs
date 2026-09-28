@@ -6,6 +6,18 @@ using System.Threading.Tasks;
 
 namespace CapaControlador_Seguridad.Objetos_de_valor
 {
+    /*
+ * ==================================================================
+ * Área: Seguridad
+ * Autores: Lourdes Isabel Melendez Pineda
+ * Fecha o ultima edicion: 23/09/2026
+ * ==================================================================
+ * Propósito: Clase que representa los permisos de un usuario sobre
+ * una aplicación (Insertar, Editar, Eliminar, Imprimir).
+ * Incluye un método para combinar los permisos de varios
+ * roles, quedándose con el permiso más alto entre ellos.
+ * ===================================================================
+ */
     public class ClsPermisoAplicacion
     {
         public bool TieneAcceso { get; set; }

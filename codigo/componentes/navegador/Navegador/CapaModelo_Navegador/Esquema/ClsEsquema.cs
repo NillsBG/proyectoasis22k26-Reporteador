@@ -1,3 +1,4 @@
+// Inicio - Gabriel André Guillén Pocón 0901-23-1998.
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,15 +8,16 @@ using System.Linq;
 namespace CapaModelo_Navegador
 {
     // Todo lo relacionado a la estructura de una tabla: columnas, llaves, tipos
-    public class ClsEsquema
+    public class ClsEsquema : CapaModelo_Seguridad.ClsConexion
     {
-        private ClsConexionBD _ConexionBD = new ClsConexionBD();
 
         public List<string> NavegadorFuncObtenerTablas()
         {
             List<string> Tablas = new List<string>();
-            using (OdbcConnection Conexion = _ConexionBD.NavegadorFuncConexion())
+            using (OdbcConnection Conexion = SeguridadMetObtenerConexion())
             {
+                Conexion.Open();
+
                 foreach (DataRow Fila in Conexion.GetSchema("Tables").Rows)
                 {
                     string Tipo = NavegadorFuncValorSeguro(Fila, "TABLE_TYPE");
@@ -38,10 +40,14 @@ namespace CapaModelo_Navegador
         {
             List<string> Columnas = new List<string>();
 
-            using (OdbcConnection Conexion = _ConexionBD.NavegadorFuncConexion())
+            using (OdbcConnection Conexion = SeguridadMetObtenerConexion())
+            {
+                Conexion.Open();
+
                 foreach (DataRow Fila in Conexion.GetSchema("Columns",
                     new string[] { null, null, NombreTabla, null }).Rows)
                     Columnas.Add(Convert.ToString(Fila["COLUMN_NAME"]));
+            }
 
             return Columnas;
         }
@@ -52,8 +58,10 @@ namespace CapaModelo_Navegador
             ClsValidaciones.NavegadorMetValidarIdentificador(NombreTabla);
             List<ClsColumnaInfo> Lista = new List<ClsColumnaInfo>();
 
-            using (OdbcConnection Conexion = _ConexionBD.NavegadorFuncConexion())
+            using (OdbcConnection Conexion = SeguridadMetObtenerConexion())
             {
+                Conexion.Open();
+
                 DataTable Columnas = Conexion.GetSchema("Columns",
                     new string[] { null, null, NombreTabla, null });
 
@@ -290,10 +298,12 @@ namespace CapaModelo_Navegador
             ClsValidaciones.NavegadorMetValidarIdentificador(NombreTabla);
             ClsValidaciones.NavegadorMetValidarIdentificador(ColumnaPK);
 
-            using (OdbcConnection Conexion = _ConexionBD.NavegadorFuncConexion())
+            using (OdbcConnection Conexion = SeguridadMetObtenerConexion())
             using (OdbcCommand Comando = new OdbcCommand(
                 "SELECT MAX(" + ColumnaPK + ") FROM " + NombreTabla, Conexion))
             {
+                Conexion.Open();
+
                 object Resultado = Comando.ExecuteScalar();
                 long Maximo;
 
@@ -309,3 +319,4 @@ namespace CapaModelo_Navegador
         }
     }
 }
+// Fin - Gabriel André Guillén Pocón 0901-23-1998.

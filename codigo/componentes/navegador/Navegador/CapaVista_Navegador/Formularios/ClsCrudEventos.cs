@@ -7,18 +7,13 @@ namespace CapaVista_Navegador.formularios
     {
         private readonly ClsCrudCoordinador _Coordinador;
 
-        public ClsCrudEventos(
-            Control Formulario,
-            string Tabla,
-            string UsuarioActual,
-            string CodigoModulo)
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+        // Se quitaron UsuarioActual y CodigoModulo: no se usaban (el usuario sale de la sesión de Seguridad).
+        public ClsCrudEventos(Navegador Formulario, string Tabla)
         {
-            _Coordinador = new ClsCrudCoordinador(
-                Formulario,
-                Tabla,
-                UsuarioActual,
-                CodigoModulo);
+            _Coordinador = new ClsCrudCoordinador(Formulario, Tabla);
         }
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
 
         // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
         // Nombre de la tabla sobre la que trabaja el CRUD; lo cambia quien usa el navegador.
@@ -59,6 +54,13 @@ namespace CapaVista_Navegador.formularios
             _Coordinador.NavegadorMetEliminar();
         }
 
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+        public void NavegadorMetMinimizar()
+        {
+            _Coordinador.NavegadorMetMinimizar();
+        }
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
+
         public void NavegadorMetGuardar()
         {
             _Coordinador.NavegadorMetGuardar();
@@ -92,11 +94,6 @@ namespace CapaVista_Navegador.formularios
         public void NavegadorMetImprimir()
         {
             _Coordinador.NavegadorMetImprimir();
-        }
-
-        public void NavegadorMetPosicionar()
-        {
-            _Coordinador.NavegadorMetPosicionar();
         }
     }
 }

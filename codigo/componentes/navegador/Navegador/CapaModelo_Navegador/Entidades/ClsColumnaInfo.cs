@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Inicio - José Javier Torres Martínez 0901-23-1091.
+using System;
 
 namespace CapaModelo_Navegador
 {
@@ -23,3 +20,4 @@ namespace CapaModelo_Navegador
         public string ColumnaFK { get; set; }
     }
 }
+// Fin - José Javier Torres Martínez 0901-23-1091.

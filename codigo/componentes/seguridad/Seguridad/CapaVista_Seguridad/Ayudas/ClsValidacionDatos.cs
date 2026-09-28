@@ -7,6 +7,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CapaVista_Seguridad.Ayudas
 {
+
+    /*
+ * ==================================================================
+ * Área: Seguridad
+ * Autores: Lourdes Isabel Melendez Pineda
+ * Fecha: 1/09/2026
+ * ==================================================================
+ * Propósito : Clase auxiliar de la capa Vista para validar, mediante
+ * Data Annotations, los datos de un objeto antes de grabarlos.
+ * Si existen errores, los muestra al usuario en un MessageBox.
+ * ===================================================================
+ */
     public class ClsValidacionDatos
     {
         private ValidationContext _Contexto;

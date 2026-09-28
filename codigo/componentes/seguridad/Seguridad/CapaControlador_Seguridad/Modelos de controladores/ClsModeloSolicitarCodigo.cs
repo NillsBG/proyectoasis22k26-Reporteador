@@ -1,3 +1,19 @@
+/*
+ * ==============================
+ * Área : Seguridad
+ * Autor : Byron Alexander Chiquito Paredes
+ * Carné : 0901-23-3747
+ * Fecha : 24/09/2026
+ * ==============================
+ * Propósito :
+ * Controlador que valida el usuario y correo ingresados,
+ * genera el código de verificación de recuperación de
+ * contraseña, controla el tiempo de espera entre
+ * solicitudes y coordina el envío del código por correo
+ * electrónico
+ * ==============================
+ */
+
 using CapaControlador_Seguridad.Correo;
 using CapaModelo_Seguridad.Contratos;
 using CapaModelo_Seguridad.Repositorios;

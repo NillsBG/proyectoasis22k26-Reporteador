@@ -10,6 +10,24 @@ using System.Data.Odbc;
 using CapaModelo_Seguridad.Entidades;
 using CapaModelo_Seguridad.Repositorios;
 
+
+
+/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : Carlos David Calderón Ramirez
+ * Carné : 9959-23-848
+ * Fecha : 22/09/2026
+ * ==================================================================
+ * Propósito :
+ *  La clase de Modelo Controlador del módulo de Mantenimiento
+ *  de Empleados en esta clase se encuentran las validaciones necesarias
+ *  para un buen funsionamiento del sistema tambien se encunetra los campos
+ *  requeridos y en general se encuentra el manejo de errores
+ * ===================================================================
+*/
+
+
 namespace CapaControlador_Seguridad
 {
     public class ClsModeloEmpleado
@@ -40,18 +58,23 @@ namespace CapaControlador_Seguridad
         public string CodigoEmpleado { get => _CodigoEmpleado; set => _CodigoEmpleado = value; }
 
         [Required(ErrorMessage = "El campo Dpi es requerido")]
-        [StringLength(13, MinimumLength = 13, ErrorMessage = "El Dpi debe tener 13 dígitos")]
+        [RegularExpression(@"^\d{13}$", ErrorMessage = "El Dpi debe tener 13 dígitos numéricos")]
+        
         public string DpiEmpleado { get => _DpiEmpleado; set => _DpiEmpleado = value; }
 
+        [RegularExpression(@"^\d{7}-[0-9a-zA-Z]$", ErrorMessage = "El Nit debe tener el formato 1234567-8 o 1234567-A")]
         public string NitEmpleado { get => _NitEmpleado; set => _NitEmpleado = value; }
 
         [Required(ErrorMessage = "El campo Nombres es requerido")]
+        [RegularExpression("^[a-zA-Zá-ú ]+$", ErrorMessage = "El campo Nombre debe ser solo letras")]
         public string NombresEmpleado { get => _NombresEmpleado; set => _NombresEmpleado = value; }
 
         [Required(ErrorMessage = "El campo Apellidos es requerido")]
+        [RegularExpression("^[a-zA-Zá-ú ]+$", ErrorMessage = "El campo Apellidos debe ser solo letras")]
         public string ApellidosEmpleado { get => _ApellidosEmpleado; set => _ApellidosEmpleado = value; }
 
         [Required(ErrorMessage = "El campo Puesto es requerido")]
+        [RegularExpression("^[a-zA-Zá-ú ]+$", ErrorMessage = "El campo Puesto debe ser solo letras")]
         public string PuestoEmpleado { get => _PuestoEmpleado; set => _PuestoEmpleado = value; }
 
         [Required(ErrorMessage = "El campo Género es requerido")]
@@ -63,8 +86,10 @@ namespace CapaControlador_Seguridad
         [Required(ErrorMessage = "El campo Fecha de Contratación es requerido")]
         public DateTime FechaContratacionEmpleado { get => _FechaContratacionEmpleado; set => _FechaContratacionEmpleado = value; }
 
+        [RegularExpression(@"^\d{8}$", ErrorMessage = "El Telefono debe tener 8 dígitos numéricos")]
         public string TelefonoEmpleado { get => _TelefonoEmpleado; set => _TelefonoEmpleado = value; }
 
+        [RegularExpression(@"^[^@\s]+@[^@\s]+.[^@\s]+$", ErrorMessage = "El correo no tiene un formato válido")]
         public string CorreoEmpleado { get => _CorreoEmpleado; set => _CorreoEmpleado = value; }
 
         public bool IsActive { get => _IsActive; set => _IsActive = value; }
@@ -130,30 +155,35 @@ namespace CapaControlador_Seguridad
             catch (OdbcException Ex)
             {
                 bool esErrorLlaveForanea = false;
+                bool esValorDuplicado = false;
+                bool esDatoDemasiadoLargo = false;
+
                 foreach (OdbcError error in Ex.Errors)
                 {
-                    if (error.NativeError == 1451)
-                    {
+                    if (error.NativeError == 1451 || error.NativeError == 1452)
                         esErrorLlaveForanea = true;
-                        break;
-                    }
+                    else if (error.NativeError == 1062)
+                        esValorDuplicado = true;
+                    else if (error.NativeError == 1406)
+                        esDatoDemasiadoLargo = true;
                 }
 
                 if (esErrorLlaveForanea)
-                {
-                    Mensaje = "No se puede eliminar este empleado porque tiene información relacionada en otro módulo del sistema. Elimine o reasigne esa información primero.";
-                }
+                    Mensaje = "No se puede eliminar este empleado porque tiene una relacion en otro módulo del sistema.";
+                else if (esValorDuplicado)
+                    Mensaje = "Ya existe un registro con ese código, DPI, NIT o correo. Verifique los datos ingresados.";
+                else if (esDatoDemasiadoLargo)
+                    Mensaje = "Uno de los campos ingresados excede la longitud permitida.";
                 else
-                {
-                    Mensaje = Ex.ToString();
-                }
+                    Mensaje = "Ocurrió un problema al procesar la solicitud. Verifique los datos e intente nuevamente.";
             }
             catch (Exception Ex)
             {
-                Mensaje = Ex.ToString();
+                Mensaje = "Ocurrió un error inesperado en el sistema. Intente nuevamente o contacte al administrador.";
             }
             return Mensaje;
         }
+
 
         public List<ClsModeloEmpleado> SeguridadMetObtenerTodos()
         {
@@ -183,9 +213,9 @@ namespace CapaControlador_Seguridad
             return _ListaEmpleado;
         }
 
-        public IEnumerable<ClsModeloEmpleado> SeguridadMetBuscarPorId(int IdEmpleado)
+        public IEnumerable<ClsModeloEmpleado> SeguridadMetBuscarPorId(string CodigoEmpleado)
         {
-            return _ListaEmpleado.FindAll(e => e._IdEmpleado == IdEmpleado);
+            return _ListaEmpleado.FindAll(e => e._CodigoEmpleado == CodigoEmpleado);
         }
     }
 }

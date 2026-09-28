@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +36,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CapaControlador_Consultas">
+      <HintPath>..\..\..\consultas\Consultas\CapaControlador_Consultas\bin\Debug\CapaControlador_Consultas.dll</HintPath>
+    </Reference>
     <Reference Include="CapaControlador_Navegador, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\CapaControlador_Navegador\bin\Debug\CapaControlador_Navegador.dll</HintPath>
@@ -45,15 +48,25 @@
     <Reference Include="CapaModelo_Navegador">
       <HintPath>..\CapaModelo_Navegador\bin\Debug\CapaModelo_Navegador.dll</HintPath>
     </Reference>
+    <Reference Include="CapaVista_Componentes">
+      <HintPath>..\..\..\consultas\Consultas_Componentes\CapaVista_Componentes\bin\Debug\CapaVista_Componentes.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_Consultas">
+      <HintPath>..\..\..\consultas\Consultas\CapaVista_Consultas\bin\Debug\CapaVista_Consultas.dll</HintPath>
+    </Reference>
+    <Reference Include="CapaVista_Mantenimiento">
+      <HintPath>..\..\..\consultas\Consultas_Mantenimiento\CapaVista_Mantenimiento\bin\Debug\CapaVista_Mantenimiento.dll</HintPath>
+    </Reference>
     <!-- Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998 -->
     <!-- Componente Seguridad: permisos (ClsSeguridadFormHelper), sesión y bitácora, encapsulados dentro del navegador.
          El control Navegador y su bitácora ya no viven en una solución aparte: se unificaron aquí mismo
          (una sola solución "Navegador", como pidió el catedrático) por lo que ahora se referencia
          directamente el componente Seguridad en vez de la DLL de la extinta solución "Navegador". -->
-    <Reference Include="CapaVista_Seguridad">
-      <HintPath>$(SeguridadBin)\CapaVista_Seguridad\bin\Debug\CapaVista_Seguridad.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <!-- ===================== INICIO CAMBIO COMPONENTE NAVEGADOR =====================
+         Se ELIMINO la referencia a CapaVista_Seguridad (HintPath $(SeguridadBin)\CapaVista_Seguridad\bin\Debug\CapaVista_Seguridad.dll).
+         Motivo: CapaVista_Seguridad ya referencia a CapaVista_Navegador; tener ambas creaba una dependencia circular.
+         Los permisos ahora los aplica ClsNavegadorPermisos usando solo CapaControlador_Seguridad.
+         ====================== FIN CAMBIO COMPONENTE NAVEGADOR ======================= -->
     <Reference Include="CapaControlador_Seguridad">
       <HintPath>$(SeguridadBin)\CapaControlador_Seguridad\bin\Debug\CapaControlador_Seguridad.dll</HintPath>
       <Private>True</Private>
@@ -74,13 +87,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="formularios\FrmNavegadorCrud.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formularios\FrmNavegadorCrud.Designer.cs">
-      <DependentUpon>FrmNavegadorCrud.cs</DependentUpon>
-    </Compile>
     <Compile Include="formularios\ClsCrudCoordinador.cs" />
+    <Compile Include="formularios\ClsNavegadorAcciones.cs" />
+    <Compile Include="ayudas\ClsNavegadorAyuda.cs" />
+    <Compile Include="seguridad\ClsNavegadorSesion.cs" />
     <Compile Include="formularios\ClsCrudEventos.cs" />
     <Compile Include="utilidades\ClsCrudAcciones.cs" />
     <Compile Include="componente\ClsCrudFormulario.cs" />
@@ -95,6 +105,10 @@
     <!-- Inicio cambio - fusion de la solucion "Navegador" dentro de esta unica solucion MVC -->
     <Compile Include="Seguridad\ClsCrudSeguridad.cs" />
     <Compile Include="Seguridad\ClsNavegadorBitacora.cs" />
+    <!-- ===================== INICIO CAMBIO COMPONENTE NAVEGADOR =====================
+         Archivo NUEVO: reemplaza el uso de ClsSeguridadFormHelper (que era de CapaVista_Seguridad).
+         ====================== FIN CAMBIO COMPONENTE NAVEGADOR ======================= -->
+    <Compile Include="Seguridad\ClsNavegadorPermisos.cs" />
     <Compile Include="Navegador.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -104,16 +118,24 @@
     <!-- Fin cambio -->
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="formularios\FrmNavegadorCrud.resx">
-      <DependentUpon>FrmNavegadorCrud.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <!-- La ayuda del Navegador viaja dentro de la DLL (ver ClsNavegadorAyuda). -->
+    <EmbeddedResource Include="..\..\..\..\..\ayuda\componentes\navegador\Navegador.chm">
+      <Link>Ayudas\Navegador.chm</Link>
+      <LogicalName>Navegador.chm</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="Navegador.resx">
       <DependentUpon>Navegador.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Inicio - Roger Yankhel de Jesús Herrera Alcántara 0901-23-2429. -->
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Compile Include="Ayudas\ClsValidacionDatos.cs" />
+  </ItemGroup>
+  <!-- Fin - Roger Yankhel de Jesús Herrera Alcántara 0901-23-2429. -->
 </Project>

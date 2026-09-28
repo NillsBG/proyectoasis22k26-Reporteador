@@ -4,6 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * ==================================================================
+ * Área: Seguridad
+ * Autores: Lourdes Isabel Melendez Pineda
+ * Fecha o ultima edicion: 23/09/2026
+ * ==================================================================
+ * Propósito : Entidad de la capa Modelo Sus propiedades (get/set)
+ * guardan el Rol, Módulo y Aplicación relacionados, los
+ * permisos de Insertar, Editar, Eliminar e Imprimir, y las
+ * fechas de creación y última actualización del registro.
+ * ===================================================================
+ */
+
+
 namespace CapaModelo_Seguridad.Entidades
 {
     public class ClsAsigAppPerf

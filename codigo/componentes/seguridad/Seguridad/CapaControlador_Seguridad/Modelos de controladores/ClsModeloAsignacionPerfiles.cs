@@ -7,6 +7,26 @@ using System.Data;
 using System.Data.Odbc;
 using System.Linq;
 
+
+ /* ============================================================
+ * Área : Seguridad
+ * Autor : Daniella Jurado
+ * Carné : 0901-23-3679
+ * Fecha : 23/09/2026
+ * ============================================================
+ * Propósito :
+ * Esta clase se encarga de controlar la información relacionada
+ * con la asignación de perfiles a los usuarios. Valida los datos
+ * antes de realizar una operación y permite agregar, modificar
+ * y eliminar asignaciones mediante el repositorio correspondiente.
+ * También permite consultar todas las asignaciones, buscar las
+ * asignaciones de un usuario específico y obtener los usuarios y
+ * perfiles activos disponibles para realizar nuevas asignaciones.
+ * Además, registra en la bitácora las acciones realizadas sobre
+ * las asignaciones para mantener un historial de los cambios.
+ * ============================================================
+ */
+
 namespace CapaControlador_Seguridad
 {
     public class ClsModeloAsignacionPerfiles

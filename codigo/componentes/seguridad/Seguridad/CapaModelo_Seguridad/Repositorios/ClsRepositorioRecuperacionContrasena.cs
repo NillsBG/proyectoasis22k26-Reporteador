@@ -1,3 +1,25 @@
+/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : Byron Alexander Chiquito Paredes
+ * Carné : 0901-23-3747
+ * Fecha : 24/09/2026
+ * ==================================================================
+ * Propósito :
+ *  El ClsRepositorioRecuperacionContrasena es el repositorio
+ *  encargado del acceso a datos del proceso de recuperación de
+ *  contraseña: verifica usuario y correo, guarda el token de
+ *  recuperación con su fecha de expiración, lo busca al validarlo
+ *  y elimina los tokens usados o vencidos.
+ * Reglas especificas:
+ *  El usuario solo se encuentra si tanto él como su empleado
+ *  asociado están activos (is_active = 1 en ambas tablas); un
+ *  token solo es válido para buscar el usuario si no ha sido
+ *  usado (usadoRecuperacionContrasena = FALSE) y no ha expirado
+ *  (fechaExpiracionRecuperacionContrasena > NOW()).
+ * ===================================================================
+*/
+
 using CapaModelo_Seguridad.Contratos;
 using System;
 using System.Collections.Generic;

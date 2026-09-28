@@ -46,7 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tablas\ClsTablas.cs" />
+    <Compile Include="ClsConsultaSeleccionada.cs" />
+    <Compile Include="ClsControladorFiltroSimple.cs" />
+    <Compile Include="ClsTablaSeleccionada.cs" />
+    <Compile Include="ClsTablas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

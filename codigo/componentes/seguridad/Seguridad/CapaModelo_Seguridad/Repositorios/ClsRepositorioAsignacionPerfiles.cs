@@ -5,6 +5,25 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 
+
+ /* ============================================================
+ * Área : Seguridad
+ * Autor : Daniella Jurado
+ * Carné : 0901-23-3679
+ * Fecha : 23/09/2026
+ * ============================================================
+ * Propósito :
+ * Este repositorio se encarga de administrar la relación entre los
+ * usuarios y los perfiles del sistema. Permite consultar las
+ * asignaciones existentes mostrando el usuario, el perfil asignado
+ * y la fecha de asignación, además de registrar nuevas asignaciones,
+ * modificar la fecha de asignación y eliminar relaciones existentes.
+ * También permite obtener el listado de usuarios y perfiles que se
+ * encuentran activos para realizar nuevas asignaciones.
+ * ============================================================
+ */
+
+
 namespace CapaModelo_Seguridad.Repositorios
 {
     public class ClsRepositorioAsignacionPerfiles : ClsSentencias, IRepositorioAsignacionPerfiles

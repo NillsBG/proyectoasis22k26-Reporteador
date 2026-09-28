@@ -1,7 +1,24 @@
-﻿using System;
-using System.Data;
+﻿/*
+ * ==================================================================
+ * Área : Seguridad
+ * Autor : Victor Samayoa y Oscar Morales
+ * Carné : 9959-23-3424 y 9959-23-3070
+ * Fecha : 24/09/2026
+ * ==================================================================
+ *  El ClsModeloModulo es el controlador que valida y prepara los
+ *  datos de un módulo antes de enviarlos al repositorio, aplica
+ *  reglas especificas: no permitir nombres de módulo duplicados,
+ *  informar errores de forma clara cuando ocurre un problema de
+ *  base de datos, y registrar cada operación (Agregar, Editar,
+ *  Eliminar) en la bitácora del sistema.
+ * ===================================================================
+*/
+
 using CapaModelo_Seguridad.Entidades;
 using CapaModelo_Seguridad.Repositorios;
+using System;
+using System.Data;
+using System.Data.Odbc;
 
 namespace CapaControlador_Seguridad
 {
@@ -58,9 +75,16 @@ namespace CapaControlador_Seguridad
                         break;
                 }
             }
+            catch (OdbcException ex)
+            {
+                if (ex.Errors.Count > 0 && ex.Errors[0].NativeError == 1062)
+                    Mensaje = "Ya existe un módulo con ese nombre. Use un nombre diferente.";
+                else
+                    Mensaje = "Ocurrió un problema al procesar la solicitud. Verifique los datos e intente nuevamente.";
+            }
             catch (Exception ex)
             {
-                Mensaje = "Error: " + ex.Message;
+                Mensaje = "Ocurrió un error inesperado en el sistema. Intente nuevamente o contacte al administrador.";
             }
             return Mensaje;
         }
@@ -68,6 +92,10 @@ namespace CapaControlador_Seguridad
         public DataTable SeguridadMetObtenerModulosTabla()
         {
             return _RepositorioModulo.SeguridadMetObtenerModulosTabla();
+        }
+        public DataTable SeguridadMetObtenerModulosReporte()
+        {
+            return _RepositorioModulo.SeguridadMetObtenerModulosReporte();
         }
     }
 }

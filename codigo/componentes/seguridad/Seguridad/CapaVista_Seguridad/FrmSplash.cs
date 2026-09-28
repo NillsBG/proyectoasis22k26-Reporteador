@@ -8,6 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*
+ * ============================================================
+ * Área         : Seguridad
+ * Autor        : Evelyn Sofía Andrade Luna
+ * Carné        : 9959-23-1224
+ * Fecha        : 24/09/2026
+ * ============================================================
+ * Propósito    :
+ *   Formulario de presentación inicial del componente de Seguridad.
+ *   Muestra una barra de progreso animada mientras se cargan
+ *   los recursos del sistema. Al completarse la carga al 100%,
+ *   cierra el splash y abre el formulario principal MDI.
+ * ============================================================
+ */
+
 namespace CapaVista_Seguridad
 {
     public partial class FrmSplash : Form

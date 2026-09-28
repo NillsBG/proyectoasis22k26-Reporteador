@@ -1,3 +1,18 @@
+/*
+ * ==============================
+ * Área : Seguridad
+ * Autor : Byron Alexander Chiquito Paredes
+ * Carné : 0901-23-3747
+ * Fecha : 24/09/2026
+ * ==============================
+ * Propósito :
+ * Clase encargada de generar el contenido HTML del correo
+ * de recuperación de contraseña, incluyendo el encabezado
+ * y pie institucional de la empresa, el nombre del usuario
+ * y el código de verificación a enviar
+ * ==============================
+ */
+
 namespace CapaControlador_Seguridad.Correo
 {
     

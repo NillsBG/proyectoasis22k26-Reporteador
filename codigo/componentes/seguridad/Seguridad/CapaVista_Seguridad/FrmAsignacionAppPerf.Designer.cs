@@ -31,7 +31,7 @@ namespace CapaVista_Seguridad
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAsignacionAppPerf));
             this.PnlSeguridadPnlDecorativo = new System.Windows.Forms.Panel();
             this.TxtSeguridadFiltro = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LblSeguridadBusqueda = new System.Windows.Forms.Label();
             this.CboSeguridadAplicaciones = new System.Windows.Forms.ComboBox();
             this.CboSeguridadModulos = new System.Windows.Forms.ComboBox();
             this.CboSeguridadPerfiles = new System.Windows.Forms.ComboBox();
@@ -48,7 +48,6 @@ namespace CapaVista_Seguridad
             this.BtnSeguridadAgregar = new System.Windows.Forms.Button();
             this.DgvSeguridadListaUsuarios = new System.Windows.Forms.DataGridView();
             this.BtnSeguridadQuitar = new System.Windows.Forms.Button();
-            this.BtnSeguridadImprimir = new System.Windows.Forms.Button();
             this.BtnSeguridadSalir = new System.Windows.Forms.Button();
             this.PnlSeguridadFormulario = new System.Windows.Forms.Panel();
             this.BtnSeguridadAyuda = new System.Windows.Forms.Button();
@@ -64,6 +63,7 @@ namespace CapaVista_Seguridad
             this.BtnSeguridadFin = new System.Windows.Forms.Button();
             this.BtnSeguridadAnterior = new System.Windows.Forms.Button();
             this.BtnSeguridadGuardar = new System.Windows.Forms.Button();
+            this.LblSeguridadContador = new System.Windows.Forms.Label();
             this.PnlSeguridadPnlDecorativo.SuspendLayout();
             this.PnlSeguridadPermisos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvSeguridadListaUsuarios)).BeginInit();
@@ -77,7 +77,7 @@ namespace CapaVista_Seguridad
             this.PnlSeguridadPnlDecorativo.BackColor = System.Drawing.Color.AntiqueWhite;
             this.PnlSeguridadPnlDecorativo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.PnlSeguridadPnlDecorativo.Controls.Add(this.TxtSeguridadFiltro);
-            this.PnlSeguridadPnlDecorativo.Controls.Add(this.label1);
+            this.PnlSeguridadPnlDecorativo.Controls.Add(this.LblSeguridadBusqueda);
             this.PnlSeguridadPnlDecorativo.Controls.Add(this.CboSeguridadAplicaciones);
             this.PnlSeguridadPnlDecorativo.Controls.Add(this.CboSeguridadModulos);
             this.PnlSeguridadPnlDecorativo.Controls.Add(this.CboSeguridadPerfiles);
@@ -102,16 +102,16 @@ namespace CapaVista_Seguridad
             this.TxtSeguridadFiltro.Size = new System.Drawing.Size(260, 32);
             this.TxtSeguridadFiltro.TabIndex = 19;
             // 
-            // label1
+            // LblSeguridadBusqueda
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DimGray;
-            this.label1.Location = new System.Drawing.Point(1027, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(244, 28);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Filtra por ID de Asignacion";
+            this.LblSeguridadBusqueda.AutoSize = true;
+            this.LblSeguridadBusqueda.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblSeguridadBusqueda.ForeColor = System.Drawing.Color.DimGray;
+            this.LblSeguridadBusqueda.Location = new System.Drawing.Point(1024, 69);
+            this.LblSeguridadBusqueda.Name = "LblSeguridadBusqueda";
+            this.LblSeguridadBusqueda.Size = new System.Drawing.Size(274, 25);
+            this.LblSeguridadBusqueda.TabIndex = 18;
+            this.LblSeguridadBusqueda.Text = "Escribe el ROL que deseas buscar ";
             // 
             // CboSeguridadAplicaciones
             // 
@@ -149,11 +149,11 @@ namespace CapaVista_Seguridad
             this.LblSeguridadNombreAplicaciones.AutoSize = true;
             this.LblSeguridadNombreAplicaciones.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblSeguridadNombreAplicaciones.ForeColor = System.Drawing.Color.DimGray;
-            this.LblSeguridadNombreAplicaciones.Location = new System.Drawing.Point(617, 20);
+            this.LblSeguridadNombreAplicaciones.Location = new System.Drawing.Point(616, 20);
             this.LblSeguridadNombreAplicaciones.Name = "LblSeguridadNombreAplicaciones";
-            this.LblSeguridadNombreAplicaciones.Size = new System.Drawing.Size(121, 28);
+            this.LblSeguridadNombreAplicaciones.Size = new System.Drawing.Size(139, 28);
             this.LblSeguridadNombreAplicaciones.TabIndex = 4;
-            this.LblSeguridadNombreAplicaciones.Text = "Aplicaciones";
+            this.LblSeguridadNombreAplicaciones.Text = "Aplicaciones * ";
             // 
             // LblSeguridadNombreModulos
             // 
@@ -162,9 +162,9 @@ namespace CapaVista_Seguridad
             this.LblSeguridadNombreModulos.ForeColor = System.Drawing.Color.DimGray;
             this.LblSeguridadNombreModulos.Location = new System.Drawing.Point(315, 20);
             this.LblSeguridadNombreModulos.Name = "LblSeguridadNombreModulos";
-            this.LblSeguridadNombreModulos.Size = new System.Drawing.Size(90, 28);
+            this.LblSeguridadNombreModulos.Size = new System.Drawing.Size(108, 28);
             this.LblSeguridadNombreModulos.TabIndex = 2;
-            this.LblSeguridadNombreModulos.Text = "Modulos";
+            this.LblSeguridadNombreModulos.Text = "Modulos * ";
             // 
             // LblSeguridadNombrePerfil
             // 
@@ -173,9 +173,9 @@ namespace CapaVista_Seguridad
             this.LblSeguridadNombrePerfil.ForeColor = System.Drawing.Color.DimGray;
             this.LblSeguridadNombrePerfil.Location = new System.Drawing.Point(44, 20);
             this.LblSeguridadNombrePerfil.Name = "LblSeguridadNombrePerfil";
-            this.LblSeguridadNombrePerfil.Size = new System.Drawing.Size(73, 28);
+            this.LblSeguridadNombrePerfil.Size = new System.Drawing.Size(86, 28);
             this.LblSeguridadNombrePerfil.TabIndex = 0;
-            this.LblSeguridadNombrePerfil.Text = "Perfiles";
+            this.LblSeguridadNombrePerfil.Text = "Perfiles *";
             // 
             // BtnSeguridadBuscar
             // 
@@ -278,7 +278,7 @@ namespace CapaVista_Seguridad
             this.BtnSeguridadAgregar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnSeguridadAgregar.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSeguridadAgregar.ForeColor = System.Drawing.Color.White;
-            this.BtnSeguridadAgregar.Location = new System.Drawing.Point(108, 206);
+            this.BtnSeguridadAgregar.Location = new System.Drawing.Point(184, 204);
             this.BtnSeguridadAgregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadAgregar.Name = "BtnSeguridadAgregar";
             this.BtnSeguridadAgregar.Size = new System.Drawing.Size(93, 86);
@@ -290,13 +290,14 @@ namespace CapaVista_Seguridad
             // 
             this.DgvSeguridadListaUsuarios.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DgvSeguridadListaUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvSeguridadListaUsuarios.Location = new System.Drawing.Point(39, 513);
+            this.DgvSeguridadListaUsuarios.Location = new System.Drawing.Point(39, 537);
             this.DgvSeguridadListaUsuarios.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DgvSeguridadListaUsuarios.Name = "DgvSeguridadListaUsuarios";
             this.DgvSeguridadListaUsuarios.RowHeadersWidth = 51;
             this.DgvSeguridadListaUsuarios.RowTemplate.Height = 24;
-            this.DgvSeguridadListaUsuarios.Size = new System.Drawing.Size(1332, 254);
+            this.DgvSeguridadListaUsuarios.Size = new System.Drawing.Size(1332, 231);
             this.DgvSeguridadListaUsuarios.TabIndex = 2;
+            this.DgvSeguridadListaUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvSeguridadListaUsuarios_CellContentClick);
             this.DgvSeguridadListaUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvSeguridadListaUsuarios_CellContentClick);
             // 
             // BtnSeguridadQuitar
@@ -306,27 +307,13 @@ namespace CapaVista_Seguridad
             this.BtnSeguridadQuitar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnSeguridadQuitar.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSeguridadQuitar.ForeColor = System.Drawing.Color.White;
-            this.BtnSeguridadQuitar.Location = new System.Drawing.Point(397, 208);
+            this.BtnSeguridadQuitar.Location = new System.Drawing.Point(481, 206);
             this.BtnSeguridadQuitar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadQuitar.Name = "BtnSeguridadQuitar";
             this.BtnSeguridadQuitar.Size = new System.Drawing.Size(93, 86);
             this.BtnSeguridadQuitar.TabIndex = 4;
             this.BtnSeguridadQuitar.UseVisualStyleBackColor = false;
             this.BtnSeguridadQuitar.Click += new System.EventHandler(this.BtnSeguridadQuitar_Click);
-            // 
-            // BtnSeguridadImprimir
-            // 
-            this.BtnSeguridadImprimir.BackColor = System.Drawing.Color.Teal;
-            this.BtnSeguridadImprimir.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_imprimirN;
-            this.BtnSeguridadImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadImprimir.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSeguridadImprimir.ForeColor = System.Drawing.Color.White;
-            this.BtnSeguridadImprimir.Location = new System.Drawing.Point(596, 208);
-            this.BtnSeguridadImprimir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.BtnSeguridadImprimir.Name = "BtnSeguridadImprimir";
-            this.BtnSeguridadImprimir.Size = new System.Drawing.Size(93, 86);
-            this.BtnSeguridadImprimir.TabIndex = 5;
-            this.BtnSeguridadImprimir.UseVisualStyleBackColor = false;
             // 
             // BtnSeguridadSalir
             // 
@@ -335,7 +322,7 @@ namespace CapaVista_Seguridad
             this.BtnSeguridadSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.BtnSeguridadSalir.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSeguridadSalir.ForeColor = System.Drawing.Color.White;
-            this.BtnSeguridadSalir.Location = new System.Drawing.Point(1189, 212);
+            this.BtnSeguridadSalir.Location = new System.Drawing.Point(1173, 204);
             this.BtnSeguridadSalir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadSalir.Name = "BtnSeguridadSalir";
             this.BtnSeguridadSalir.Size = new System.Drawing.Size(93, 86);
@@ -424,7 +411,7 @@ namespace CapaVista_Seguridad
             // 
             this.BtnSeguridadSiguiente.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_siguienteN;
             this.BtnSeguridadSiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadSiguiente.Location = new System.Drawing.Point(992, 210);
+            this.BtnSeguridadSiguiente.Location = new System.Drawing.Point(976, 206);
             this.BtnSeguridadSiguiente.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadSiguiente.Name = "BtnSeguridadSiguiente";
             this.BtnSeguridadSiguiente.Size = new System.Drawing.Size(93, 86);
@@ -436,18 +423,19 @@ namespace CapaVista_Seguridad
             // 
             this.BtnSeguridadReporte.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_reporte;
             this.BtnSeguridadReporte.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadReporte.Location = new System.Drawing.Point(497, 209);
+            this.BtnSeguridadReporte.Location = new System.Drawing.Point(580, 204);
             this.BtnSeguridadReporte.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadReporte.Name = "BtnSeguridadReporte";
             this.BtnSeguridadReporte.Size = new System.Drawing.Size(93, 86);
             this.BtnSeguridadReporte.TabIndex = 9;
             this.BtnSeguridadReporte.UseVisualStyleBackColor = true;
+            this.BtnSeguridadReporte.Click += new System.EventHandler(this.BtnSeguridadReporte_Click);
             // 
             // BtnSeguridadActualizar
             // 
             this.BtnSeguridadActualizar.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_refrescarN;
             this.BtnSeguridadActualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadActualizar.Location = new System.Drawing.Point(695, 208);
+            this.BtnSeguridadActualizar.Location = new System.Drawing.Point(679, 204);
             this.BtnSeguridadActualizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadActualizar.Name = "BtnSeguridadActualizar";
             this.BtnSeguridadActualizar.Size = new System.Drawing.Size(93, 86);
@@ -459,7 +447,7 @@ namespace CapaVista_Seguridad
             // 
             this.BtnSeguridadModificar.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_modificarN;
             this.BtnSeguridadModificar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadModificar.Location = new System.Drawing.Point(203, 206);
+            this.BtnSeguridadModificar.Location = new System.Drawing.Point(283, 204);
             this.BtnSeguridadModificar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadModificar.Name = "BtnSeguridadModificar";
             this.BtnSeguridadModificar.Size = new System.Drawing.Size(93, 86);
@@ -471,7 +459,7 @@ namespace CapaVista_Seguridad
             // 
             this.BtnSeguridadInicio.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_inicioN;
             this.BtnSeguridadInicio.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadInicio.Location = new System.Drawing.Point(795, 210);
+            this.BtnSeguridadInicio.Location = new System.Drawing.Point(779, 206);
             this.BtnSeguridadInicio.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadInicio.Name = "BtnSeguridadInicio";
             this.BtnSeguridadInicio.Size = new System.Drawing.Size(93, 86);
@@ -483,7 +471,7 @@ namespace CapaVista_Seguridad
             // 
             this.BtnSeguridadFin.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_finN;
             this.BtnSeguridadFin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadFin.Location = new System.Drawing.Point(1091, 212);
+            this.BtnSeguridadFin.Location = new System.Drawing.Point(1075, 204);
             this.BtnSeguridadFin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadFin.Name = "BtnSeguridadFin";
             this.BtnSeguridadFin.Size = new System.Drawing.Size(93, 86);
@@ -495,7 +483,7 @@ namespace CapaVista_Seguridad
             // 
             this.BtnSeguridadAnterior.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_anteriorN;
             this.BtnSeguridadAnterior.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadAnterior.Location = new System.Drawing.Point(893, 210);
+            this.BtnSeguridadAnterior.Location = new System.Drawing.Point(877, 204);
             this.BtnSeguridadAnterior.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadAnterior.Name = "BtnSeguridadAnterior";
             this.BtnSeguridadAnterior.Size = new System.Drawing.Size(93, 86);
@@ -507,7 +495,7 @@ namespace CapaVista_Seguridad
             // 
             this.BtnSeguridadGuardar.BackgroundImage = global::CapaVista_Seguridad.Properties.Resources.btn_guardarN;
             this.BtnSeguridadGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.BtnSeguridadGuardar.Location = new System.Drawing.Point(301, 208);
+            this.BtnSeguridadGuardar.Location = new System.Drawing.Point(381, 204);
             this.BtnSeguridadGuardar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BtnSeguridadGuardar.Name = "BtnSeguridadGuardar";
             this.BtnSeguridadGuardar.Size = new System.Drawing.Size(93, 86);
@@ -515,12 +503,24 @@ namespace CapaVista_Seguridad
             this.BtnSeguridadGuardar.UseVisualStyleBackColor = true;
             this.BtnSeguridadGuardar.Click += new System.EventHandler(this.BtnSeguridadGuardar_Click);
             // 
+            // LblSeguridadContador
+            // 
+            this.LblSeguridadContador.AutoSize = true;
+            this.LblSeguridadContador.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblSeguridadContador.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.LblSeguridadContador.Location = new System.Drawing.Point(1123, 500);
+            this.LblSeguridadContador.Name = "LblSeguridadContador";
+            this.LblSeguridadContador.Size = new System.Drawing.Size(206, 23);
+            this.LblSeguridadContador.TabIndex = 16;
+            this.LblSeguridadContador.Text = "Mostrando 0 de 0 registros";
+            // 
             // FrmAsignacionAppPerf
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Linen;
-            this.ClientSize = new System.Drawing.Size(1405, 802);
+            this.ClientSize = new System.Drawing.Size(1387, 782);
+            this.Controls.Add(this.LblSeguridadContador);
             this.Controls.Add(this.BtnSeguridadGuardar);
             this.Controls.Add(this.BtnSeguridadAnterior);
             this.Controls.Add(this.BtnSeguridadFin);
@@ -530,7 +530,6 @@ namespace CapaVista_Seguridad
             this.Controls.Add(this.BtnSeguridadActualizar);
             this.Controls.Add(this.BtnSeguridadReporte);
             this.Controls.Add(this.PnlSeguridadFormulario);
-            this.Controls.Add(this.BtnSeguridadImprimir);
             this.Controls.Add(this.BtnSeguridadQuitar);
             this.Controls.Add(this.BtnSeguridadSalir);
             this.Controls.Add(this.DgvSeguridadListaUsuarios);
@@ -541,7 +540,7 @@ namespace CapaVista_Seguridad
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmAsignacionAppPerf";
-            this.Text = "2010- Asignacion Aplicacion Perfil";
+            this.Text = "2010 - Asignacion Aplicacion Perfil";
             this.Load += new System.EventHandler(this.FrmAsignacionAppPerf_Load);
             this.PnlSeguridadPnlDecorativo.ResumeLayout(false);
             this.PnlSeguridadPnlDecorativo.PerformLayout();
@@ -553,6 +552,7 @@ namespace CapaVista_Seguridad
             ((System.ComponentModel.ISupportInitialize)(this.PbNavegadorPbMascota)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PbNavegadorIconoAsigAppPerf)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -565,7 +565,6 @@ namespace CapaVista_Seguridad
         private System.Windows.Forms.Button BtnSeguridadAgregar;
         private System.Windows.Forms.Button BtnSeguridadBuscar;
         private System.Windows.Forms.Button BtnSeguridadQuitar;
-        private System.Windows.Forms.Button BtnSeguridadImprimir;
         private System.Windows.Forms.Button BtnSeguridadSalir;
         private System.Windows.Forms.Panel PnlSeguridadFormulario;
         private System.Windows.Forms.PictureBox PbNavegadorIconoAsigAppPerf;
@@ -590,7 +589,8 @@ namespace CapaVista_Seguridad
         private System.Windows.Forms.Button BtnSeguridadFin;
         private System.Windows.Forms.Button BtnSeguridadAnterior;
         private System.Windows.Forms.Button BtnSeguridadGuardar;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LblSeguridadBusqueda;
         private System.Windows.Forms.TextBox TxtSeguridadFiltro;
+        private System.Windows.Forms.Label LblSeguridadContador;
     }
 }

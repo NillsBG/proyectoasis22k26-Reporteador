@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Data.Odbc;
 using CapaControlador_Seguridad;
 using CapaControlador_Seguridad.Objetos_de_valor;
 
@@ -16,25 +15,17 @@ namespace CapaVista_Navegador
         // SeguridadMetRegistrarAccion usa otra clase de sesión (ClsSesion) fija en el usuario 1.
         // La IP se pasa en null y Seguridad la calcula sola.
         //
-        // El registro de bitácora se hace contra la base de datos de Seguridad. Si no hay conexión no
-        // debe reventar la acción que ya se guardó (Insertar/Modificar/Eliminar); se avisa con el
-        // diálogo estándar de Error (X roja y Aceptar) y se continúa.
-        public void NavegadorMetRegistrarBitacora(string Accion, string Tabla, int IdRegistro, string Detalles)
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+        // La bitácora se registra SIEMPRE por Seguridad, pero dentro de la transacción del CRUD:
+        // se usa la sobrecarga transaccional de ClsModeloBitacora (recibe la conexión y la transacción).
+        // No atrapa errores a propósito: si la bitácora falla, el error sube al CRUD y la transacción
+        // completa (operación + bitácora) se revierte, así nunca queda una sin la otra.
+        // El usuario de la bitácora es el de la sesión activa y la IP se pasa en null (Seguridad la calcula).
+        public void NavegadorMetRegistrarBitacora(string Accion, string Tabla, int IdRegistro, string Detalles, OdbcConnection Conexion, OdbcTransaction Transaccion)
         {
-            try
-            {
-                _Bitacora.SeguridadMetRegistrarBitacora(
-                    ClsSesionSeguridad.IdUsuario, Accion, Tabla, IdRegistro, Detalles, null);
-            }
-            catch (Exception Excepcion)
-            {
-                MessageBox.Show(
-                    "El registro se guardó, pero no se pudo registrar en la bitácora porque no hay conexión con la base de datos.\n\n" +
-                    Excepcion.Message,
-                    "Error de conexión",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
+            _Bitacora.SeguridadMetRegistrarBitacora(
+                ClsNavegadorSesion.NavegadorFuncIdUsuario(), Accion, Tabla, IdRegistro, Detalles, null, Conexion, Transaccion);
         }
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
     }
 }

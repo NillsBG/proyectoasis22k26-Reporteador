@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using CapaVista_Consultas;
 
 namespace Ejecucion_Consultas
 {
@@ -10,7 +11,15 @@ namespace Ejecucion_Consultas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CapaVista_Consultas.FrmConsultasSimples("tblConsulta"));
+            string[] Tablas =
+            {
+                "vwDetalleCompras",
+                "vwComprasPorProveedor",
+                "vwComprasPorProducto",
+                "tblConsulta"
+            };
+            Application.Run(new FrmEjecucion());
+            
         }
     }
 }

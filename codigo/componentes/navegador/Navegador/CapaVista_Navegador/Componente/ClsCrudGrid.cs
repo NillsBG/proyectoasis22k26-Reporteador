@@ -15,7 +15,7 @@ namespace CapaVista_Navegador
     public class ClsCrudGrid
     {
         // Guardamos el formulario donde se va a dibujar la tabla
-        private Control _Formulario;
+        private Navegador _Formulario;
 
         // Lista de controles del formulario mapeados con sus nombres de campo/columna
         private Dictionary<string, Control> _MapaControles;
@@ -23,10 +23,19 @@ namespace CapaVista_Navegador
         // Evento opcional para notificar la selección de fila hacia afuera si se requiere
         public event EventHandler<DataGridViewRow> AlSeleccionarFila;
 
+        // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+        // La tabla vive en el área desplegable del propio Navegador (abajo de la barra de botones): el
+        // Navegador se expande al consultar o ingresar y se contrae al ocultarla. Ver Navegador.NavegadorMetMostrarDetalle.
+        private const int _AltoTabla = 320;
+        private int _AltoSuperior;
+        private string _Titulo = "Registros";
+        private Label _LblTitulo;
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
+
         // Propiedad para acceder a la tabla desde fuera si hace falta
         public DataGridView NavegadorDgvDatos { get; private set; }
 
-        public ClsCrudGrid(Control Formulario)
+        public ClsCrudGrid(Navegador Formulario)
         {
             this._Formulario = Formulario;
             this._MapaControles = new Dictionary<string, Control>(StringComparer.OrdinalIgnoreCase);
@@ -49,7 +58,7 @@ namespace CapaVista_Navegador
                 NavegadorMetCrearGrid();
 
             NavegadorDgvDatos.DataSource = Datos;
-            NavegadorDgvDatos.Visible = true;
+            NavegadorMetMostrarDetalle();
             NavegadorDgvDatos.ReadOnly = true;
 
             // Bloqueamos las columnas para que el usuario no edite nada directo
@@ -66,8 +75,7 @@ namespace CapaVista_Navegador
         // Oculta la tabla si está creada
         public void NavegadorMetOcultar()
         {
-            if (NavegadorDgvDatos != null)
-                NavegadorDgvDatos.Visible = false;
+            _Formulario.NavegadorMetOcultarDetalle();
         }
 
         // Instancia el DataGridView y le da las propiedades iniciales del diseño
@@ -82,14 +90,71 @@ namespace CapaVista_Navegador
             NavegadorDgvDatos.MultiSelect = false;
             NavegadorDgvDatos.ReadOnly = true;
             NavegadorDgvDatos.BackgroundColor = Color.White;
-            NavegadorDgvDatos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            NavegadorDgvDatos.Dock = DockStyle.Fill;
 
             // Suscripción al evento CellClick para actualizar datos al hacer clic en una fila
             NavegadorDgvDatos.CellClick += NavegadorDgvDatos_CellClick;
 
-            // Lo pegamos al formulario que recibimos en el constructor
-            _Formulario.Controls.Add(NavegadorDgvDatos);
+            // Inicio cambio - Gabriel André Guillén Pocón - 0901-23-1998
+            // La tabla se coloca en el área desplegable del Navegador.
+            NavegadorMetCrearPanel();
         }
+
+        // Coloca un panel arriba de la tabla, dentro del área desplegable del Navegador (lo usa el
+        // formulario de Ingresar/Modificar). El Navegador se expande lo que mide el panel.
+        public void NavegadorMetAgregarSuperior(Control Panel)
+        {
+            Panel.Dock = DockStyle.Top;
+            _AltoSuperior = Panel.Height;
+            _Formulario.NavegadorPnlDetalle.Controls.Add(Panel);
+            NavegadorMetMostrarDetalle();
+        }
+
+        // Quita el panel de arriba y el Navegador vuelve a medir solo lo que ocupa la tabla.
+        public void NavegadorMetQuitarSuperior(Control Panel)
+        {
+            _Formulario.NavegadorPnlDetalle.Controls.Remove(Panel);
+            _AltoSuperior = 0;
+
+            if (_Formulario.NavegadorPnlDetalle.Visible)
+                NavegadorMetMostrarDetalle();
+        }
+
+        // Título que se muestra debajo de la tabla (tabla que se está trabajando).
+        public string Titulo
+        {
+            set
+            {
+                _Titulo = value;
+
+                if (_LblTitulo != null)
+                    _LblTitulo.Text = value;
+            }
+        }
+
+        // Agrega la tabla y su título al área desplegable. La tabla se agrega primero (Fill) para que
+        // ocupe lo que dejan el título (abajo) y el panel del registro (arriba).
+        private void NavegadorMetCrearPanel()
+        {
+            _LblTitulo = new Label
+            {
+                Dock = DockStyle.Bottom,
+                Height = 24,
+                Text = _Titulo,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Font = new Font(_Formulario.Font, FontStyle.Bold)
+            };
+
+            _Formulario.NavegadorPnlDetalle.Controls.Add(NavegadorDgvDatos);
+            _Formulario.NavegadorPnlDetalle.Controls.Add(_LblTitulo);
+        }
+
+        // Despliega el Navegador con espacio para la tabla y, si está abierto, el panel del registro.
+        private void NavegadorMetMostrarDetalle()
+        {
+            _Formulario.NavegadorMetMostrarDetalle(_AltoTabla + _AltoSuperior);
+        }
+        // Fin cambio - Gabriel André Guillén Pocón - 0901-23-1998
 
         // Manejador del evento CellClick al hacer clic directamente en la tabla
         private void NavegadorDgvDatos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -149,24 +214,6 @@ namespace CapaVista_Navegador
                 if (DateTime.TryParse(Valor, out DateTime Fecha))
                     dtp.Value = Fecha;
             }
-        }
-
-        // Acomoda la posición y el tamaño de la tabla según el espacio disponible en pantalla
-        public void NavegadorMetPosicionar(int PosicionY)
-        {
-            if (NavegadorDgvDatos == null || !NavegadorDgvDatos.Visible)
-                return;
-
-            int Margen = 10;
-
-            NavegadorDgvDatos.Location = new Point(Margen, PosicionY);
-
-            // Ajustamos el ancho y alto dinámicamente según la ventana
-            NavegadorDgvDatos.Size = new Size(
-                Math.Max(100, _Formulario.ClientSize.Width - (Margen * 2)),
-                Math.Max(100, _Formulario.ClientSize.Height - PosicionY - Margen));
-
-            NavegadorDgvDatos.BringToFront();
         }
 
         // Busca en qué posición de la tabla está una columna por su nombre
@@ -287,6 +334,63 @@ namespace CapaVista_Navegador
 
             // Carga de datos inmediata a los controles registrados al moverse por los botones
             NavegadorMetProcesarSeleccionFila(NavegadorDgvDatos.Rows[Indice]);
+        }
+
+        //Cambios Por Mario Alberto Taracena Pérez 0901-23-9355 y Dylan Rene Hernandez Recinos 0901-23-519
+        // Filtra el DataGridView para mostrar únicamente la fila cuya llave primaria coincide
+        // con el valor seleccionado en el componente de Consultas. Si ValorPK viene vacío o nulo,
+        // quita el filtro y vuelve a mostrar todos los registros cargados.
+        public void NavegadorMetFiltrarPorLlave(string NombreCampoPK, string ValorPK)
+        {
+            if (NavegadorDgvDatos == null || NavegadorDgvDatos.DataSource == null)
+                return;
+
+            DataTable Tabla = NavegadorDgvDatos.DataSource as DataTable;
+            if (Tabla == null)
+                return;
+
+            if (string.IsNullOrEmpty(ValorPK))
+            {
+                Tabla.DefaultView.RowFilter = "";
+            }
+            else
+            {
+                DataColumn Columna = null;
+
+                foreach (DataColumn C in Tabla.Columns)
+                {
+                    if (string.Equals(C.ColumnName, NombreCampoPK, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Columna = C;
+                        break;
+                    }
+                }
+
+                if (Columna == null)
+                    return;
+
+                Type Tipo = Columna.DataType;
+
+                bool EsNumerico = Tipo == typeof(int) || Tipo == typeof(long) ||
+                                  Tipo == typeof(short) || Tipo == typeof(byte) ||
+                                  Tipo == typeof(decimal) || Tipo == typeof(double) ||
+                                  Tipo == typeof(float);
+
+                if (EsNumerico)
+                {
+                    Tabla.DefaultView.RowFilter = Columna.ColumnName + " = " + ValorPK;
+                }
+                else
+                {
+                    string ValorEscapado = ValorPK.Replace("'", "''");
+                    Tabla.DefaultView.RowFilter = Columna.ColumnName + " = '" + ValorEscapado + "'";
+                }
+            }
+
+            if (NavegadorDgvDatos.Rows.Count > 0)
+            {
+                NavegadorMetSeleccionar(0);
+            }
         }
     }
 }
