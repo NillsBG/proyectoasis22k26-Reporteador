@@ -195,6 +195,8 @@ namespace CapaVista_CierreInventario_Logistica.Formularios
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
+
+
     }
 }
 
