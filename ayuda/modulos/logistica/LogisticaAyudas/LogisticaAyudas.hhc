@@ -14,13 +14,12 @@
 		</OBJECT>
 	<UL>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="M&#243;dulo de Log&#237;stica">
+			<param name="Name" value="M&oacute;dulo de Logistica">
 			<param name="Local" value="MDI_Logistica.html">
-			<param name="ImageNumber" value="11">
 			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Cat&#225;logos">
+		<param name="Name" value="Cat&aacute;logos">
 		<param name="ImageNumber" value="1">
 		</OBJECT>
 	<UL>
@@ -35,13 +34,8 @@
 			<param name="ImageNumber" value="11">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Categor&#237;as de producto">
+			<param name="Name" value="Categor&iacute;as de producto">
 			<param name="Local" value="Categoria_Logistica.html">
-			<param name="ImageNumber" value="11">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Productos">
-			<param name="Local" value="Producto_Logistica.html">
 			<param name="ImageNumber" value="11">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
@@ -50,12 +44,20 @@
 			<param name="ImageNumber" value="11">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Productos">
+			<param name="Local" value="Producto_Logistica.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Tipos de movimiento">
 			<param name="Local" value="TipoMovimiento_Logistica.html">
 			<param name="ImageNumber" value="11">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="C&#225;maras de refrigeraci&#243;n">
+			<param name="Name" value="Stock">
+			<param name="Local" value="Stock_Logistica.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="C&aacute;maras de refrigeraci&oacute;n">
 			<param name="Local" value="CamaraRefrigeracion_Logistica.htm">
 			<param name="ImageNumber" value="11">
 			</OBJECT>
@@ -81,6 +83,10 @@
 			<param name="ImageNumber" value="11">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Movimiento de Inventario">
+			<param name="Local" value="MovimientoInventario_Logistica.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Traslados entre bodegas">
 			<param name="Local" value="Traslados_Logistica.html">
 			<param name="ImageNumber" value="11">
@@ -96,7 +102,7 @@
 			<param name="ImageNumber" value="11">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Gesti&#243;n de viajes">
+			<param name="Name" value="Gesti&oacute;n de viajes">
 			<param name="Local" value="GestionViaje_Logistica.html">
 			<param name="ImageNumber" value="11">
 			</OBJECT>

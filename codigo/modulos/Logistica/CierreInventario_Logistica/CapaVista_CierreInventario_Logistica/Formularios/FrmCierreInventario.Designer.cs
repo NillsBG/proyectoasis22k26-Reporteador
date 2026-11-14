@@ -119,36 +119,42 @@
             // 
             // LogisticaBtnConfirmarCierre
             // 
+            this.LogisticaBtnConfirmarCierre.BackColor = System.Drawing.Color.Linen;
             this.LogisticaBtnConfirmarCierre.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LogisticaBtnConfirmarCierre.FlatAppearance.BorderSize = 0;
             this.LogisticaBtnConfirmarCierre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LogisticaBtnConfirmarCierre.Location = new System.Drawing.Point(965, 576);
+            this.LogisticaBtnConfirmarCierre.ForeColor = System.Drawing.Color.Teal;
+            this.LogisticaBtnConfirmarCierre.Location = new System.Drawing.Point(965, 567);
             this.LogisticaBtnConfirmarCierre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LogisticaBtnConfirmarCierre.Name = "LogisticaBtnConfirmarCierre";
-            this.LogisticaBtnConfirmarCierre.Size = new System.Drawing.Size(80, 81);
+            this.LogisticaBtnConfirmarCierre.Size = new System.Drawing.Size(80, 69);
             this.LogisticaBtnConfirmarCierre.TabIndex = 23;
             this.LogisticaBtnConfirmarCierre.Text = "Confirmar Cierre";
-            this.LogisticaBtnConfirmarCierre.UseVisualStyleBackColor = true;
+            this.LogisticaBtnConfirmarCierre.UseVisualStyleBackColor = false;
             // 
             // LogisticaBtnValidarPeriodo
             // 
+            this.LogisticaBtnValidarPeriodo.BackColor = System.Drawing.Color.Linen;
+            this.LogisticaBtnValidarPeriodo.ForeColor = System.Drawing.Color.Teal;
             this.LogisticaBtnValidarPeriodo.Location = new System.Drawing.Point(396, 354);
             this.LogisticaBtnValidarPeriodo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LogisticaBtnValidarPeriodo.Name = "LogisticaBtnValidarPeriodo";
             this.LogisticaBtnValidarPeriodo.Size = new System.Drawing.Size(60, 66);
             this.LogisticaBtnValidarPeriodo.TabIndex = 19;
             this.LogisticaBtnValidarPeriodo.Text = "Validar";
-            this.LogisticaBtnValidarPeriodo.UseVisualStyleBackColor = true;
+            this.LogisticaBtnValidarPeriodo.UseVisualStyleBackColor = false;
             // 
             // LogisticaBtnLimpiar
             // 
+            this.LogisticaBtnLimpiar.BackColor = System.Drawing.Color.Linen;
+            this.LogisticaBtnLimpiar.ForeColor = System.Drawing.Color.Teal;
             this.LogisticaBtnLimpiar.Location = new System.Drawing.Point(485, 354);
             this.LogisticaBtnLimpiar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LogisticaBtnLimpiar.Name = "LogisticaBtnLimpiar";
             this.LogisticaBtnLimpiar.Size = new System.Drawing.Size(60, 66);
             this.LogisticaBtnLimpiar.TabIndex = 20;
             this.LogisticaBtnLimpiar.Text = "Limpiar";
-            this.LogisticaBtnLimpiar.UseVisualStyleBackColor = true;
+            this.LogisticaBtnLimpiar.UseVisualStyleBackColor = false;
             // 
             // LogisticaBtnConsultarCierre
             // 
