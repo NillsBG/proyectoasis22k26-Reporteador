@@ -119,9 +119,10 @@
             // 
             // LogisticaBtnConfirmarCierre
             // 
-            this.LogisticaBtnConfirmarCierre.BackColor = System.Drawing.Color.Linen;
+            this.LogisticaBtnConfirmarCierre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(216)))), ((int)(((byte)(197)))));
             this.LogisticaBtnConfirmarCierre.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.LogisticaBtnConfirmarCierre.FlatAppearance.BorderSize = 0;
+            this.LogisticaBtnConfirmarCierre.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(99)))), ((int)(((byte)(46)))));
+            this.LogisticaBtnConfirmarCierre.FlatAppearance.BorderSize = 2;
             this.LogisticaBtnConfirmarCierre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogisticaBtnConfirmarCierre.ForeColor = System.Drawing.Color.Teal;
             this.LogisticaBtnConfirmarCierre.Location = new System.Drawing.Point(965, 567);
@@ -134,24 +135,32 @@
             // 
             // LogisticaBtnValidarPeriodo
             // 
-            this.LogisticaBtnValidarPeriodo.BackColor = System.Drawing.Color.Linen;
+            this.LogisticaBtnValidarPeriodo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(216)))), ((int)(((byte)(197)))));
+            this.LogisticaBtnValidarPeriodo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LogisticaBtnValidarPeriodo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(99)))), ((int)(((byte)(46)))));
+            this.LogisticaBtnValidarPeriodo.FlatAppearance.BorderSize = 2;
+            this.LogisticaBtnValidarPeriodo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogisticaBtnValidarPeriodo.ForeColor = System.Drawing.Color.Teal;
             this.LogisticaBtnValidarPeriodo.Location = new System.Drawing.Point(396, 354);
             this.LogisticaBtnValidarPeriodo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LogisticaBtnValidarPeriodo.Name = "LogisticaBtnValidarPeriodo";
-            this.LogisticaBtnValidarPeriodo.Size = new System.Drawing.Size(60, 66);
+            this.LogisticaBtnValidarPeriodo.Size = new System.Drawing.Size(76, 66);
             this.LogisticaBtnValidarPeriodo.TabIndex = 19;
             this.LogisticaBtnValidarPeriodo.Text = "Validar";
             this.LogisticaBtnValidarPeriodo.UseVisualStyleBackColor = false;
             // 
             // LogisticaBtnLimpiar
             // 
-            this.LogisticaBtnLimpiar.BackColor = System.Drawing.Color.Linen;
+            this.LogisticaBtnLimpiar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(216)))), ((int)(((byte)(197)))));
+            this.LogisticaBtnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LogisticaBtnLimpiar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(99)))), ((int)(((byte)(46)))));
+            this.LogisticaBtnLimpiar.FlatAppearance.BorderSize = 2;
+            this.LogisticaBtnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogisticaBtnLimpiar.ForeColor = System.Drawing.Color.Teal;
             this.LogisticaBtnLimpiar.Location = new System.Drawing.Point(485, 354);
             this.LogisticaBtnLimpiar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LogisticaBtnLimpiar.Name = "LogisticaBtnLimpiar";
-            this.LogisticaBtnLimpiar.Size = new System.Drawing.Size(60, 66);
+            this.LogisticaBtnLimpiar.Size = new System.Drawing.Size(76, 66);
             this.LogisticaBtnLimpiar.TabIndex = 20;
             this.LogisticaBtnLimpiar.Text = "Limpiar";
             this.LogisticaBtnLimpiar.UseVisualStyleBackColor = false;
